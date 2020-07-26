@@ -21,6 +21,12 @@ static pin_t encoders_pad[] = ENCODERS_PAD_A;
 #    define NUMBER_OF_ENCODERS (sizeof(encoders_pad) / sizeof(pin_t))
 #endif
 
+#ifdef TRANSPORT_USER_DATA
+/* This functions must be redefined by user */
+__attribute__((weak)) uint32_t get_user_data_m2s_user(void) {return 0;}
+__attribute__((weak)) void set_user_data_m2s_user(uint32_t user_data) {}
+#endif
+
 #if defined(USE_I2C)
 
 #    include "i2c_master.h"
@@ -38,6 +44,9 @@ typedef struct _I2C_slave_buffer_t {
 #    ifdef WPM_ENABLE
     uint8_t current_wpm;
 #    endif
+#    ifdef TRANSPORT_USER_DATA
+    uint32_t user_data_m2s;
+#    endif
 } I2C_slave_buffer_t;
 
 static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_reg;
@@ -47,6 +56,7 @@ static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_re
 #    define I2C_KEYMAP_START offsetof(I2C_slave_buffer_t, smatrix)
 #    define I2C_ENCODER_START offsetof(I2C_slave_buffer_t, encoder_state)
 #    define I2C_WPM_START offsetof(I2C_slave_buffer_t, current_wpm)
+#    define I2C_USER_START offsetof(I2C_slave_buffer_t, user_data_m2s)
 
 #    define TIMEOUT 100
 
@@ -91,6 +101,16 @@ bool transport_master(matrix_row_t matrix[]) {
         }
     }
 #    endif
+
+#    ifdef TRANSPORT_USER_DATA
+    uint32_t user_data = get_user_data_m2s_user();
+    if (user_data != i2c_buffer->user_data_m2s) {
+        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_USER_START, (void *)&user_data, sizeof(user_data), TIMEOUT) >= 0) {
+            i2c_buffer->user_data = user_data;
+        }
+    }
+#    endif
+
     return true;
 }
 
@@ -118,6 +138,10 @@ void transport_slave(matrix_row_t matrix[]) {
 #    ifdef WPM_ENABLE
     set_current_wpm(i2c_buffer->current_wpm);
 #    endif
+
+#    ifdef TRANSPORT_USER_DATA
+    set_user_data_m2s_user(i2c_buffer->user_data_m2s);
+#    endif
 }
 
 void transport_master_init(void) { i2c_init(); }
@@ -144,6 +168,9 @@ typedef struct _Serial_m2s_buffer_t {
 #    endif
 #    ifdef WPM_ENABLE
     uint8_t current_wpm;
+#    endif
+#    ifdef TRANSPORT_USER_DATA
+    uint32_t user_data_m2s;
 #    endif
 } Serial_m2s_buffer_t;
 
@@ -251,6 +278,12 @@ bool transport_master(matrix_row_t matrix[]) {
     // Write wpm to slave
     serial_m2s_buffer.current_wpm = get_current_wpm();
 #    endif
+
+#    ifdef TRANSPORT_USER_DATA
+    // Write user data to slave
+    serial_m2s_buffer.user_data_m2s = get_user_data_m2s_user();
+#    endif
+
     return true;
 }
 
@@ -270,6 +303,10 @@ void transport_slave(matrix_row_t matrix[]) {
 
 #    ifdef WPM_ENABLE
     set_current_wpm(serial_m2s_buffer.current_wpm);
+#    endif
+
+#    ifdef TRANSPORT_USER_DATA
+    set_user_data_m2s_user(serial_m2s_buffer.user_data_m2s);
 #    endif
 }
 

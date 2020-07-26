@@ -180,6 +180,24 @@ If you're having issues with serial communication, you can change this value, as
 * **`4`**: about 26kbps
 * **`5`**: about 20kbps
 
+It may be useful to transfer some data between master and slave. This can be done as follow:
+This feature must be defined:
+
+```c
+#define TRANSPORT_USER_DATA
+```
+
+And following functions must be defined by user:
+
+```c
+uint16_t get_user_data_m2s_user(void);
+void set_user_data_m2s_user(uint16_t user_data);
+```
+
+The setter is called on master side to transmit `user_data` to slave.
+The getter is called on slave side to receive `user_data` from master.
+It is basically a simple raw `uint16_t` that can be used to transfer command or states.
+
 ###  Hardware Configuration Options
 
 There are some settings that you may need to configure, based on how the hardware is set up. 
