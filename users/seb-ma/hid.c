@@ -15,4 +15,11 @@ void send_hid_status(const layer_state_t layer_state) {
     raw_hid_send(hid_to_host.raw, RAW_EPSIZE);
 }
 
+/* Receive data over HID interface */
+/*
+void raw_hid_receive(uint8_t *data, uint8_t length) {
+
+}
+*/
+
 #endif // RAW_ENABLE

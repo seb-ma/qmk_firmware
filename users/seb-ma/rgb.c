@@ -12,30 +12,28 @@ https://github.com/qmk/qmk_firmware/blob/master/docs/feature_rgblight.md
 Physical leds position (xx) related to keys
 Master and follower may be inverted (right / left), 0-10 are always on master, 11-20 on follower
 
-//
 //                                         Master                                                             Follower
 //
 //              1       2       3       4       5       6                                             1       2       3       4       5       6
-//                          ┌───────┬──────(05)─────┬───────┐                                     ┌───────┬─────(15)──────┬───────┐
-//          ┌──(10)─┬─(06)──┤       │       │       │       │                                     │       │       │       │       ├──(20)─┬─(16)──┐
+//                          ┌───────┬──────(04)─────┬───────┐                                     ┌───────┬─────(14)──────┬───────┐
+//          ┌──(09)─┬─(05)──┤       │       │       │       │                                     │       │       │       │       ├──(15)─┬─(19)──┐
 //          │       │       │       │       │       │       │                                     │       │       │       │       │       │       │
 //    Row 1 │       │       │       │       │       │       │                                     │       │       │       │       │       │       │
-//          │       │       ├───────┼───────┼───────┼──(04)─┤                                     ├─(14)──┼───────┼───────┼───────┤       │       │
+//          │       │       ├───────┼───────┼───────┼──(03)─┤                                     ├─(13)──┼───────┼───────┼───────┤       │       │
 //          ├───────┼───────┤       │       │       │       │                                     │       │       │       │       ├───────┼───────┤
 //          │       │       │       │       │       │       │                                     │       │       │       │       │       │       │
 //    Row 2 │       │       │       │       │       │       │                                     │       │       │       │       │       │       │
 //          │       │       ├───────┼───────┼───────┼───────┤    1      2            1      2     ├───────┼───────┼───────┼───────┤       │       │
-//          ├──(09)─┼──(07)─┤       │       │       │       │┌───────┬───────┐   ┌───────┬───────┐│       │       │       │       ├──(19)─┼─(17)──┤
-//          │       │       │       │       │       │       ││      (01)     │   │     (11)      ││       │       │       │       │       │       │
+//          ├──(08)─┼──(06)─┤       │       │       │       │┌───────┬───────┐   ┌───────┬───────┐│       │       │       │       ├──(16)─┼─(18)──┤
+//          │       │       │       │       │       │       ││      (00)     │   │     (10)      ││       │       │       │       │       │       │
 //    Row 3 │       │       │       │       │       │       ││       │       │   │       │       ││       │       │       │       │       │       │
 //          │       │       ├───────┴───────┴───────┴───────┘│       │       │   │       │       │└───────┴───────┴───────┴───────┤       │       │
-//          └───────┴───────┘    ┌(08)───┬───(03)┬────(02)───┴───┬───┴───┬───┘   └───┬───┴───┬───┴───(12)────┬(13)───┬───(18)┐    └───────┴───────┘
+//          └───────┴───────┘    ┌(07)───┬───(02)┬────(01)───┴───┬───┴───┬───┘   └───┬───┴───┬───┴───(11)────┬(12)───┬───(17)┐    └───────┴───────┘
 //                               │       │       │       │       │       │           │       │       │       │       │       │
 //                   Thumb row 2 │       │       │       │       │       │           │       │       │       │       │       │
 //                               │       │       │       │       │       │           │       │       │       │       │       │
 //                               └───────┴───────┴───────┴───────┴───────┘           └───────┴───────┴───────┴───────┴───────┘
 //                                   1       2       3       4       5                  1       2       3       4       5
-//
 */
 
 /* Indicates if layers must be enabled */
@@ -78,7 +76,6 @@ enum layer_index {
     IDX_LAYER_RGB_NAV_MOUSE,
     IDX_LAYER_RGB_MEDIA_RGB,
     IDX_LAYER_RGB_MACRO_RECORD,
-    IDX_LAYER_RGB_MACRO_PLAY,
     IDX_LAYER_RGB_LEADER,
     IDX_LAYER_RGB_CAPSLOCK,
 
@@ -119,10 +116,10 @@ void rgb_display_dynamic_macros(const t_dyn_macros_state dyn_macros_state[]) {
     // Activate/deactivate macro recording layer according to status
     rgblight_set_layer_state(IDX_LAYER_RGB_MACRO_RECORD, (dyn_macros_state[0].recording || dyn_macros_state[1].recording));
 #       ifdef RGBLIGHT_LAYER_BLINK
-    // If a macro has been played, blink
+    // If a macro is in error, blink
     if (timer_elapsed32(dyn_macros_state[0].timer_last_error) < DYNMACRO_STATE_DISPLAY_DURATION
      || timer_elapsed32(dyn_macros_state[1].timer_last_error) < DYNMACRO_STATE_DISPLAY_DURATION) {
-        rgblight_blink_layer(IDX_LAYER_RGB_MACRO_PLAY, DYNMACRO_STATE_DISPLAY_DURATION);
+        rgblight_blink_layer(IDX_LAYER_RGB_MACRO_RECORD, DYNMACRO_STATE_DISPLAY_DURATION);
     }
 #       endif // RGBLIGHT_LAYER_BLINK
 #   endif // RGBLIGHT_LAYERS

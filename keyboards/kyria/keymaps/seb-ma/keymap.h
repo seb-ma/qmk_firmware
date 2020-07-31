@@ -78,8 +78,8 @@ Physical keys representation by default:
 //    Row 3 │ ê   Ê │ à   À │ {   ‘ │ }   ’ │ …   · │ ~     ││ BckSp │ Ctrl  │   │ AltGr │  Del  ││ ¿    ̉▒│ °▒   ̣▒│ µ▒    │ †   ‡ │ f   F │ w   W │
 //          │ /     │ \     ├───────┴───────┴───────┴───────┘│       │       │   │       │       │└───────┴───────┴───────┴───────┤ ˛▒  ª │ ˘▒    │
 //          └───────┴───────┘     ▄▄▄▄▄▄▄┌───────┬───────┬───┴───┬───┴───┬───┘   └───┬───┴───┬───┴───┬───────┬───────┐▄▄▄▄▄▄▄     └───────┴───────┘
-//                               ▐▲▼Pag#S▌(Layer)│UNbSp#H│       │       │           │       │       │       │(Layer)▐◄►Wrd#S▌
-//    Thumb row 2                ▐  Gui  ▌NUM/SYM│  Tab  │Sp NbSp│ Shift │           │ Shift │ Enter │  Alt  │NAV/MOU▐  App  ▌
+//                               ▐▲▼Pag#S▌(Layer)│       │       │       │           │       │       │       │(Layer)▐◄►Wrd#S▌
+//    Thumb row 2                ▐  Gui  ▌NAV/MOU│  Tab  │Sp NbSp│ Shift │           │ Shift │ Enter │  Alt  │NUM/SYM▐  App  ▌
 //                               ▐  ↑↓   ▌       │       │_ NNbSp│       │           │       │       │       │       ▐  ←→   ▌
 //                                ▀▀▀▀▀▀▀└───────┴───────┴───────┴───────┘           └───────┴───────┴───────┴───────┘▀▀▀▀▀▀▀
 //                                   1       2       3       4       5                   1       2       3       4       5
@@ -87,15 +87,15 @@ Physical keys representation by default:
 // Alphas
 #define BEPO_ROW1_LEFT        KC_ESC,       BP_B,    BP_EACU, BP_P, BP_O,   BP_EGRV,
 #define BEPO_ROW1_RIGHT       BP_DCIR,      BP_V,    BP_D,    BP_L, BP_J,   BP_Z,
-#define BEPO_ROW2_LEFT        C_CLOSE_CHAR, BP_A,    BP_U,    BP_I, BP_E,   C_COMM_QUOT,
+#define BEPO_ROW2_LEFT        C_CLOSE_CHAR, BP_A,    BP_U,    BP_I, BP_E,   BP_COMM,
 #define BEPO_ROW2_RIGHT       BP_C,         BP_T,    BP_S,    BP_R, BP_N,   BP_M,
 #define BEPO_ROW3_LEFT        BP_ECIR,      BP_AGRV, BP_Y,    BP_X, BP_DOT, BP_K,
-#define BEPO_ROW3_RIGHT       C_RSQU_QUES,  BP_Q,    BP_G,    BP_H, BP_F,   BP_W,
+#define BEPO_ROW3_RIGHT       BP_RSQU,      BP_Q,    BP_G,    BP_H, BP_F,   BP_W,
 
-#define BEPO_THUMB_ROW1_LEFT                                             KC_BSPC,        KC_LCTRL,
-#define BEPO_THUMB_ROW2_LEFT  KC_LGUI,   TT(_FUNC_NUM_SYMB), C_TAB_NBSP, KC_SPC,         KC_LSHIFT,
-#define BEPO_THUMB_ROW1_RIGHT KC_RALT,   KC_DEL,
-#define BEPO_THUMB_ROW2_RIGHT KC_LSHIFT, KC_ENT,             KC_LALT,    TT(_NAV_MOUSE), KC_APP
+#define BEPO_THUMB_ROW1_LEFT                                      KC_BSPACE,          KC_LCTRL,
+#define BEPO_THUMB_ROW2_LEFT  KC_LGUI,   TT(_NAV_MOUSE), KC_TAB,  KC_SPACE,           KC_LSHIFT,
+#define BEPO_THUMB_ROW1_RIGHT KC_RALT,   KC_DELETE,
+#define BEPO_THUMB_ROW2_RIGHT KC_LSHIFT, KC_ENTER,       KC_LALT, TT(_FUNC_NUM_SYMB), KC_APPLICATION
 
 //----------------------
 // Layer _FUNC_NUM_SYMB
@@ -154,16 +154,16 @@ Physical keys representation by default:
 //              1       2       3       4       5       6                                             1       2       3       4       5       6
 //                          ┌───────┬───────┬───────┬───────┐                                     ┌───────┬───────┬───────┬───────┐
 //          ┌───────┬───────┤       │       │       │       │                                     │       │       │       │       ├───────┬───────┐
-//          │       │       │   ▲   │   ↑   │   ▼   │Axel123│                                     │  Cut  │   ▲   │   ↑   │   ▼   │       │       │
-//    Row 1 │  ___  │ Btn3  │(mouse)│(mouse)│(mouse)│(mouse)│                                     │       │       │       │       │ Pause │Insert │
+//          │       │       │   ▲   │   ↑   │   ▼   │DynStop│                                     │  Cut  │   ▲   │   ↑   │   ▼   │       │       │
+//    Row 1 │  ___  │ Btn3  │(mouse)│(mouse)│(mouse)│       │                                     │       │       │       │       │ Pause │Insert │
 //          │       │(mouse)├───────┼───────┼───────┼───────┤                                     ├───────┼───────┼───────┼───────┤       │       │
 //          ├───────┼───────┤       │       │       │       │                                     │       │       │       │       ├───────┼───────┤
-//          │       │       │   ←   │   ↓   │   →   │M1►    │                                     │ Copy  │   ←   │   ↓   │   →   │       │       │
-//    Row 2 │  ___  │ Btn1  │(mouse)│(mouse)│(mouse)│M1■    │                                     │       │       │       │       │ Find  │ Undo  │
+//          │       │       │   ←   │   ↓   │   →   │DynM1 ►│                                     │ Copy  │   ←   │   ↓   │   →   │       │       │
+//    Row 2 │DynM1 ■│ Btn1  │(mouse)│(mouse)│(mouse)│       │                                     │       │       │       │       │ Find  │ Undo  │
 //          │       │(mouse)├───────┼───────┼───────┼───────┤    1      2            1      2     ├───────┼───────┼───────┼───────┤       │       │
 //          ├───────┼───────┤       │       │       │       │┌───────┬───────┐   ┌───────┬───────┐│       │       │       │       ├───────┼───────┤
-//          │       │       │   ◄   │       │   ►   │M2►    ││       │       │   │       │       ││ Paste │   ◄   │       │   ►   │       │       │
-//    Row 3 │       │ Btn2  │(mouse)│       │(mouse)│M2■    ││  ___  │  ___  │   │  ___  │  ___  ││       │       │       │       │Pr.Scr │ Redo  │
+//          │       │       │   ◄   │       │   ►   │DynM2 ►││       │       │   │       │       ││ Paste │   ◄   │       │   ►   │       │       │
+//    Row 3 │DynM2 ■│ Btn2  │(mouse)│       │(mouse)│       ││  ___  │  ___  │   │  ___  │  ___  ││       │       │       │       │Pr.Scr │ Redo  │
 //          │       │(mouse)├───────┴───────┴───────┴───────┘│       │       │   │       │       │└───────┴───────┴───────┴───────┤       │       │
 //          └───────┴───────┘     ▄▄▄▄▄▄▄┌───────┬───────┬───┴───┬───┴───┬───┘   └───┬───┴───┬───┴───┬───────┬───────┐▄▄▄▄▄▄▄     └───────┴───────┘
 //                               ▐       ▌       │       │       │       │           │       │       │       │       ▐       ▌
@@ -173,13 +173,13 @@ Physical keys representation by default:
 //                                   1       2       3       4       5                   1       2       3       4       5
 //
 // Mouse
-#define NAV_MOUSE_ROW1_LEFT        _______,  KC_MS_BTN3, KC_MS_WH_UP,   KC_MS_UP,   KC_MS_WH_DOWN,  C_MS_ACCEL,
-#define NAV_MOUSE_ROW2_LEFT        _______,  KC_MS_BTN1, KC_MS_LEFT,    KC_MS_DOWN, KC_MS_RIGHT,    C_DYN_MACRO1,
-#define NAV_MOUSE_ROW3_LEFT        XXXXXXX,  KC_MS_BTN2, KC_MS_WH_LEFT, XXXXXXX,    KC_MS_WH_RIGHT, C_DYN_MACRO2,
+#define NAV_MOUSE_ROW1_LEFT        _______,         KC_MS_BTN3, KC_MS_WH_UP,   KC_MS_UP,   KC_MS_WH_DOWN,  DYN_REC_STOP,
+#define NAV_MOUSE_ROW2_LEFT        DYN_REC_START1,  KC_MS_BTN1, KC_MS_LEFT,    KC_MS_DOWN, KC_MS_RIGHT,    DYN_MACRO_PLAY1,
+#define NAV_MOUSE_ROW3_LEFT        DYN_REC_START2,  KC_MS_BTN2, KC_MS_WH_LEFT, XXXXXXX,    KC_MS_WH_RIGHT, DYN_MACRO_PLAY2,
 // Navigation
-#define NAV_MOUSE_ROW1_RIGHT       C(BP_X),  KC_PGUP,    KC_UP,         KC_PGDOWN,  KC_PAUSE,       KC_INSERT,
-#define NAV_MOUSE_ROW2_RIGHT       C(BP_C),  KC_LEFT,    KC_DOWN,       KC_RIGHT,   C(BP_F),        C(BP_Z),
-#define NAV_MOUSE_ROW3_RIGHT       C(BP_V),  KC_HOME,    XXXXXXX,       KC_END,     KC_PSCREEN,     C(BP_Y),
+#define NAV_MOUSE_ROW1_RIGHT       C(BP_X),         KC_PGUP,    KC_UP,         KC_PGDOWN,  KC_PAUSE,       KC_INSERT,
+#define NAV_MOUSE_ROW2_RIGHT       C(BP_C),         KC_LEFT,    KC_DOWN,       KC_RIGHT,   C(BP_F),        C(BP_Z),
+#define NAV_MOUSE_ROW3_RIGHT       C(BP_V),         KC_HOME,    XXXXXXX,       KC_END,     KC_PSCREEN,     C(BP_Y),
 
 #define NAV_MOUSE_THUMB_ROW1_LEFT                             _______, _______,
 #define NAV_MOUSE_THUMB_ROW2_LEFT  _______, _______, _______, _______, _______,

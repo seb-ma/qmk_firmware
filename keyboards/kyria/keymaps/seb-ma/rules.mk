@@ -6,7 +6,7 @@
 COMBO_ENABLE         = yes # Combos
 COMMAND_ENABLE       = no  # Commands for debug and configuration
 CONSOLE_ENABLE       = no  # Console for debug
-#DYNAMIC_MACRO_ENABLE = yes # Dynamic macros
+DYNAMIC_MACRO_ENABLE = yes # Dynamic macros
 ENCODER_ENABLE       = yes # Encoders
 EXTRAKEY_ENABLE      = yes # Audio control and System control
 GRAVE_ESC_ENABLE     = no  # Grave escape (share a key for ` and ~ and Escape)

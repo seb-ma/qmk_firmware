@@ -15,15 +15,12 @@ For example, in these implementations, [Combos](#Combos) and [Leader key](#Leade
 
 Some features need to be improved/corrected or may be added. Here is my list:
 
-- Evolutions
-  - [ ] Finalize HID (host application + documentation)
-  - [ ] Add a layout for games (that bypass all processing in custom_keys, deactivate unneeded stuff…)
-  - [ ] Test UNICODE_ENABLE / UNICODEMAP_ENABLE and fix the FIXME in custom_keys.c
-  - [ ] Add a Unicode map for mode AZERTY (thus, should create a true layout for BÉPO too instead of having key replacement) + #define to select layouts to compile + key to switch bépo/azerty + oled to display alphas layer as bépo/azerty
 - Known bugs
-  - [ ] Debug key behavior C_OLED2_TOGGLE
-  - [ ] Debug key behavior RGB_XXX (no animation when using keys but only at unplug/plug)
-  - [ ] Debug dynamic macros
+  - [ ] HID: host application does not see usage page/usage of the device
+  - [ ] RGB: RGB_XXX keys do not activate animations (not compatible with layers)
+- Evolutions
+  - [ ] LAYOUT: add a layout for games (or ALPHA that bypass all processing in custom_keys, deactivate unneeded stuff…)
+  - [ ] UNICODE: test UNICODE_ENABLE / UNICODEMAP_ENABLE and fix the FIXME in custom_keys.c
 
 ### Supported Keyboards
 
@@ -41,7 +38,6 @@ Some features need to be improved/corrected or may be added. Here is my list:
     1. [Left encoder](#Left%20encoder)
     1. [Right encoder](#Right%20encoder)
 1. [Special features](#Special%20features)
-    1. [User Non-Breakable Space](#User%20Non-breakable%20space)
     1. [Close char](#Close%20Char)
     1. [Pomodoro](#Pomodoro)
 1. [Features](#Features)
@@ -126,8 +122,8 @@ Row 2 │Clo    │ a   A │ ù   Ù │ ¨▒  ˙▒│ €   ¤▒│ '   ̛ 
 Row 3 │ ê   Ê │ à   À │ {   ‘ │ }   ’ │ …   · │ ~     ││ BckSp │ Ctrl  │   │ AltGr │  Del  ││ ¿    ̉▒│ °▒   ̣▒│ µ▒    │ †   ‡ │ f   F │ w   W │
       │ /     │ \     ├───────┴───────┴───────┴───────┘│       │       │   │       │       │└───────┴───────┴───────┴───────┤ ˛▒  ª │ ˘▒    │
       └───────┴───────┘     ▄▄▄▄▄▄▄┌───────┬───────┬───┴───┬───┴───┬───┘   └───┬───┴───┬───┴───┬───────┬───────┐▄▄▄▄▄▄▄     └───────┴───────┘
-                           ▐▲▼Pag#S▌(Layer)│UNbSp#H│       │       │           │       │       │       │(Layer)▐◄►Wrd#S▌
-Thumb row 2                ▐  Gui  ▌NUM/SYM│  Tab  │Sp NbSp│ Shift │           │ Shift │ Enter │  Alt  │NAV/MOU▐  App  ▌
+                           ▐▲▼Pag#S▌(Layer)│       │       │       │           │       │       │       │(Layer)▐◄►Wrd#S▌
+Thumb row 2                ▐  Gui  ▌NAV/MOU│  Tab  │Sp NbSp│ Shift │           │ Shift │ Enter │  Alt  │NUM/SYM▐  App  ▌
                            ▐  ↑↓   ▌       │       │_ NNbSp│       │           │       │       │       │       ▐  ←→   ▌
                             ▀▀▀▀▀▀▀└───────┴───────┴───────┴───────┘           └───────┴───────┴───────┴───────┘▀▀▀▀▀▀▀
                                1       2       3       4       5                   1       2       3       4       5
@@ -144,7 +140,6 @@ This layer is based on [BÉPO](https://bepo.fr) with some adjustments:
 Specific keys:
 |Code|Description|
 |---|---|
-|UNbSp (Tab holding)|Add nbsp automatically on chars `«»!?;:` (see [User Non-Breakable Space](#User%20Non-breakable%20space) feature)|
 |Clo (AltGr + Ld)|Automatically close opened chars `"(«[{` (see [Close char](#Close%20Char) feature for details)|
 |Shift + Clo (AltGr + Shift + Ld)|Reset buffer of registered char of Close char feature|
 |Ld (Leader)|Leader key for sequence of keys to trigger specific actions|
@@ -171,7 +166,7 @@ Row 2 │  ___  │ "     │ <   “ │ >   ” │ [   ≤ │ ]   ≥ │   
       │       │ ─   „ ├───────┼───────┼───────┼───────┤    1      2            1      2     ├───────┼───────┼───────┼───────┤ ×   ¾ │ ≠   ′ │
       ├───────┼───────┤       │       │       │       │┌───────┬───────┐   ┌───────┬───────┐│       │       │       │       ├───────┼───────┤
       │       │       │ F2    │ F3    │ F4    │ F5    ││       │       │   │       │       ││ F6    │ F7    │ F8    │ F9    │       │       │
-Row 3 │ $   ## │ F1    │ F12   │ F13   │ {     │ }     ││  ___  │  ___  │   │  ___  │  ___  ││ ^▒    │ ˇ▒    │ \     │ /     │ F10   │ %   ` │
+Row 3 │ $   # │ F1    │ F12   │ F13   │ {     │ }     ││  ___  │  ___  │   │  ___  │  ___  ││ ^▒    │ ˇ▒    │ \     │ /     │ F10   │ %   ` │
       │ –   ¶ │ F11   ├───────┴───────┴───────┴───────┘│       │       │   │       │       │└───────┴───────┴───────┴───────┤       │     ″ │
       └───────┴───────┘     ▄▄▄▄▄▄▄┌───────┬───────┬───┴───┬───┴───┬───┘   └───┬───┴───┬───┴───┬───────┬───────┐▄▄▄▄▄▄▄     └───────┴───────┘
                            ▐       ▌       │       │       │       │           │       │       │       │       ▐       ▌
@@ -209,16 +204,16 @@ This is the navigation / mouse layer.
           1       2       3       4       5       6                                             1       2       3       4       5       6
                       ┌───────┬───────┬───────┬───────┐                                     ┌───────┬───────┬───────┬───────┐
       ┌───────┬───────┤       │       │       │       │                                     │       │       │       │       ├───────┬───────┐
-      │       │       │   ▲   │   ↑   │   ▼   │Axel123│                                     │  Cut  │   ▲   │   ↑   │   ▼   │       │       │
-Row 1 │  ___  │ Btn3  │(mouse)│(mouse)│(mouse)│(mouse)│                                     │       │       │       │       │ Pause │Insert │
+      │       │       │   ▲   │   ↑   │   ▼   │DynStop│                                     │  Cut  │   ▲   │   ↑   │   ▼   │       │       │
+Row 1 │  ___  │ Btn3  │(mouse)│(mouse)│(mouse)│       │                                     │       │       │       │       │ Pause │Insert │
       │       │(mouse)├───────┼───────┼───────┼───────┤                                     ├───────┼───────┼───────┼───────┤       │       │
       ├───────┼───────┤       │       │       │       │                                     │       │       │       │       ├───────┼───────┤
-      │       │       │   ←   │   ↓   │   →   │M1►    │                                     │ Copy  │   ←   │   ↓   │   →   │       │       │
-Row 2 │  ___  │ Btn1  │(mouse)│(mouse)│(mouse)│M1■    │                                     │       │       │       │       │ Find  │ Undo  │
+      │       │       │   ←   │   ↓   │   →   │DynM1 ►│                                     │ Copy  │   ←   │   ↓   │   →   │       │       │
+Row 2 │DynM1 ■│ Btn1  │(mouse)│(mouse)│(mouse)│       │                                     │       │       │       │       │ Find  │ Undo  │
       │       │(mouse)├───────┼───────┼───────┼───────┤    1      2            1      2     ├───────┼───────┼───────┼───────┤       │       │
       ├───────┼───────┤       │       │       │       │┌───────┬───────┐   ┌───────┬───────┐│       │       │       │       ├───────┼───────┤
-      │       │       │   ◄   │       │   ►   │M2►    ││       │       │   │       │       ││ Paste │   ◄   │       │   ►   │       │       │
-Row 3 │       │ Btn2  │(mouse)│       │(mouse)│M2■    ││  ___  │  ___  │   │  ___  │  ___  ││       │       │       │       │Pr.Scr │ Redo  │
+      │       │       │   ◄   │       │   ►   │DynM2 ►││       │       │   │       │       ││ Paste │   ◄   │       │   ►   │       │       │
+Row 3 │DynM2 ■│ Btn2  │(mouse)│       │(mouse)│       ││  ___  │  ___  │   │  ___  │  ___  ││       │       │       │       │Pr.Scr │ Redo  │
       │       │(mouse)├───────┴───────┴───────┴───────┘│       │       │   │       │       │└───────┴───────┴───────┴───────┤       │       │
       └───────┴───────┘     ▄▄▄▄▄▄▄┌───────┬───────┬───┴───┬───┴───┬───┘   └───┬───┴───┬───┴───┬───────┬───────┐▄▄▄▄▄▄▄     └───────┴───────┘
                            ▐       ▌       │       │       │       │           │       │       │       │       ▐       ▌
@@ -232,15 +227,13 @@ Row 3 │       │ Btn2  │(mouse)│       │(mouse)│M2■    ││  ___ 
 
 Basically:
 
-- Left part is the mouse navigation + dynamic macros
+- Left part is the mouse navigation + dynamic macros playing
 - Right part is the arrows navigation + shortcuts
 
 Specific keys:
 |Code|Description|
 |---|---|
 |Axel123|Cycles throw `KC_MS_ACCEL0`, `KC_MS_ACCEL1`, `KC_MS_ACCEL2`|
-|Mx (Dynamic Macro 1 or 2)|Play macro|
-|AltGr + Mx (Dynamic Macro 1 or 2)|Record macro / stop record (if recording)|
 
 #### Configuration
 
@@ -359,23 +352,6 @@ ENCODER_ENABLE = yes
 
 Here is a description of user independent-layer features.
 
-### User Non-breakable space
-
-When used, this feature add a non-breaking space *(nbsp)* when some specifics characters are tapped: `«»!?;:`
-
-- A nbsp is added before the following chars: `»!?;:`
-- A nbsp is added after the following chars: `«`
-
-If key UNbSp is held when pressing keys that need a nbsp and need to be accessed with shift, UNbSp automatically adds Shift modifier (thus shift is not required).
-
-#### Configuration
-
-Activation of User Non-breakable space is done in file `config.h`:
-
-```c
-#define USER_ADDING_NBSP
-```
-
 ### Close Char
 
 This feature registers keys each time one of the following is tapped: `"(«[{`.
@@ -400,7 +376,7 @@ This feature can be upgraded with a [special animation](#Pomodoro%20animation).
 Activation of pomodoro is done in file `config.h`:
 
 ```c
-#define POMODORO_TIMER       25 // time of pomodoro in minutes
+#define POMODORO_TIMER 25 // time of pomodoro in minutes
 ```
 
 ## Features
@@ -431,8 +407,6 @@ Some standard keycodes are overridden only with AltGr modifier and some custom k
 |KC_F8|KC_F8|`\`|
 |KC_F9|KC_F9|`/`|
 |**Custom keys**|
-|C_DYN_MACRO1|DYN_MACRO_PLAY1|DYN_REC_START1|
-|C_DYN_MACRO2|DYN_MACRO_PLAY2|DYN_REC_START2|
 |C_OLED2_TOGGLE|C_OLED2_TOGGLE|C_OLED2_TOGGLE_EEPROM|
 |C_RGB_TOGGLE|C_RGB_TOGGLE|RGB_TOG|
 |C_CLOSE_CHAR|C_CLOSE_CHAR_CLEAR|
@@ -444,7 +418,6 @@ Some standard keycodes are fully overridden according to modifiers and some cust
 |`c`|`c`|`C`|`ç`|`Ç`|
 |**Custom keys**|
 |C_COMMA_DOT|`,`| `;`|`.`| `:`|
-|C_MS_BTNS|KC_MS_BTN1|Shift + KC_MS_BTN1|KC_MS_BTN2|KC_MS_BTN3|
 |C_ENC1_CW|KC_MS_DOWN|KC_MS_WH_DOWN|KC_DOWN|KC_PGDOWN|
 |C_ENC1_RCW|KC_MS_UP|KC_MS_WH_UP|KC_UP|KC_PGUP|
 |C_ENC2_CW|KC_MS_RIGHT|KC_MS_WH_RIGHT|KC_RIGHT|Ctrl + KC_RIGHT|
@@ -456,20 +429,33 @@ Cording two or more keys to activate specific actions.
 |Cording|Description|Equivalent|
 |---|---|---|
 |Shortcuts|
-|`SPACE` + `à`|Close|*Ctrl + w*|
-|`SPACE` + `a`|Select all|*Ctrl + a*|
-|`SPACE` + `u`|Cut|*Ctrl + x*|
-|`SPACE` + `i`|Copy|*Ctrl + c*|
-|`SPACE` + `e`|Paste|*Ctrl + v*|
-|`SPACE` + `p`|Undo|*Ctrl + z*|
-|`SPACE` + `o`|Redo|*Ctrl + y*|
-|`SPACE` + `t`|Reopen last tab|*Ctrl + Shift + t*|
+|`TAB` + `à`|Close|*Ctrl + w*|
+|`TAB` + `a`|Select all|*Ctrl + a*|
+|`TAB` + `u`|Cut|*Ctrl + x*|
+|`TAB` + `i`|Copy|*Ctrl + c*|
+|`TAB` + `e`|Paste|*Ctrl + v*|
+|`TAB` + `p`|Undo|*Ctrl + z*|
+|`TAB` + `o`|Redo|*Ctrl + y*|
+|`TAB` + `t`|Reopen last tab|*Ctrl + Shift + t*|
 |Quadrigrams|
 |`e` + `l`|Write quadrigram elle|elle|
 |`i` + `q`|Write quadrigram ique|ique|
 |`m` + `e`|Write quadrigram ment|ment|
 |`q` + `u`|Write quadrigram quel|quel|
 |`t` + `i`|Write quadrigram tion|tion|
+|Non-breaking space|
+|`SPACE` + `«`|Append nbsp after «|`« `|
+|`SPACE` + `»`|Append nbsp before »|` »`|
+|`SPACE` + `u`|Equivalent to char « and append nbsp after «|`« `|
+|`SPACE` + `i`|Equivalent to char » and append nbsp before »|` »`|
+|`SPACE` + `!`|Append nbsp before !|` !`|
+|`SPACE` + `?`|Append nbsp before ?|` ?`|
+|`SPACE` + `;`|Append nbsp before ;|` ;`|
+|`SPACE` + `:`|Append nbsp before :|` :`|
+|`SPACE` + `^`|Shift char ^ and append nbsp before|` !`|
+|`SPACE` + `’`|Shift char ’ and append nbsp before|` ?`|
+|`SPACE` + `,`|Shift char , and append nbsp before|` ;`|
+|`SPACE` + `.`|Shift char . and append nbsp before|` :`|
 |Others|
 |`SPACE` + `h`|`https://`|`https://`|
 |`SPACE` + `g`|`/giphy `|`/giphy `|
@@ -479,7 +465,7 @@ Cording two or more keys to activate specific actions.
 
 ### Dynamic macros
 
-Two keys for recording/playing macros.
+Recording/playing macros.
 
 #### Configuration
 
@@ -493,6 +479,8 @@ DYNAMIC_MACRO_ENABLE = yes
 
 Send status of the keyboard over HID interface.
 See [hid.h](hid.h) for data structure sent to host.
+
+See for [HID Host](hid_host/readme.md) the host side.
 
 #### Configuration
 
@@ -610,7 +598,6 @@ Items:
   - Gui
   - Alt
   - AltGr
-  - [User Non-Breakable Space](#User%20Non-breakable%20space)
 - Dynamic macros
   - Macro 1 (Play, Record, Warning)
   - Macro 2 (Play, Record, Warning)
@@ -624,7 +611,7 @@ Items:
  │ LAY   Nav/M  Med/R  │
  │                     │
  │ MOD   Sft  Ctl  Gui │
- │ MOD   Alt  AlG  NbS │
+ │ MOD   Alt  AlG      │
  │                     │
  │ DYM   1  Pl  Rc  Wn │
 8│ DYM   2  Pl  Rc  Wn │
@@ -755,26 +742,26 @@ Activation of follower halve animation of Oneko is done in file `config.h`:
 ### LED positions
 
 Physical leds position (xx) related to keys
-Master and follower may be swapped (right / left), 0-10 are always on master, 11-20 on follower.
+Master and follower may be swapped (right / left), 0-9 are always on master, 10-19 on follower.
 
 ```text
                                      Master                                                             Follower
 
           1       2       3       4       5       6                                             1       2       3       4       5       6
-                      ┌───────┬──────(05)─────┬───────┐                                     ┌───────┬─────(15)──────┬───────┐
-      ┌──(10)─┬─(06)──┤       │       │       │       │                                     │       │       │       │       ├──(20)─┬─(16)──┐
+                      ┌───────┬──────(04)─────┬───────┐                                     ┌───────┬─────(14)──────┬───────┐
+      ┌──(09)─┬─(05)──┤       │       │       │       │                                     │       │       │       │       ├──(15)─┬─(19)──┐
       │       │       │       │       │       │       │                                     │       │       │       │       │       │       │
 Row 1 │       │       │       │       │       │       │                                     │       │       │       │       │       │       │
-      │       │       ├───────┼───────┼───────┼──(04)─┤                                     ├─(14)──┼───────┼───────┼───────┤       │       │
+      │       │       ├───────┼───────┼───────┼──(03)─┤                                     ├─(13)──┼───────┼───────┼───────┤       │       │
       ├───────┼───────┤       │       │       │       │                                     │       │       │       │       ├───────┼───────┤
       │       │       │       │       │       │       │                                     │       │       │       │       │       │       │
 Row 2 │       │       │       │       │       │       │                                     │       │       │       │       │       │       │
       │       │       ├───────┼───────┼───────┼───────┤    1      2            1      2     ├───────┼───────┼───────┼───────┤       │       │
-      ├──(09)─┼──(07)─┤       │       │       │       │┌───────┬───────┐   ┌───────┬───────┐│       │       │       │       ├──(19)─┼─(17)──┤
-      │       │       │       │       │       │       ││      (01)     │   │     (11)      ││       │       │       │       │       │       │
+      ├──(08)─┼──(06)─┤       │       │       │       │┌───────┬───────┐   ┌───────┬───────┐│       │       │       │       ├──(16)─┼─(18)──┤
+      │       │       │       │       │       │       ││      (00)     │   │     (10)      ││       │       │       │       │       │       │
 Row 3 │       │       │       │       │       │       ││       │       │   │       │       ││       │       │       │       │       │       │
       │       │       ├───────┴───────┴───────┴───────┘│       │       │   │       │       │└───────┴───────┴───────┴───────┤       │       │
-      └───────┴───────┘    ┌(08)───┬───(03)┬────(02)───┴───┬───┴───┬───┘   └───┬───┴───┬───┴───(12)────┬(13)───┬───(18)┐    └───────┴───────┘
+      └───────┴───────┘    ┌(07)───┬───(02)┬────(01)───┴───┬───┴───┬───┘   └───┬───┴───┬───┴───(11)────┬(12)───┬───(17)┐    └───────┴───────┘
                            │       │       │       │       │       │           │       │       │       │       │       │
                Thumb row 2 │       │       │       │       │       │           │       │       │       │       │       │
                            │       │       │       │       │       │           │       │       │       │       │       │
@@ -832,6 +819,7 @@ Each main feature is coded in a specific file to have code as clean and as indep
 |**Other files**|
 |[combo.c](combo.c)|Definition of combos and their behaviors|
 |[dynamic_macros.h](dynamic_macros.h)|Definition of dynamic macros status and external called functions|
+|[dynamic_macros.c](dynamic_macros.c)|Implementation of dynamic macros status and external called functions|
 |[eeprom_user.h](eeprom_user.h)|Definition of eeprom data|
 |[eeprom_user.c](eeprom_user.c)|Implementation of eeprom functions|
 |[encoder.c](encoder.c)|Implementation of encoders behavior|
@@ -857,8 +845,6 @@ Each main feature is coded in a specific file to have code as clean and as indep
 |[unicode_keys.c](unicode_keys.c)|Implementation of Unicode / Unicode map|
 |[user_feature_closechar.h](user_feature_closechar.h)|Definition of feature close char|
 |[user_feature_closechar.c](user_feature_closechar.c)|Implementation of feature close char|
-|[user_feature_nbsp.h](user_feature_nbsp.h)|Definition of feature non-breakable space|
-|[user_feature_nbsp.c](user_feature_nbsp.c)|Implementation of feature non-breakable space|
 |**Special files**|
 |[secrets.h](secrets.h)|Not source controlled. Contains non public data *(but not too much private like passwords)*|
 |**Kyria specific files**|
@@ -906,7 +892,6 @@ Memory footprint is given including QMK code and userspace/keyboard code with LT
 |VELOCIKEY_ENABLE|212|648|
 |WPM_ENABLE|1342|454|
 |**User features**|
-|USER_ADDING_NBSP *(by `#define`)*|342|392|
 |USER_CLOSE_CHAR *(by `#define`)*|430|464|
 |POMODORO_TIMER *(by `#define`)*|2038|14|
 

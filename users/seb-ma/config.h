@@ -9,8 +9,6 @@
 #   ifdef USER_CLOSE_CHAR
 #       define MAX_CLOSE_CHAR           16 // Max number of closing char to store
 #   endif
-
-#   define USER_ADDING_NBSP                // Add a non breaking space when typping some chars: ;:!?«»
 #endif // FOLLOWER_ONLY
 
 #ifdef DYNAMIC_MACRO_ENABLE
@@ -24,15 +22,14 @@
 #   define OLED_TIMEOUT         300000 // Delay before swiching off OLED (in ms) 300000 -> 5min
 #   define STANDARD_WPM             50 // Number of typed word per minute to consider standard pace of the animation
 
-    // Include modification of buffer used between master and follower to transmit data (currently a single uint8_t)
-    // Thus, it can't work alone, modifications in struct _Serial_m2s_buffer_t (for serial protocol) and functions transport_master and transport_slave are needed
-#   define TRANSPORT_USER_DATA
-#   define POMODORO_TIMER               25 // If defined: activate a pomodoro timer on follower screen (time in minutes)
-
-#   define BONGOCAT_ANIMATION              // Render bongo cat animation on follower screen
-
     // non light version: add animations
 #   if !defined(HALVE_BOTH_LIGHT)
+        // Include modification of buffer used between master and follower to transmit data (currently a single uint8_t)
+        // Thus, it can't work alone, modifications in struct _Serial_m2s_buffer_t (for serial protocol) and functions transport_master and transport_slave are needed
+#       define TRANSPORT_USER_DATA
+#       define POMODORO_TIMER           25 // If defined: activate a pomodoro timer on follower screen (time in minutes)
+
+#       define BONGOCAT_ANIMATION          // Render bongo cat animation on follower screen
 #       define ONEKO_ANIMATION             // Render Oneko (walking cat) animation on follower screen
 #       define LIFE_ANIMATION              // Render game of life animation on follower screen
 #       if defined(POMODORO_TIMER) && defined(TRANSPORT_USER_DATA)
@@ -61,10 +58,12 @@
 // Combo
 #ifdef COMBO_ENABLE
 #   ifndef NO_SECRETS
-#       define COMBO_COUNT          17 // Number of existing combos
+#       define NB_COMBO_SECRETS      2 // Number of existing combos related to !NO_SECRETS
 #   else
-#       define COMBO_COUNT          15 // Number of existing combos
+#       define NB_COMBO_SECRETS      0
 #   endif
+
+#   define COMBO_COUNT             (27 + NB_COMBO_SECRETS) // Number of existing combos
 #   define COMBO_TERM               40 // Set the time out period for combos in ms
 #endif // COMBO_ENABLE
 
@@ -76,7 +75,7 @@
 
 // Dynamic macros
 #ifdef DYNAMIC_MACRO_ENABLE
-#   define DYNAMIC_MACRO_SIZE     32 // Sets the amount of memory that Dynamic Macros can use (default is 128)
+#   define DYNAMIC_MACRO_SIZE      64 // Sets the amount of memory that Dynamic Macros can use (default is 128)
 #endif // DYNAMIC_MACRO_ENABLE
 
 // One shot tap
@@ -88,7 +87,7 @@
 
 #ifdef OLED_DRIVER_ENABLE
 #   define OLED_FONT_H   "oled_custom_font.c" // Font code file to use for custom characters
-#   define OLED_FONT_END                  202 // Number of characters if custom font
+#   define OLED_FONT_END                  199 // Number of characters in custom font
 #endif // OLED_DRIVER_ENABLE
 
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
@@ -99,7 +98,7 @@
 #ifdef RGBLIGHT_ENABLE
 #   define RGBLIGHT_LAYERS             // Lets define lighting layers that can be toggled on or off. Great for showing the current keyboard layer or caps lock state.
 #   ifdef RGBLIGHT_LAYERS
-#       define RGBLIGHT_MAX_LAYERS   8 // Can be expanded up to 32 if more lighting layers are needed.
+#       define RGBLIGHT_MAX_LAYERS   7 // Can be expanded up to 32 if more lighting layers are needed.
 #       if (RGBLIGHT_MAX_LAYERS <= 8)  // Reduce structures size of rgb layers from 32 to 16 or 8 bits if possible
 #           define LAYER_STATE_8BIT
 #       elif (RGBLIGHT_MAX_LAYERS <= 16)

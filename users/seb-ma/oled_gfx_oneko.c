@@ -170,6 +170,16 @@ void render_sprite(const t_diff* diff, const ok_last_frames_t* last_frames) {
     }
 }
 
+/* Clear the area of the current sprite */
+void clear_sprite(const ok_last_frames_t* last_frames) {
+    const uint16_t index_oled = last_frames->current_position_row * NB_COLS + last_frames->current_position_col;
+    for (uint8_t i = 0; i < SPRITE_HEIGHT; i++) {
+        for (uint8_t j = 0; j < SPRITE_WIDTH; j++) {
+            oled_write_raw_byte(0x00, index_oled + i * NB_COLS + j);
+        }
+    }
+}
+
 /*  Play a sequence of actions on place */
 void do_action_sequence(ok_last_frames_t* last_frames, const int16_t remaining) {
     static uint8_t counter = 0;
@@ -247,6 +257,9 @@ void oneko_render_next_frame(t_animation* animation) {
         int8_t i = 0;
         int8_t j = 0;
         last_frames.current_frame_reversed = false;
+        // Clear the previous drawn frame
+        clear_sprite(&last_frames);
+
         if (last_frames.destination_position_row != last_frames.current_position_row) {
             i = (last_frames.destination_position_row - last_frames.current_position_row > 0) ? 1 : -1;
             last_frames.current_position_row += i;
@@ -260,8 +273,6 @@ void oneko_render_next_frame(t_animation* animation) {
                 last_frames.current_position_col += MAX(-LATERAL_STEP, last_frames.destination_position_col - last_frames.current_position_col);
             }
         }
-        // Clear the previous drawn frame
-        oled_clear();
         render_sprite(&moves[i + 1][j + 1][last_frames.current_frame], &last_frames);
         last_frames.current_frame = (last_frames.current_frame + 1) % (NB_SPRITES_ANIM);
 

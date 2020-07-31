@@ -10,7 +10,6 @@
 #include "rgb.h"
 #include "unicode_keys.h"
 #include "user_feature_closechar.h"
-#include "user_feature_nbsp.h"
 
 /* Structure of keycode and alternative keycode if mod */
 typedef struct {
@@ -50,15 +49,11 @@ const key_alter_map_t key_mod_altgr_map[] PROGMEM = {
 */
 const key_mod_full_map_t key_mod_full_map[] PROGMEM = {
     //keycode,    key,        key_shift,   key_altgr,  key_shift_altgr
-    {C_COMM_QUOT, BP_COMM,    S(BP_COMM),  BP_QUOT,     S(ALGR(BP_COMM))}, // , ; '
-    {C_RSQU_QUES, BP_RSQU,    S(BP_QUOT),  BP_IQUE,     S(ALGR(BP_QUOT))}, // ’ ? ¿
+    {BP_COMM,     BP_COMM,    S(BP_COMM),  BP_QUOT,     S(ALGR(BP_COMM))}, // , ; '
+    {BP_RSQU,     BP_RSQU,    S(BP_QUOT),  BP_IQUE,     S(ALGR(BP_QUOT))}, // ’ ? ¿
 
     {C_COMMA_DOT, BP_COMM,    S(BP_COMM),  BP_DOT,      S(BP_DOT)},  // , ; . :
     {BP_C,        BP_C,       S(BP_C),     BP_CCED,     S(BP_CCED)}, // c C ç Ç
-#ifdef DYNAMIC_MACRO_ENABLE
-    {C_DYN_MACRO1, DYN_MACRO_PLAY1, DYN_MACRO_PLAY1, DYN_REC_START1, DYN_REC_START1},
-    {C_DYN_MACRO2, DYN_MACRO_PLAY2, DYN_MACRO_PLAY2, DYN_REC_START2, DYN_REC_START2},
-#endif
 #ifdef ENCODER_ENABLE
     {C_ENC1_CW,   KC_DOWN,  S(KC_DOWN),  KC_PGDOWN, S(KC_PGDOWN)},
     {C_ENC1_RCW,  KC_UP,    S(KC_UP),    KC_PGUP,   S(KC_PGUP)},
@@ -66,23 +61,6 @@ const key_mod_full_map_t key_mod_full_map[] PROGMEM = {
     {C_ENC2_RCW,  KC_LEFT,  S(KC_LEFT),  KC_HOME,   S(KC_HOME)},
 #endif
 };
-
-#ifdef USER_ADDING_NBSP
-/* Map of keys interpreted according to mod_hold_nb_sp mod - if C_TAB_NBSP holds -> get key_alter, else get keycode */
-const key_alter_map_t key_mod_nbsp_map[] PROGMEM = {
-    {BP_DCIR, BP_EXLM}, // ^ !
-    {BP_COMM, BP_SCLN}, // , ;
-    {BP_DOT,  BP_COLN}, // . :
-    {BP_RSQU, BP_QUES}, // ’ ? (different from standard bépo map due to relocation of "'")
-};
-#endif
-
-
-#ifdef MOUSEKEY_ENABLE
-/* List of keys (by order) for MS_ACCEL */
-const uint16_t mouse_accels[] PROGMEM = {KC_MS_ACCEL0, KC_MS_ACCEL1, KC_MS_ACCEL2};
-#endif
-
 
 /* Get a related keycode according to pressed modifiers
  only unregister mods if pressed
@@ -123,19 +101,7 @@ uint16_t interpret_keycode(const uint16_t keycode) {
         }
     }
     uint16_t new_keycode = interpret_keycode_in_map(key_mod_full_map, sizeof(key_mod_full_map), keycode);
-#ifdef USER_ADDING_NBSP
-    if (mod_hold_nb_sp) {
-        // For some keys, nbsp modifier is extended shift + nbsp modifiers
-        for (uint8_t i = 0; i < sizeof(key_mod_nbsp_map) / sizeof(key_alter_map_t); i++) {
-            if (new_keycode == pgm_read_word(&(key_mod_nbsp_map[i].keycode))) {
-                new_keycode = pgm_read_word(&(key_mod_nbsp_map[i].key_alter));
-                break;
-            }
-        }
-    }
-#endif
     return new_keycode;
-
 }
 
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
@@ -163,6 +129,26 @@ uint16_t interpret_keycode_unicode(const uint16_t keycode) {
     return keycode_direct;
 }
 #endif // defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
+
+/* Tap char according to unicode activation or not */
+void tap_char_u(const uint16_t keycode) {
+#if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
+    if (user_config.unicode) {
+        unicode_input_start();
+        register_hex32(interpret_keycode_unicode(keycode));
+        unicode_input_finish();
+    } else {
+        tap_code16(keycode);
+    }
+#else
+    tap_code16(keycode);
+#endif
+}
+
+/* Tap non breakable space according to unicode activation or not */
+void tap_nbsp_u(void) {
+    tap_char_u(BP_NBSP); // non breakable space char
+}
 
 /* Send a PROGMEM string on unicode string according to Unicode activation */
 void send_str(const char* str) {
@@ -210,6 +196,9 @@ uint16_t get_keycode_with_mods_applied(const uint16_t keycode) {
     return code;
 }
 
+/* Number of char that was sent last time */
+uint8_t nb_char_sent = 0;
+
 /* Callback (used by core) to handle custom keys behavior implementation */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     //--------------------------------------------
@@ -219,37 +208,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Identify custom/overridded key according to modifiers
     uint16_t keycode_new = interpret_keycode(keycode);
     switch (keycode_new) {
-#ifdef MOUSEKEY_ENABLE
-    case C_MS_ACCEL:
-    {
-        /* Current MS_ACCEL selected */
-        static uint8_t mouse_accel_idx = 0;
-        mouse_accel_idx = (mouse_accel_idx + 1) % (sizeof(mouse_accels) / sizeof(mouse_accels[0]));
-        keycode_new = pgm_read_word(mouse_accels + mouse_accel_idx);
-        break;
-    }
-#endif // MOUSEKEY_ENABLE
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
     case C_TOGGLE_UNICODE:
         user_config.unicode = !user_config.unicode;
         eeconfig_update_user(user_config.raw);
         return false;
 #endif // defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
+    case KC_BSPACE:
+        if (record->event.pressed) {
+            // Remove the string previously sent (except 1 that is processed normally)
+            while (nb_char_sent > 1) {
+                tap_code16(KC_BSPACE);
+                nb_char_sent--;
+            }
+        }
+        break;
     }
-
-#ifdef USER_ADDING_NBSP
-    // Check if this char must have a nbsp before or after
-    keycode_new = handle_adding_non_breaking_space(keycode_new, (keycode != keycode_new), record);
-    if (keycode_new == C_DUMMY) {
-        return false;
-    }
-#endif // USER_ADDING_NBSP
 
     // The last pressed key (after alteration cycle in process_record_user)
     static uint16_t previous_keycode = C_DUMMY;
     static uint16_t next_previous_keycode = C_DUMMY;
     static uint16_t next_previous_keycode_not_altered = C_DUMMY;
     if (record->event.pressed) {
+        nb_char_sent = 1;
         // Store last keycode for reference in user functions
         previous_keycode = next_previous_keycode;
         next_previous_keycode = (keycode != keycode_new) ? keycode_new : get_keycode_with_mods_applied(keycode_new);
@@ -309,9 +290,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
                     && process_unicode_common(keycode_new, record)
 #endif
-#ifdef COMBO_ENABLE
-                    && process_combo(keycode_new, record)
-#endif
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
                     && process_rgb(keycode_new, record)
 #endif
@@ -320,7 +298,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else if (!record->event.pressed && keycode == next_previous_keycode_not_altered && next_previous_keycode != next_previous_keycode_not_altered) {
             // Specific case when modifiers are released too early thus custom key is not recognized when release is processed
             // here: only check if keycode from layout is the same as the last pressed and was a custom key
-            do_f_keycode(next_previous_keycode, unregister_code16);
+            // Don't do it on modifiers
+            if (keycode < KC_LCTRL || keycode > KC_RGUI) {
+                do_f_keycode(next_previous_keycode, unregister_code16);
+            }
         }
     }
     // Process all other keycodes normally

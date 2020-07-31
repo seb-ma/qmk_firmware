@@ -18,7 +18,6 @@ SRC += combo.c \
        tap_dance.c \
        transport_user.c \
        user_feature_closechar.c \
-       user_feature_nbsp.c \
        user_func.c
 
 # Set NO_SECRETS if secrets file does not exist or requested in build chain
@@ -31,7 +30,7 @@ endif
 endif
 
  # Link Time Optimization (LTO) when compiling the keyboard (+ automatically set NO_ACTION_MACRO and NO_ACTION_FUNCTION)
-LINK_TIME_OPTIMIZATION_ENABLE = yes
+LTO_ENABLE = yes
 
 
 #----------------------------

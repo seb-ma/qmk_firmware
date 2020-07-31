@@ -9,7 +9,6 @@
 #include "oled.h"
 #include "oled_custom_font_constants.h"
 #include "transport_user.h"
-#include "user_feature_nbsp.h"
 
 
 /* Pointers on function to render init frame of each animation */
@@ -35,6 +34,9 @@ render_init_frame_fct render_init[] = {
 
 /* Declaration of the animation */
 t_animation animation;
+
+/* Timer for continuing animation before stopping OLED */
+uint32_t timeout_animation = 0;
 
 /* bi-state value used as a trigger to reinit animation */
 static bool previous_anim_reinit_state;
@@ -179,13 +181,9 @@ void render_mod_state(const uint8_t modifiers) {
         oled_write_space_nb(2);
         oled_write_P(logos_1row[idx + 1], modifiers & modifiers_val[3 * i + 1]); // 3
         oled_write_space_nb(2);
-#   ifdef USER_ADDING_NBSP
-        oled_write_P(logos_1row[idx + 2], (i < 1) ? (modifiers & modifiers_val[3 * i + 2]) : mod_hold_nb_sp); // 3
-#   else // USER_ADDING_NBSP
         if (i < 1) {
             oled_write_P(logos_1row[idx + 2], modifiers & modifiers_val[3 * i + 2]); // 3
         }
-#   endif // USER_ADDING_NBSP
         oled_advance_page(true);
     }
 }
@@ -261,7 +259,7 @@ It looks like (with inverted color when element is selected):
      │ LAY   Nav/M  Med/R  │
      │                     │
      │ MOD   Sft  Ctl  Gui │
-     │ MOD   Alt  AlG  NbS │
+     │ MOD   Alt  AlG      │
      │                     │
      │ DYM   1  Pl  Rc  Wn │
     8│ DYM   2  Pl  Rc  Wn │
@@ -297,6 +295,13 @@ void render_animation(void) {
 #   else
         animation.ratioPerc = 100;
 #   endif
+    }
+    // Switch off if timeout without key pressed
+    if (animation.ratioPerc != 0) {
+        timeout_animation = timer_read32();
+    } else if (timer_elapsed32(timeout_animation) > OLED_TIMEOUT) {
+        oled_off();
+        return;
     }
 
     if (user_data_m2s.anim_reinit_toggle != previous_anim_reinit_state
@@ -349,10 +354,6 @@ void render_pomodoro(void) {
 
 #endif // POMODORO_SIDE
 
-// Declared in oled_driver.c
-// hack to shortcut display wake up
-extern bool oled_initialized;
-
 /* Callback (used by core) to handle screen displaying */
 void oled_task_user(void) {
     if (is_keyboard_master()) {
@@ -362,7 +363,6 @@ void oled_task_user(void) {
         render_pomodoro();
 #endif
     } else if (user_data_m2s.oled2) {
-        oled_initialized = true;
 #ifdef RENDER_ANIMATIONS
         // Renders the animation
         render_animation();
@@ -372,7 +372,6 @@ void oled_task_user(void) {
 #endif
     } else {
         oled_off();
-        oled_initialized = false;
     }
 }
 

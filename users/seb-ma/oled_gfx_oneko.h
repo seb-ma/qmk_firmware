@@ -7,6 +7,7 @@ Sources:
     Converter: https://javl.github.io/image2cpp/ (in Draw mode, use "Vertical - 1 bit per pixel")
     Optimizer: gen_oneko.c
 */
+//clang-format off
 
 /*--------------
   Actions

@@ -31,8 +31,7 @@
 // Third custom line in font
 #define FONT_POS_CTRL     0xC0
 #define FONT_POS_ALTGR    0xC3
-#define FONT_POS_NBSP     0xC6
-#define FONT_POS_POMODORO 0xC9
+#define FONT_POS_POMODORO 0xC6
 
 
 #ifndef FOLLOWER_ONLY
@@ -95,9 +94,6 @@ enum logos_1row {
     LOGO_GUI,
     LOGO_ALT,
     LOGO_ALTGR,
-#   ifdef USER_ADDING_NBSP
-    LOGO_NBSP,
-#   endif // USER_ADDING_NBSP
     // Others
 #   ifdef DYNAMIC_MACRO_ENABLE
     LOGO_WARN,
@@ -123,9 +119,6 @@ static const char logos_1row[LOGO_SIZE_1R][4] PROGMEM = {
     {FONT_POS_GUI,   FONT_POS_GUI   + 1, 0,                  0}, // gui
     {FONT_POS_ALT,   FONT_POS_ALT   + 1, 0,                  0}, // alt
     {FONT_POS_ALTGR, FONT_POS_ALTGR + 1, FONT_POS_ALTGR + 2, 0}, // altgr
-#       ifdef USER_ADDING_NBSP
-    {FONT_POS_NBSP,  FONT_POS_NBSP  + 1, FONT_POS_NBSP  + 2, 0}, // non-breakable space
-#       endif // USER_ADDING_NBSP
     // Others
 #       ifdef DYNAMIC_MACRO_ENABLE
     {FONT_POS_WARN,  FONT_POS_WARN  + 1, 0,                  0}, // Warn

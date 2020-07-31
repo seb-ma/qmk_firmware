@@ -91,27 +91,33 @@ extern uint32_t pomodoro_start_timer;
 
 /* Callback to render the next frame of the animation */
 void pomodoro_render_next_frame(t_animation* animation) {
-    animation->start_timer = timer_read32();
+    if (pomodoro_start_timer != 0) {
+        animation->start_timer = timer_read32();
 
-    const uint32_t time_elapsed = timer_elapsed32(pomodoro_start_timer);
-    if (time_elapsed < POMODORO_TIMER * 60L * 1000) {
-        // Number of pixels to fill to represent the remaining time in pomodoro
-        int32_t nbPix = (POMODORO_TIMER * 60L * 1000 - time_elapsed) / NB_MS_BY_PIXEL;
+        const uint32_t time_elapsed = timer_elapsed32(pomodoro_start_timer);
+        if (time_elapsed < POMODORO_TIMER * 60L * 1000) {
+            // Number of pixels to fill to represent the remaining time in pomodoro
+            int32_t nbPix = (POMODORO_TIMER * 60L * 1000 - time_elapsed) / NB_MS_BY_PIXEL;
 
-        // Remove pixels according to elapsed time at a random position
-        uint16_t start = rand() % (NB_ROWS * NB_COLS);
-        for (uint16_t i = 0; i < NB_ROWS * NB_COLS && nb_pixels_remaining > nbPix; i++) {
-            uint16_t index = (i + start) % (NB_ROWS * NB_COLS);
-            uint8_t value = screen[index];
-            if (value != 0x00) {
-                for (uint8_t b = rand() % 8; b < 16 && value != 0 && nb_pixels_remaining > nbPix; b++) {
-                    if (1 & (value >> b % 8)) {
-                        value &= ~(1 << b % 8);
-                        nb_pixels_remaining--;
+            // Remove pixels according to elapsed time at a random position
+            while (nb_pixels_remaining > nbPix) {
+                uint16_t start = rand() % (NB_ROWS * NB_COLS);
+                for (uint16_t i = 0; i < NB_ROWS * NB_COLS; i++) {
+                    uint16_t index = (i + start) % (NB_ROWS * NB_COLS);
+                    uint8_t value = screen[index];
+                    if (value != 0x00) {
+                        for (uint8_t b = rand() % 8; b < 16 && value != 0; b++) {
+                            if (1 & (value >> b % 8)) {
+                                value &= ~(1 << b % 8);
+                                nb_pixels_remaining--;
+                                break;
+                            }
+                        }
+                        screen[index] = value;
+                        write_char_cells_oled(value, index / NB_COLS, index % NB_COLS);
+                        break;
                     }
                 }
-                screen[index] = value;
-                write_char_cells_oled(value, index / NB_COLS, index % NB_COLS);
             }
         }
     }

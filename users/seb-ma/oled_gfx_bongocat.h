@@ -7,6 +7,7 @@ Sources:
     Converter: https://javl.github.io/image2cpp/ (in Draw mode, use "Vertical - 1 bit per pixel")
     Generator: gen_bongocat.c
 */
+//clang-format off
 
 /*--------------
   Base (paws up)
