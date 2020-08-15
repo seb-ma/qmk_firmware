@@ -367,25 +367,19 @@ Cording two or more keys to activate specific actions.
 |Cording|Description|Equivalent|
 |---|---|---|
 |Quadrigrams|
-|`a` + `i`|Write quadrigram aire|aire|
-|`d` + `a`|Write quadrigram dans|dans|
-|`e` + `l`|Write quadrigram elle|elle|
-|`e` + `t`|Write quadrigram ette|ette|
-|`e` + `n`|Write quadrigram ente|ente|
-|`i` + `l`|Write quadrigram ille|ille|
-|`i` + `q`|Write quadrigram ique|ique|
-|`m` + `e`|Write quadrigram ment|ment|
-|`o` + `m`|Write quadrigram omme|omme|
-|`o` + `n`|Write quadrigram onne|onne|
-|`p` + `o`|Write quadrigram pour|pour|
-|`q` + `u`|Write quadrigram quel|quel|
-|`t` + `i`|Write quadrigram tion|tion|
-
-|`e` + `l`|Write quadrigram elle|elle|
-|`i` + `q`|Write quadrigram ique|ique|
-|`m` + `e`|Write quadrigram ment|ment|
-|`q` + `u`|Write quadrigram quel|quel|
-|`t` + `i`|Write quadrigram tion|tion|
+|`a` + `i`|Write quadrigram: aire|`aire`|
+|`d` + `a`|Write quadrigram: dans|`dans`|
+|`e` + `l`|Write quadrigram: elle|`elle`|
+|`e` + `t`|Write quadrigram: ette|`ette`|
+|`e` + `n`|Write quadrigram: ente|`ente`|
+|`i` + `l`|Write quadrigram: ille|`ille`|
+|`i` + `q`|Write quadrigram: ique|`ique`|
+|`m` + `e`|Write quadrigram: ment|`ment`|
+|`o` + `m`|Write quadrigram: omme|`omme`|
+|`o` + `n`|Write quadrigram: onne|`onne`|
+|`p` + `o`|Write quadrigram: pour|`pour`|
+|`q` + `u`|Write quadrigram: quel|`quel`|
+|`t` + `i`|Write quadrigram: tion|`tion`|
 |Non-breaking space|
 |`SPACE` + `«`|Append nbsp after «|`« `|
 |`SPACE` + `»`|Append nbsp before »|` »`|
@@ -400,7 +394,7 @@ Cording two or more keys to activate specific actions.
 |`SPACE` + `,`|Shift char , and append nbsp before|` ;`|
 |`SPACE` + `.`|Shift char . and append nbsp before|` :`|
 |Others|
-|`t` + `.`|Write `. ` and hold shift for next key |`. ` + hold Shift until next key|
+|`t` + `.`|Write `. ` and hold shift for next key |`. ` + hold Shift until next key *(if OSM is enabled)*|
 |`SPACE` + `h`|`https://`|`https://`|
 |`SPACE` + `g`|`/giphy `|`/giphy `|
 ||**Sequences using secrets**|
@@ -424,7 +418,7 @@ DYNAMIC_MACRO_ENABLE = yes
 Send status of the keyboard over HID interface.
 See [hid.h](hid.h) for data structure sent to host.
 
-See for [HID Host](hid_host/readme.md) the host side.
+See [HID Host](hid_host/readme.md) for the host side.
 
 #### Configuration
 
