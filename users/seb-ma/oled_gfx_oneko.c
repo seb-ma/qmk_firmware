@@ -1,10 +1,27 @@
+/*
+Copyright 2020 @seb-ma
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 #include "oled.h"
 #if defined(OLED_DRIVER_ENABLE) && defined(RENDER_ANIMATIONS) && defined(ONEKO_ANIMATION)
 #include QMK_KEYBOARD_H
+#include "lib/lib8tion/lib8tion.h"
 
 #include "oled_gfx_oneko.h"
 
-#define ANIM_FRAME_DURATION 250 // Duration of each frame (at standard pace)
+#define ANIM_FRAME_DURATION 200 // Duration of each frame (at standard pace)
 
 // Number max of sprites to display between 2 moves
 #define NB_MAX_TURNS_PLAYING 20
@@ -26,12 +43,13 @@ Sources:
     Optimizer: gen_oneko.c
 */
 
-#define SPRITE_HEIGHT (32 / 8) // (4 chars)
+#define SPRITE_HEIGHT 32
 #define SPRITE_WIDTH  32
-/* To simplify: move on rows is modulo 8 (corresponding to 1 char) - apply the same move on columns */
-#define LATERAL_STEP  8
+/* Number of pixels to move */
+#define MOVE_STEP_COLUMN 4
+#define MOVE_STEP_ROW    2
 
-#define NB_ROWS (OLED_DISPLAY_HEIGHT / 8)
+#define NB_ROWS OLED_DISPLAY_HEIGHT
 #define NB_COLS OLED_DISPLAY_WIDTH
 
 
@@ -158,24 +176,18 @@ void render_sprite(const t_diff* diff, const ok_last_frames_t* last_frames) {
     for (uint16_t i = 0; i < diff->nb_idx; i++) {
         index_sprite += pgm_read_byte(diff->idx_delta + i);
         for (uint8_t j = 0; j < pgm_read_byte(diff->siz + i); j++) {
-            uint16_t index_oled = (last_frames->current_position_row + (index_sprite + j) / SPRITE_WIDTH) * NB_COLS + last_frames->current_position_col;
+            uint8_t oled_x = last_frames->current_position_col;
+            uint8_t oled_y = last_frames->current_position_row + 8 * ((index_sprite + j) / SPRITE_WIDTH);
             if (last_frames->current_frame_reversed) {
-                index_oled += SPRITE_WIDTH - (index_sprite + j) % SPRITE_WIDTH;
+                oled_x += SPRITE_WIDTH - (index_sprite + j) % SPRITE_WIDTH;
             } else {
-                index_oled += (index_sprite + j) % SPRITE_WIDTH;
+                oled_x += (index_sprite + j) % SPRITE_WIDTH;
             }
-            oled_write_raw_byte(pgm_read_byte(diff->val + offset), index_oled);
+            const char value = pgm_read_byte(diff->val + offset);
+            for (uint8_t b = 0; b < 8; b++) {
+                oled_write_pixel(oled_x, oled_y + b, 1 & (value >> b));
+            }
             offset++;
-        }
-    }
-}
-
-/* Clear the area of the current sprite */
-void clear_sprite(const ok_last_frames_t* last_frames) {
-    const uint16_t index_oled = last_frames->current_position_row * NB_COLS + last_frames->current_position_col;
-    for (uint8_t i = 0; i < SPRITE_HEIGHT; i++) {
-        for (uint8_t j = 0; j < SPRITE_WIDTH; j++) {
-            oled_write_raw_byte(0x00, index_oled + i * NB_COLS + j);
         }
     }
 }
@@ -199,11 +211,11 @@ void do_action_sequence(ok_last_frames_t* last_frames, const int16_t remaining) 
             counter--;
         } else {
             // Start a new sprite
-            num_sprite = rand() % ACT_SIZE;
-            counter = 2 + rand() % (remaining > 0 ? remaining : NB_MAX_TURNS_PLAYING);
+            num_sprite = random8_max(ACT_SIZE);
+            counter = 2 + random8_max(remaining > 0 ? remaining : NB_MAX_TURNS_PLAYING);
             last_frames->current_frame = 0;
             // reversed ?
-            last_frames->current_frame_reversed = num_sprite != ACT_SLEEP && rand() % 2;
+            last_frames->current_frame_reversed = num_sprite != ACT_SLEEP && random8_max(2);
         }
     }
     if ((num_sprite == ACT_TOGI_U || num_sprite == ACT_TOGI_D)
@@ -222,8 +234,8 @@ void do_action_sequence(ok_last_frames_t* last_frames, const int16_t remaining) 
 void oneko_render_init_frame(t_animation* animation) {
     last_frames.current_frame = 0;
     last_frames.current_frame_reversed = false;
-    last_frames.current_position_row = rand() % (NB_ROWS - SPRITE_HEIGHT + 1);
-    last_frames.current_position_col = rand() % (NB_COLS - SPRITE_WIDTH + 1);
+    last_frames.current_position_row = random8_max(NB_ROWS - SPRITE_HEIGHT);
+    last_frames.current_position_col = random8_max(NB_COLS - SPRITE_WIDTH);
     last_frames.destination_position_row = last_frames.current_position_row;
     last_frames.destination_position_col = last_frames.current_position_col;
 
@@ -231,6 +243,8 @@ void oneko_render_init_frame(t_animation* animation) {
     animation->frame_duration = ANIM_FRAME_DURATION;
     // Not dependant to WPM
     animation->ratioPerc = -1;
+    animation->frame_duration_min = ANIM_FRAME_DURATION;
+    animation->frame_duration_max = ANIM_FRAME_DURATION;
 
     oneko_render_next_frame(animation);
 }
@@ -258,20 +272,20 @@ void oneko_render_next_frame(t_animation* animation) {
         int8_t j = 0;
         last_frames.current_frame_reversed = false;
         // Clear the previous drawn frame
-        clear_sprite(&last_frames);
+        oled_clear();
 
         if (last_frames.destination_position_row != last_frames.current_position_row) {
-            i = (last_frames.destination_position_row - last_frames.current_position_row > 0) ? 1 : -1;
-            last_frames.current_position_row += i;
+            i = (last_frames.destination_position_row > last_frames.current_position_row) ? 1 : -1;
+            last_frames.current_position_row += (i == 1) ?
+                MIN(last_frames.destination_position_row - last_frames.current_position_row, MOVE_STEP_ROW)
+              : MAX(last_frames.destination_position_row - last_frames.current_position_row, -MOVE_STEP_ROW);
         }
         if (last_frames.destination_position_col != last_frames.current_position_col) {
             j = -1;
-            last_frames.current_frame_reversed = (last_frames.destination_position_col - last_frames.current_position_col > 0);
-            if (last_frames.current_frame_reversed) {
-                last_frames.current_position_col += MIN(LATERAL_STEP, last_frames.destination_position_col - last_frames.current_position_col);
-            } else {
-                last_frames.current_position_col += MAX(-LATERAL_STEP, last_frames.destination_position_col - last_frames.current_position_col);
-            }
+            last_frames.current_frame_reversed = (last_frames.destination_position_col > last_frames.current_position_col);
+            last_frames.current_position_col += (last_frames.current_frame_reversed) ?
+                 MIN(last_frames.destination_position_col - last_frames.current_position_col, i ? MOVE_STEP_ROW : MOVE_STEP_COLUMN)
+               : MAX(last_frames.destination_position_col - last_frames.current_position_col, i ? -MOVE_STEP_ROW : -MOVE_STEP_COLUMN);
         }
         render_sprite(&moves[i + 1][j + 1][last_frames.current_frame], &last_frames);
         last_frames.current_frame = (last_frames.current_frame + 1) % (NB_SPRITES_ANIM);
@@ -279,9 +293,9 @@ void oneko_render_next_frame(t_animation* animation) {
         if (last_frames.destination_position_row == last_frames.current_position_row
          && last_frames.destination_position_col == last_frames.current_position_col) {
             // Define a new destination
-            last_frames.destination_position_row = rand() % (NB_ROWS - SPRITE_HEIGHT + 1);
-            last_frames.destination_position_col = rand() % (NB_COLS - SPRITE_WIDTH + 1);
-            playing_step = 1 + rand() % NB_MAX_TURNS_PLAYING;
+            last_frames.destination_position_row = random8_max(NB_ROWS - SPRITE_HEIGHT);
+            last_frames.destination_position_col = random8_max(NB_COLS - SPRITE_WIDTH);
+            playing_step = 1 + random8_max(NB_MAX_TURNS_PLAYING);
             last_frames.current_frame = -1;
         }
     }

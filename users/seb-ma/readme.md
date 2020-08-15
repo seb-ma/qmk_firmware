@@ -17,8 +17,8 @@ Some features need to be improved/corrected or may be added. Here is my list:
 
 - Known bugs
   - [ ] HID: host application does not see usage page/usage of the device
-  - [ ] RGB: RGB_XXX keys do not activate animations (not compatible with layers)
 - Evolutions
+  - [ ] HID: send time from host to have an accurate timer (to use on pomodoro + display time if pomodoro is inactive)
   - [ ] LAYOUT: add a layout for games (or ALPHA that bypass all processing in custom_keys, deactivate unneeded stuff…)
   - [ ] UNICODE: test UNICODE_ENABLE / UNICODEMAP_ENABLE and fix the FIXME in custom_keys.c
 
@@ -33,13 +33,15 @@ Some features need to be improved/corrected or may be added. Here is my list:
     1. [Base layer (alphas)](#Base%20(alphabetic))
     1. [Numerics / Symbols / Functions](#Numeric%20/%20Symbols)
     1. [Navigation / Mouse / Dynamic macros / Shortcuts](#Navigation%20/%20Mouse)
-    1. [Media / RGB](#Media%20/RGB)
+    1. [Media / RGB](#Media%20/%20RGB)
+    1. [Shortcuts](#Shortcuts)
 1. [Encoders](#Encoders)
     1. [Left encoder](#Left%20encoder)
     1. [Right encoder](#Right%20encoder)
 1. [Special features](#Special%20features)
     1. [Close char](#Close%20Char)
     1. [Pomodoro](#Pomodoro)
+    1. [Custom transport](#Custom%20transport)
 1. [Features](#Features)
     1. [Custom keys](#Custom%20keys)
     1. [Combos](#Combos)
@@ -63,6 +65,7 @@ Some features need to be improved/corrected or may be added. Here is my list:
     1. [QMK documentation](#QMK%20documentation)
     1. [External documentation](#External%20documentation)
     1. [External tools](#External%20tools)
+1. [License](#License)
 
 ## Layers
 
@@ -85,49 +88,14 @@ Accessing other layers is done by:
 - key NAV/MOU: hold to temporary access or tap to enter/exit [Navigation / Mouse](#Navigation) layer
 - keys NUM/SYM + NAV/MOU: hold to temporary access or tap to enter/exit [Media / RGB](#Misc) layer
 
-#### Key representation
-
-Each layer share the same semantic in following descriptions:
-
-```text
-Physical keys representation by default:
-┌────────────────┐  ▒    = Dead key
-│ with other mod │  #S   = with Shift
-│ key      key#S │  #AG  = with AltGr
-│ key#AG key#AGS │  #AGS = with AltGr + Shift
-└────────────────┘  #H   = Holding
-```
-
 ### Base (alphabetic)
 
 The base layer is the alphabetic layer.
 
 #### Representation
 
-```text
-                                       Left                                                             Right
-
-          1       2       3       4       5       6                                             1       2       3         4       5       6
-                      ┌───────┬───────┬───────┬───────┐                                     ┌───────┬───────┬───────┬───────┐
-      ┌───────┬───────┤       │       │       │       │                                     │       │       │       │       ├───────┬───────┐
-      │       │       │ é   É │ p   P │ o   O │ è   È │                                     │ ^   ! │ v   V │ d   D │ l   L │       │       │
-Row 1 │Esc    │ b   B │ ´▒  ˝▒│ &   § │ œ   Œ │ `▒  ` │                                     │ ¡     │ ˇ▒    │ ð   Ð │ /▒    │ j   J │ z   Z │
-      │CapLck │ |   ¦ ├───────┼───────┼───────┼───────┤                                     ├───────┼───────┼───────┼───────┤ ĳ   Ĳ │ ə   Ə │
-      ├───────┼───────┤       │       │       │       │                                     │       │       │       │       ├───────┼───────┤
-      │       │       │ u   U │ i   I │ e   E │ ,   ; │                                     │ c   C │ t   T │ s   S │ r   R │       │       │
-Row 2 │Clo    │ a   A │ ù   Ù │ ¨▒  ˙▒│ €   ¤▒│ '   ̛ ▒│                                     │ ç   Ç │ þ   Þ │ ß   ẞ │ ®   ™ │ n   N │ m   M │
-      │ClCl#AG│ æ   Æ ├───────┼───────┼───────┼───────┤    1      2            1      2     ├───────┼───────┼───────┼───────┤ ~▒    │ ¯▒  º │
-      ├───────┼───────┤       │       │       │       │┌───────┬───────┐   ┌───────┬───────┐│       │       │       │       ├───────┼───────┤
-      │       │       │ y   Y │ x   X │ .   : │ k   K ││       │       │   │       │       ││ ’   ? │ q   Q │ g   G │ h   H │       │       │
-Row 3 │ ê   Ê │ à   À │ {   ‘ │ }   ’ │ …   · │ ~     ││ BckSp │ Ctrl  │   │ AltGr │  Del  ││ ¿    ̉▒│ °▒   ̣▒│ µ▒    │ †   ‡ │ f   F │ w   W │
-      │ /     │ \     ├───────┴───────┴───────┴───────┘│       │       │   │       │       │└───────┴───────┴───────┴───────┤ ˛▒  ª │ ˘▒    │
-      └───────┴───────┘     ▄▄▄▄▄▄▄┌───────┬───────┬───┴───┬───┴───┬───┘   └───┬───┴───┬───┴───┬───────┬───────┐▄▄▄▄▄▄▄     └───────┴───────┘
-                           ▐▲▼Pag#S▌(Layer)│       │       │       │           │       │       │       │(Layer)▐◄►Wrd#S▌
-Thumb row 2                ▐  Gui  ▌NAV/MOU│  Tab  │Sp NbSp│ Shift │           │ Shift │ Enter │  Alt  │NUM/SYM▐  App  ▌
-                           ▐  ↑↓   ▌       │       │_ NNbSp│       │           │       │       │       │       ▐  ←→   ▌
-                            ▀▀▀▀▀▀▀└───────┴───────┴───────┴───────┘           └───────┴───────┴───────┴───────┘▀▀▀▀▀▀▀
-                               1       2       3       4       5                   1       2       3       4       5
-```
+![keyboard-layout-editor - Base (alphabetic)](https://i.imgur.com/MOHvgl2.png)
+[keyboard-layout-editor - Base (alphabetic)](http://www.keyboard-layout-editor.com/##@_backcolor=%23ffffff&name=Kyria%3B&@_x:18.75&c=%23f1f1f1&t=%23646464&fa@:1&:1&:1&:1%3B%3B&=Shift%0Akey%0AAltGr%20Shift%0AAltGr%3B&@_y:-0.75&x:3&c=%23cccccc&t=%23000000&p=R1&f:3%3B&=P%0Ap%0A%C2%A7%0A%2F&&_x:9&f:3%3B&=D%0Ad%0A%C3%90%0A%C3%B0%3B&@_y:-0.75&x:2&f:3%3B&=%C3%89%0A%C3%A9%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23779%2F%3B%3C%2F%2Fspan%3E%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23769%2F%3B%3C%2F%2Fspan%3E&_x:1&f:3%3B&=O%0Ao%0A%C5%92%0A%C5%93&_x:7&f:3%3B&=V%0Av%0A%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23780%2F%3B%3C%2F%2Fspan%3E&_x:1&f:3%3B&=L%0Al%0A%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23823%2F%3B%3C%2F%2Fspan%3E%3B&@_y:-0.875&x:5&f:3%3B&=%C3%88%0A%C3%A8%0A%60%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23768%2F%3B%3C%2F%2Fspan%3E&_x:5&f:3%3B&=!%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23770%2F%3B%3C%2F%2Fspan%3E%0A%0A%C2%A1%3B&@_y:-0.625&f:3%3B&=%0A%0A%0A%3Ci%20class%2F='kb%20kb-Unicode-Lock-Closed-1'%3E%3C%2F%2Fi%3E%E2%87%A7%0A%0A%0AEsc&_f:3%3B&=B%0Ab%0A%C2%A6%0A%7C&_x:13&f:3%3B&=J%0Aj%0A%C4%B2%0A%C4%B3&_f:3%3B&=Z%0Az%0A%C6%8F%0A%C9%99%3B&@_y:-0.75&x:3&p=R2&f:3%3B&=I%0Ai%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23775%2F%3B%3C%2F%2Fspan%3E%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23776%2F%3B%3C%2F%2Fspan%3E&_x:9&f:3%3B&=S%0As%0A%E1%BA%9E%0A%C3%9F%3B&@_y:-0.75&x:2&f:3%3B&=U%0Au%0A%C3%99%0A%C3%B9&_x:1&f:3&n:true%3B&=E%0Ae%0A%C2%A4%E2%96%92%0A%E2%82%AC&_x:7&f:3&n:true%3B&=T%0At%0A%C3%9E%0A%C3%BE&_x:1&f:3%3B&=R%0Ar%0A%E2%84%A2%0A%C2%AE%3B&@_y:-0.875&x:5&f:3%3B&=%2F%3B%0A,%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23806%2F%3B%3C%2F%2Fspan%3E%0A'&_x:5&f:3%3B&=C%0Ac%0A%C3%87%0A%C3%A7%3B&@_y:-0.625&c=%23dec29d&fa@:1&:1&:1&:1&:0&:0&:6%3B%3B&=%0A%0A%0AClear%20%3Ci%20class%2F='kb%20kb-Undo-2'%3E%3C%2F%2Fi%3E%0A%0A%0A%3Ci%20class%2F='kb%20kb-Undo-2'%3E%3C%2F%2Fi%3E&_c=%23cccccc&f:3%3B&=A%0Aa%0A%C3%86%0A%C3%A6&_x:13&f:3%3B&=N%0An%0A%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23834%2F%3B%3C%2F%2Fspan%3E&_f:3%3B&=M%0Am%0A%C2%BA%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23772%2F%3B%3C%2F%2Fspan%3E%3B&@_y:-0.75&x:3&p=R3&f:3%3B&=X%0Ax%0A%E2%80%99%0A%7D&_x:9&f:3%3B&=G%0Ag%0A%0A%C2%B5%E2%96%92%3B&@_y:-0.75&x:2&f:3%3B&=Y%0Ay%0A%E2%80%98%0A%7B&_x:1&f:3%3B&=%2F:%0A.%0A%C2%B7%0A%E2%80%A6&_x:7&f:3%3B&=Q%0Aq%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23787%2F%3B%3C%2F%2Fspan%3E%0A%C2%B0&_x:1&f:3%3B&=H%0Ah%0A%E2%80%A1%0A%E2%80%A0%3B&@_y:-0.875&x:5&f:3%3B&=K%0Ak%0A%0A~&_x:5&f:3%3B&=%3F%0A%E2%80%99%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23803%2F%3B%3C%2F%2Fspan%3E%0A%C2%BF%3B&@_y:-0.625&f:3%3B&=%C3%8A%0A%C3%AA%0A%0A%2F%2F&_f:3%3B&=%C3%80%0A%C3%A0%0A%0A%5C&_x:13&f:3%3B&=F%0Af%0A%C2%AA%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23808%2F%3B%3C%2F%2Fspan%3E&_f:3%3B&=W%0Aw%0A%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23774%2F%3B%3C%2F%2Fspan%3E%3B&@_y:-0.5&x:2.5&c=%23616161&f:3%3B&=%3Ci%20class%2F='kb%20kb-Unicode-Page-Up-3'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Down-3'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-logo-linux-tux'%3E%3C%2F%2Fi%3E&_x:10&fa@:0&:0&:0&:0&:0&:0&:6&:0&:0&:1%3B%3B&=%3Ci%20class%2F='kb%20kb-Arrows-Left-Circle-Filled'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Right-Circle-Filled'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-Hamburger-Menu'%3E%3C%2F%2Fi%3E%3B&@_rx:4&ry:8.175&y:-4.675&x:-0.5&c=%23a5afff&a:7%3B&=Nav%20Mouse%3B&@_rx:13&y:-4.675&x:-0.5%3B&=Num%20Symb%3B&@_r:15&rx:4&y:-4.675&x:-0.5&c=%23bfc7ff&a:4&fa@:0&:0&:0&:0&:0&:0&:6&:0&:2&:1&:0%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Tab-1'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0AShorcuts%20(hold)%3B&@_r:30&y:-2&x:-0.5&c=%23cccccc&a:7%3B&=%3Ci%20class%2F='mss%20mss-Unicode-BackSpace-DeleteLeft-Big-2'%3E%3C%2F%2Fi%3E%3B&@_x:-0.5&a:4&fa@:1&:0&:1%3B%3B&=nb%2F&%239251%2F%3B%0A%2F&%239251%2F%3B%0Annb%2F&%239251%2F%3B%0A%2F_%3B&@_r:45&y:-2&x:-0.5&a:7&f:3%3B&=Ctrl%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-45&rx:13&y:-5.675&x:-0.5&f:3%3B&=AltGr%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-30&y:-2&x:-0.5&f:3%3B&=Del%3B&@_x:-0.5&f:3%3B&=%3Ci%20class%2F='kb%20kb-Return-2'%3E%3C%2F%2Fi%3E%3B&@_r:-15&y:-1&x:-0.5&f:3%3B&=Alt)
 
 #### Description
 
@@ -140,9 +108,8 @@ This layer is based on [BÉPO](https://bepo.fr) with some adjustments:
 Specific keys:
 |Code|Description|
 |---|---|
-|Clo (AltGr + Ld)|Automatically close opened chars `"(«[{` (see [Close char](#Close%20Char) feature for details)|
-|Shift + Clo (AltGr + Shift + Ld)|Reset buffer of registered char of Close char feature|
-|Ld (Leader)|Leader key for sequence of keys to trigger specific actions|
+|Clo|Automatically close opened chars `"(«[{` (see [Close char](#Close%20Char) feature for details)|
+|AltGr + Clo|Reset buffer of registered char of Close char feature|
 |AltGr + Esc|Toggle Caps lock|
 
 ### Numeric / Symbols
@@ -151,30 +118,8 @@ This is the numeric / symbols / functions layer.
 
 #### Representation
 
-```text
-                                       Left                                                             Right
-
-          1       2       3       4       5       6                                             1       2       3       4       5       6
-                      ┌───────┬───────┬───────┬───────┐                                     ┌───────┬───────┬───────┬───────┐
-      ┌───────┬───────┤       │       │       │       │                                     │       │       │       │       ├───────┬───────┐
-      │       │       │ 2     │ 3     │ 4     │ 5     │                                     │ 6     │ 7     │ 8     │ 9     │       │       │
-Row 1 │  ___  │ 1     │ “     │ ”     │ ≤     │ ≥     │                                     │       │ ¬     │ ¼     │ ½     │ 0     │ ,   ; │
-      │       │ „     ├───────┼───────┼───────┼───────┤                                     ├───────┼───────┼───────┼───────┤ ¾     │ .   : │
-      ├───────┼───────┤       │       │       │       │                                     │       │       │       │       ├───────┼───────┤
-      │       │       │ «     │ »     │ (     │ )     │                                     │ @     │ +     │ -     │ /     │       │       │
-Row 2 │  ___  │ "     │ <   “ │ >   ” │ [   ≤ │ ]   ≥ │                                     │ ^     │ ±   ¬ │ −   ¼ │ ÷   ½ │ *     │ =   ° │
-      │       │ ─   „ ├───────┼───────┼───────┼───────┤    1      2            1      2     ├───────┼───────┼───────┼───────┤ ×   ¾ │ ≠   ′ │
-      ├───────┼───────┤       │       │       │       │┌───────┬───────┐   ┌───────┬───────┐│       │       │       │       ├───────┼───────┤
-      │       │       │ F2    │ F3    │ F4    │ F5    ││       │       │   │       │       ││ F6    │ F7    │ F8    │ F9    │       │       │
-Row 3 │ $   # │ F1    │ F12   │ F13   │ {     │ }     ││  ___  │  ___  │   │  ___  │  ___  ││ ^▒    │ ˇ▒    │ \     │ /     │ F10   │ %   ` │
-      │ –   ¶ │ F11   ├───────┴───────┴───────┴───────┘│       │       │   │       │       │└───────┴───────┴───────┴───────┤       │     ″ │
-      └───────┴───────┘     ▄▄▄▄▄▄▄┌───────┬───────┬───┴───┬───┴───┬───┘   └───┬───┴───┬───┴───┬───────┬───────┐▄▄▄▄▄▄▄     └───────┴───────┘
-                           ▐       ▌       │       │       │       │           │       │       │       │       ▐       ▌
-               Thumb row 2 ▐  ___  ▌  ___  │  ___  │  ___  │  ___  │           │  ___  │  ___  │  ___  │  ___  ▐  ___  ▌
-                           ▐       ▌       │       │       │       │           │       │       │       │       ▐       ▌
-                            ▀▀▀▀▀▀▀└───────┴───────┴───────┴───────┘           └───────┴───────┴───────┴───────┘▀▀▀▀▀▀▀
-                               1       2       3       4       5                   1       2       3       4       5
-```
+![keyboard-layout-editor - Numeric / Symbols](https://i.imgur.com/u2Ixt19.png)
+[keyboard-layout-editor - Numeric / Symbols](http://www.keyboard-layout-editor.com/##@_backcolor=%23ffffff&name=Kyria%3B&@_x:18.75&c=%23f1f1f1&t=%23646464&fa@:1&:1&:1&:1%3B%3B&=Shift%0Akey%0AAltGr%20Shift%0AAltGr%3B&@_y:-0.75&x:3&c=%23cccccc&t=%23000000&p=R1&f:3%3B&=%0A3%0A%0A%E2%80%9D&_x:9&f:3%3B&=%0A8%0A%0A%C2%BC%3B&@_y:-0.75&x:2&f:3%3B&=%0A2%0A%0A%E2%80%9C&_x:1&f:3%3B&=%0A4%0A%0A%E2%89%A4&_x:7&f:3%3B&=%0A7%0A%0A%C2%AC&_x:1&f:3%3B&=%0A9%0A%0A%C2%BD%3B&@_y:-0.875&x:5&f:3%3B&=%0A5%0A%0A%E2%89%A5&_x:5&f:3%3B&=%0A6%3B&@_y:-0.625&f:3%3B&=%0A%0A%0A%3Ci%20class%2F='kb%20kb-Unicode-Lock-Closed-1'%3E%3C%2F%2Fi%3E%E2%87%A7%0A%0A%0AEsc&_f:3%3B&=%0A1%0A%0A%E2%80%9E&_x:13&f:3%3B&=%0A0%0A%0A%C2%BE&_f:3%3B&=%2F%3B%0A,%0A%2F:%0A.%3B&@_y:-0.75&x:3&p=R2&f:3%3B&=%0A%C2%BB%0A%0A%3E&_x:9&f:3%3B&=%0A-%0A%0A%E2%88%92%3B&@_y:-0.75&x:2&f:3%3B&=%0A%C2%AB%0A%0A%3C&_x:1&f:3&n:true%3B&=%0A(%0A%0A%5B&_x:7&f:3&n:true%3B&=%0A+%0A%0A%C2%B1&_x:1&f:3%3B&=%0A%2F%2F%0A%0A%C3%B7%3B&@_y:-0.875&x:5&f:3%3B&=%0A)%0A%0A%5D&_x:5&f:3%3B&=%0A%2F@%3B&@_y:-0.625&c=%23dec29d&fa@:1&:1&:1&:1&:0&:0&:6%3B%3B&=%0A%0A%0AClear%20%3Ci%20class%2F='kb%20kb-Undo-2'%3E%3C%2F%2Fi%3E%0A%0A%0A%3Ci%20class%2F='kb%20kb-Undo-2'%3E%3C%2F%2Fi%3E&_c=%23cccccc&f:3%3B&=%0A%22%0A%0A%E2%80%94&_x:13&f:3%3B&=%0A*%0A%0A%C3%97&_f:3%3B&=%C2%B0%0A%2F=%0A%E2%80%B2%0A%E2%89%A0%3B&@_y:-0.75&x:3&p=R3&f:3%3B&=%0A%2F&fnof%2F%3B3%0A%0A%2F&fnof%2F%3B13&_x:9&f:3%3B&=%0A%2F&fnof%2F%3B8%0A%0A%5C%3B&@_y:-0.75&x:2&f:3%3B&=%0A%2F&fnof%2F%3B2%0A%0A%2F&fnof%2F%3B12&_x:1&f:3%3B&=%0A%2F&fnof%2F%3B4%0A%0A%7B&_x:7&f:3%3B&=%0A%2F&fnof%2F%3B7%0A%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23780%2F%3B%3C%2F%2Fspan%3E&_x:1&f:3%3B&=%0A%2F&fnof%2F%3B9%0A%0A%2F%2F%3B&@_y:-0.875&x:5&f:3%3B&=%0A%2F&fnof%2F%3B5%0A%0A%7D&_x:5&f:3%3B&=%0A%2F&fnof%2F%3B6%0A%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23770%2F%3B%3C%2F%2Fspan%3E%3B&@_y:-0.625&f:3%3B&=%23%0A$%0A%C2%B6%0A%E2%80%93&_f:3%3B&=%0A%2F&fnof%2F%3B1%0A%0A%2F&fnof%2F%3B11&_x:13&f:3%3B&=%0A%2F&fnof%2F%3B10&_f:3%3B&=%60%0A%25%0A%E2%80%B3%3B&@_y:-0.5&x:2.5&c=%23616161&f:3%3B&=%3Ci%20class%2F='kb%20kb-Unicode-Page-Up-3'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Down-3'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-logo-linux-tux'%3E%3C%2F%2Fi%3E&_x:10&fa@:0&:0&:0&:0&:0&:0&:6&:0&:0&:1%3B%3B&=%3Ci%20class%2F='kb%20kb-Arrows-Left-Circle-Filled'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Right-Circle-Filled'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-Hamburger-Menu'%3E%3C%2F%2Fi%3E%3B&@_rx:4&ry:8.175&y:-4.675&x:-0.5&c=%23a5afff&a:7%3B&=Media%20RGB%3B&@_rx:13&y:-4.675&x:-0.5%3B&=Alpha%3B&@_r:15&rx:4&y:-4.675&x:-0.5&c=%23bfc7ff&a:4&fa@:0&:0&:0&:0&:0&:0&:6&:0&:2%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Tab-1'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0AShortcuts%20(hold)%3B&@_r:30&y:-2&x:-0.5&c=%23cccccc&a:7%3B&=%3Ci%20class%2F='mss%20mss-Unicode-BackSpace-DeleteLeft-Big-2'%3E%3C%2F%2Fi%3E%3B&@_x:-0.5&a:4&fa@:1&:0&:1%3B%3B&=nb%2F&%239251%2F%3B%0A%2F&%239251%2F%3B%0Annb%2F&%239251%2F%3B%0A%2F_%3B&@_r:45&y:-2&x:-0.5&a:7&f:3%3B&=Ctrl%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-45&rx:13&y:-5.675&x:-0.5&f:3%3B&=AltGr%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-30&y:-2&x:-0.5&f:3%3B&=Del%3B&@_x:-0.5&f:3%3B&=%3Ci%20class%2F='kb%20kb-Return-2'%3E%3C%2F%2Fi%3E%3B&@_r:-15&y:-1&x:-0.5&f:3%3B&=Alt)
 
 #### Description
 
@@ -198,30 +143,8 @@ This is the navigation / mouse layer.
 
 #### Representation
 
-```text
-                                       Left                                                             Right
-
-          1       2       3       4       5       6                                             1       2       3       4       5       6
-                      ┌───────┬───────┬───────┬───────┐                                     ┌───────┬───────┬───────┬───────┐
-      ┌───────┬───────┤       │       │       │       │                                     │       │       │       │       ├───────┬───────┐
-      │       │       │   ▲   │   ↑   │   ▼   │DynStop│                                     │  Cut  │   ▲   │   ↑   │   ▼   │       │       │
-Row 1 │  ___  │ Btn3  │(mouse)│(mouse)│(mouse)│       │                                     │       │       │       │       │ Pause │Insert │
-      │       │(mouse)├───────┼───────┼───────┼───────┤                                     ├───────┼───────┼───────┼───────┤       │       │
-      ├───────┼───────┤       │       │       │       │                                     │       │       │       │       ├───────┼───────┤
-      │       │       │   ←   │   ↓   │   →   │DynM1 ►│                                     │ Copy  │   ←   │   ↓   │   →   │       │       │
-Row 2 │DynM1 ■│ Btn1  │(mouse)│(mouse)│(mouse)│       │                                     │       │       │       │       │ Find  │ Undo  │
-      │       │(mouse)├───────┼───────┼───────┼───────┤    1      2            1      2     ├───────┼───────┼───────┼───────┤       │       │
-      ├───────┼───────┤       │       │       │       │┌───────┬───────┐   ┌───────┬───────┐│       │       │       │       ├───────┼───────┤
-      │       │       │   ◄   │       │   ►   │DynM2 ►││       │       │   │       │       ││ Paste │   ◄   │       │   ►   │       │       │
-Row 3 │DynM2 ■│ Btn2  │(mouse)│       │(mouse)│       ││  ___  │  ___  │   │  ___  │  ___  ││       │       │       │       │Pr.Scr │ Redo  │
-      │       │(mouse)├───────┴───────┴───────┴───────┘│       │       │   │       │       │└───────┴───────┴───────┴───────┤       │       │
-      └───────┴───────┘     ▄▄▄▄▄▄▄┌───────┬───────┬───┴───┬───┴───┬───┘   └───┬───┴───┬───┴───┬───────┬───────┐▄▄▄▄▄▄▄     └───────┴───────┘
-                           ▐       ▌       │       │       │       │           │       │       │       │       ▐       ▌
-               Thumb row 2 ▐Bt Ms 1▌  ___  │  ___  │  ___  │  ___  │           │  ___  │  ___  │  ___  │  ___  ▐Bt Ms 2▌
-                           ▐Bt Ms 3▌       │       │       │       │           │       │       │       │       ▐Bt Ms 3▌
-                            ▀▀▀▀▀▀▀└───────┴───────┴───────┴───────┘           └───────┴───────┴───────┴───────┘▀▀▀▀▀▀▀
-                               1       2       3       4       5                   1       2       3       4       5
-```
+![keyboard-layout-editor - Navigation / Mouse](https://i.imgur.com/gJADc2M.png)
+[keyboard-layout-editor - Navigation / Mouse](http://www.keyboard-layout-editor.com/##@_backcolor=%23ffffff&name=Kyria%3B&@_x:18.75&c=%23f1f1f1&t=%23646464&fa@:1&:1&:1&:1%3B%3B&=Shift%0Akey%0AAltGr%20Shift%0AAltGr%3B&@_y:-0.75&x:3&c=%23add1ad&t=%23000000&p=R1&fa@:1&:0&:1&:1&:0&:0&:0&:0&:0&:1%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:9&c=%23cccccc%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%3B&@_y:-0.75&x:2&c=%23add1ad%3B&=%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Up-3'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:1%3B&=%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Down-3'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:7&c=%23cccccc%3B&=%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Up-3'%3E%3C%2F%2Fi%3E&_x:1%3B&=%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Down-3'%3E%3C%2F%2Fi%3E%3B&@_y:-0.875&x:5&c=%23add1ad%3B&=%0ABtn%203%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:5&c=%23cccccc%3B&=%0A%3Ci%20class%2F='fa%20fa-cut'%3E%3C%2F%2Fi%3E%3B&@_y:-0.625&f:3%3B&=%0A%0A%0A%3Ci%20class%2F='kb%20kb-Unicode-Lock-Closed-1'%3E%3C%2F%2Fi%3E%E2%87%A7%0A%0A%0AEsc&_a:7%3B&=&_x:13&a:4%3B&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Pause'%3E%3C%2F%2Fi%3E&=%0AInsert%3B&@_y:-0.75&x:3&c=%23add1ad&p=R2%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:9&c=%23cccccc%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%3B&@_y:-0.75&x:2&c=%23add1ad%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:1&n:true%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:7&c=%23cccccc&n:true%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E&_x:1%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E%3B&@_y:-0.875&x:5&c=%23add1ad%3B&=%0ABtn%201%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:5&c=%23cccccc%3B&=%0A%3Ci%20class%2F='fa%20fa-copy'%3E%3C%2F%2Fi%3E%3B&@_y:-0.625&fa@:1&:0&:1&:1&:0&:0&:1&:0&:0&:1%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Record'%3E%3C%2F%2Fi%3E%2F%2F%3Ci%20class%2F='kb%20kb-Multimedia-Stop'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AM1%0A%0A%0A%3Ci%20class%2F='fa%20fa-list-ol'%3E%3C%2F%2Fi%3E&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Play'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AM1%0A%0A%0A%3Ci%20class%2F='fa%20fa-list-ol'%3E%3C%2F%2Fi%3E&_x:13%3B&=%0A%3Ci%20class%2F='kb%20kb-Search-2'%3E%3C%2F%2Fi%3E&=%0A%3Ci%20class%2F='mss%20mss-Undo-5'%3E%3C%2F%2Fi%3E%3B&@_y:-0.75&x:3&p=R3&a:7%3B&=&_x:9%3B&=%3B&@_y:-0.75&x:2&c=%23add1ad&a:4%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Left-Circle-Filled'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:1%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Right-Circle-Filled'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:7&c=%23cccccc%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Left-Circle-Filled'%3E%3C%2F%2Fi%3E&_x:1%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Right-Circle-Filled'%3E%3C%2F%2Fi%3E%3B&@_y:-0.875&x:5&c=%23add1ad%3B&=%0ABtn%202%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:5&c=%23cccccc%3B&=%0A%3Ci%20class%2F='fa%20fa-paste'%3E%3C%2F%2Fi%3E%3B&@_y:-0.625%3B&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Record'%3E%3C%2F%2Fi%3E%2F%2F%3Ci%20class%2F='kb%20kb-Multimedia-Stop'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AM2%0A%0A%0A%3Ci%20class%2F='fa%20fa-list-ol'%3E%3C%2F%2Fi%3E&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Play'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AM2%0A%0A%0A%3Ci%20class%2F='fa%20fa-list-ol'%3E%3C%2F%2Fi%3E&_x:13%3B&=%0A%3Ci%20class%2F='kb%20kb-Unicode-PrintScreen-1'%3E%3C%2F%2Fi%3E&=%0A%3Ci%20class%2F='mss%20mss-Redo-2'%3E%3C%2F%2Fi%3E%3B&@_y:-0.5&x:2.5&c=%23616161&f:3%3B&=%3Ci%20class%2F='kb%20kb-Unicode-Page-Up-3'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Down-3'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-logo-linux-tux'%3E%3C%2F%2Fi%3E&_x:10&fa@:0&:0&:0&:0&:0&:0&:1&:0&:0&:1%3B%3B&=%3Ci%20class%2F='kb%20kb-Arrows-Left-Circle-Filled'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Right-Circle-Filled'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-Hamburger-Menu'%3E%3C%2F%2Fi%3E%3B&@_rx:4&ry:8.175&y:-4.675&x:-0.5&c=%23a5afff&a:7%3B&=Alpha%3B&@_rx:13&y:-4.675&x:-0.5%3B&=Media%20RGB%3B&@_r:15&rx:4&y:-4.675&x:-0.5&c=%23bfc7ff&a:4&fa@:0&:0&:0&:0&:0&:0&:1&:0&:2%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Tab-1'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0AShortcuts%20(hold)%3B&@_r:30&y:-2&x:-0.5&c=%23cccccc&a:7%3B&=%3Ci%20class%2F='mss%20mss-Unicode-BackSpace-DeleteLeft-Big-2'%3E%3C%2F%2Fi%3E%3B&@_x:-0.5&a:4&fa@:1&:0&:1%3B%3B&=nb%2F&%239251%2F%3B%0A%2F&%239251%2F%3B%0Annb%2F&%239251%2F%3B%0A%2F_%3B&@_r:45&y:-2&x:-0.5&a:7&f:3%3B&=Ctrl%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-45&rx:13&y:-5.675&x:-0.5&f:3%3B&=AltGr%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-30&y:-2&x:-0.5&f:3%3B&=Del%3B&@_x:-0.5&f:3%3B&=%3Ci%20class%2F='kb%20kb-Return-2'%3E%3C%2F%2Fi%3E%3B&@_r:-15&y:-1&x:-0.5&f:3%3B&=Alt)
 
 #### Description
 
@@ -249,30 +172,8 @@ This is the Media / RGB layer.
 
 #### Representation
 
-```text
-                                       Left                                                             Right
-
-          1       2       3       4       5       6                                             1       2       3       4       5       6
-                      ┌───────┬───────┬───────┬───────┐                                     ┌───────┬───────┬───────┬───────┐
-      ┌───────┬───────┤       │       │       │       │                                     │       │       │       │       ├───────┬───────┐
-      │eepr#AG│       │ Hue↑  │ Sat↑  │ Val↑  │Speed↑ │                                     │ Mode→ │Effect │Effect │Effect │       │eepr#AG│
-Row 1 │Toggle │Bright↑│ (RGB) │ (RGB) │ (RGB) │ (RGB) │                                     │ (RGB) │ (RGB) │ (RGB) │ (RGB) │Effect │Toggle │
-      │ (RGB) │ (RGB) ├───────┼───────┼───────┼───────┤                                     ├───────┼───────┼───────┼───────┤ (RGB) │(OLED2)│
-      ├───────┼───────┤       │       │       │       │                                     │       │       │       │       ├───────┼───────┤
-      │       │       │ Hue↓  │ Sat↓  │ Val↓  │Speed↓ │                                     │ Mode← │Effect │Effect │Effect │       │       │
-Row 2 │ Plain │Bright↓│ (RGB) │ (RGB) │ (RGB) │ (RGB) │                                     │ (RGB) │ (RGB) │ (RGB) │ (RGB) │       │CyclAni│
-      │ (RGB) │ (RGB) ├───────┼───────┼───────┼───────┤    1      2            1      2     ├───────┼───────┼───────┼───────┤       │(OLED2)│
-      ├───────┼───────┤       │       │       │       │┌───────┬───────┐   ┌───────┬───────┐│       │       │       │       ├───────┼───────┤
-      │       │       │ Unix  │ Win   │ WinC  │ Mac   ││       │       │   │       │       ││       │       │       │       │StrtStp│       │
-Row 3 │Toggle │Cycle  │Unicode│Unicode│Unicode│Unicode││  ___  │  ___  │   │  ___  │  ___  ││       │       │       │       │Pomodo │InitAni│
-      │Unicode│Unicode├───────┴───────┴───────┴───────┘│       │       │   │       │       │└───────┴───────┴───────┴───────┤(OLED2)│(OLED2)│
-      └───────┴───────┘     ▄▄▄▄▄▄▄┌───────┬───────┬───┴───┬───┴───┬───┘   └───┬───┴───┬───┴───┬───────┬───────┐▄▄▄▄▄▄▄     └───────┴───────┘
-                           ▐       ▌       │       │       │       │           │       │       │       │       ▐       ▌
-               Thumb row 2 ▐ Mute  ▌  ___  │  ___  │  ___  │  ___  │           │  ___  │  ___  │  ___  │  ___  ▐ Play  ▌
-                           ▐ ↑↓Vol ▌       │       │       │       │           │       │       │       │       ▐←→Track▌
-                            ▀▀▀▀▀▀▀└───────┴───────┴───────┴───────┘           └───────┴───────┴───────┴───────┘▀▀▀▀▀▀▀
-                               1       2       3       4       5                   1       2       3       4       5
-```
+![keyboard-layout-editor - Media / RGB](https://i.imgur.com/b0Ephjq.png)
+[keyboard-layout-editor - Media / RGB](http://www.keyboard-layout-editor.com/##@_backcolor=%23ffffff&name=Kyria%3B&@_x:18.75&c=%23f1f1f1&t=%23646464&fa@:1&:1&:1&:1%3B%3B&=Shift%0Akey%0AAltGr%20Shift%0AAltGr%3B&@_y:-0.75&x:3&c=%23a5c3e6&t=%23000000&p=R1&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0ASat&_x:9&fa@:1&:2%3B%3B&=%0ASnake%0A%0A%0A%0A%0AMode%3B&@_y:-0.75&x:2&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0AHue&_x:1&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0AValue&_x:7&f:3%3B&=%0ABreath%0A%0A%0A%0A%0AMode&_x:1&f:3%3B&=%0AGradient%0A%0A%0A%0A%0AMode%3B&@_y:-0.875&x:5&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0ASpeed&_x:5&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AMode%3B&@_y:-0.625&c=%23cccccc&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-Unicode-Screen-Bright'%3E%3C%2F%2Fi%3E&_c=%23a5c3e6&fa@:1&:2&:0&:1%3B%3B&=%0A%0A%0Aeepr%0A%0A%0AToggle&_x:13%3B&=%0ARainbow%0A%0A%0A%0A%0AMode&_c=%23d192d9%3B&=%0A%0A%0Atgl%C2%A0eepr%0A%0A%0AToggle%3B&@_y:-0.75&x:3&c=%23a5c3e6&p=R2&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0ASat&_x:9&f:3%3B&=%0ASwirl%0A%0A%0A%0A%0AMode%3B&@_y:-0.75&x:2&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0AHue&_x:1&f:3&n:true%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0AValue&_x:7&f:3&n:true%3B&=%0AKnight%0A%0A%0A%0A%0AMode&_x:1&f:3%3B&=%0AXmas%0A%0A%0A%0A%0AMode%3B&@_y:-0.875&x:5&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0ASpeed&_x:5&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AMode%3B&@_y:-0.625&c=%23cccccc&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-Unicode-Screen-Bright'%3E%3C%2F%2Fi%3E&_c=%23a5c3e6&f:3%3B&=%0APlain&_x:13&c=%23cccccc&a:7%3B&=&_c=%23d192d9&a:4%3B&=%0A%0A%0Aeepr%0A%0A%0ACycle%20animat.%3B&@_y:-0.75&x:3&c=%23f2ac9d&p=R3&fa@:1&:0&:0&:1&:0&:0&:0&:0&:0&:1%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-logo-windows-8'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0AUnicode&_x:9&c=%23cccccc&a:7%3B&=%3B&@_y:-0.75&x:2&c=%23f2ac9d&a:4%3B&=%0A%3Ci%20class%2F='kb%20kb-logo-linux-tux'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0AUnicode&_x:1%3B&=%0A%3Ci%20class%2F='kb%20kb-logo-windows-8'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0AUnicode&_x:7&c=%23cccccc&a:7%3B&=&_x:1%3B&=%3B&@_y:-0.875&x:5&c=%23f2ac9d&a:4%3B&=%0A%3Ci%20class%2F='kb%20kb-logo-apple'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0AUnicode&_x:5&c=%23cccccc&a:7%3B&=%3B&@_y:-0.625&c=%23f2ac9d&a:4%3B&=%0AToggle%0A%0A%0A%0A%0A%0A%0A%0AUnicode&=%0ACycle%0A%0A%0A%0A%0A%0A%0A%0AUnicode&_x:13&c=%23d192d9&fa@:1&:1%3B%3B&=%0AStart%2F%2Fstop%20Pomodoro&_f:3%3B&=%0AInit%20animat.%3B&@_y:-0.5&x:2.5&c=%23616161&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Volume-Down-1'%3E%3C%2F%2Fi%3E%0A%0A%3Ci%20class%2F='kb%20kb-Multimedia-Volume-Up-2'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-Multimedia-Mute-2'%3E%3C%2F%2Fi%3E&_x:10&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Rewind-Start'%3E%3C%2F%2Fi%3E%0A%0A%3Ci%20class%2F='kb%20kb-Multimedia-FastForward-End'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-Multimedia-Play-Pause'%3E%3C%2F%2Fi%3E%3B&@_rx:4&ry:8.175&y:-4.675&x:-0.5&c=%23a5afff&a:7&f:3%3B&=Alpha%3B&@_rx:13&y:-4.675&x:-0.5&f:3%3B&=Num%20Symb%3B&@_r:15&rx:4&y:-4.675&x:-0.5&c=%23bfc7ff&a:4&fa@:1&:0&:0&:0&:0&:0&:0&:0&:2%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Tab-1'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0AShortcuts%20(hold)%3B&@_r:30&y:-2&x:-0.5&c=%23cccccc&a:7&f:3%3B&=%3Ci%20class%2F='mss%20mss-Unicode-BackSpace-DeleteLeft-Big-2'%3E%3C%2F%2Fi%3E%3B&@_x:-0.5&a:4&fa@:1&:0&:1%3B%3B&=nb%2F&%239251%2F%3B%0A%2F&%239251%2F%3B%0Annb%2F&%239251%2F%3B%0A%2F_%3B&@_r:45&y:-2&x:-0.5&a:7&f:3%3B&=Ctrl%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-45&rx:13&y:-5.675&x:-0.5&f:3%3B&=AltGr%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-30&y:-2&x:-0.5&f:3%3B&=Del%3B&@_x:-0.5&f:3%3B&=%3Ci%20class%2F='kb%20kb-Return-2'%3E%3C%2F%2Fi%3E%3B&@_r:-15&y:-1&x:-0.5&f:3%3B&=Alt)
 
 #### Description
 
@@ -285,7 +186,7 @@ Specific keys:
 |Cycle animations<sup>1</sup>|Cycle throw available animations - Store current animation in EEPROM with AltGr|
 |Start/Stop pomodoro|Start (or stop) a timer of 25 minutes|
 
-*<sup>1</sup>: Warn: works only with a light modification in transport layer (in QMK core) and activation of TRANSPORT_USER_DATA*
+*<sup>1</sup>: Warn: works only with the implementation of custom transport between halves*
 
 #### Medias on encoders
 
@@ -315,6 +216,21 @@ Activation of media navigation is done in file `rules.mk`:
 ```c
 EXTRAKEY_ENABLE = yes
 ```
+
+### Shortcuts
+
+This is the shortcuts layer.
+
+#### Representation
+
+![keyboard-layout-editor - Shortcuts](https://i.imgur.com/Ur1CVoJ.png)
+[keyboard-layout-editor - Shortcuts](http://www.keyboard-layout-editor.com/##@_backcolor=%23ffffff&name=Kyria%3B&@_x:18.75&c=%23f1f1f1&t=%23646464&fa@:1&:1&:1&:1%3B%3B&=Shift%0Akey%0AAltGr%20Shift%0AAltGr%3B&@_y:-0.75&x:3&c=%23cccccc&t=%23000000&p=R1&a:7%3B&=&_x:9&a:4&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%3B&@_y:-0.75&x:2&a:7%3B&=&_x:1&a:4&f:3%3B&=%0A%3Ci%20class%2F='mss%20mss-Undo-5'%3E%3C%2F%2Fi%3E&_x:7&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Up-3'%3E%3C%2F%2Fi%3E&_x:1&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Down-3'%3E%3C%2F%2Fi%3E%3B&@_y:-0.875&x:5&f:3%3B&=%0A%3Ci%20class%2F='mss%20mss-Redo-2'%3E%3C%2F%2Fi%3E&_x:5&a:7%3B&=%3B&@_y:-0.625&a:4&f:3%3B&=%0A%0A%0A%3Ci%20class%2F='kb%20kb-Unicode-Lock-Closed-1'%3E%3C%2F%2Fi%3E%E2%87%A7%0A%0A%0AEsc&_a:7%3B&=&_x:13%3B&=&=%3B&@_y:-0.75&x:3&p=R2&a:4&f:3%3B&=%0A%3Ci%20class%2F='fa%20fa-copy'%3E%3C%2F%2Fi%3E&_x:9&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%3B&@_y:-0.75&x:2&f:3%3B&=%0A%3Ci%20class%2F='fa%20fa-cut'%3E%3C%2F%2Fi%3E&_x:1&f:3&n:true%3B&=%0A%3Ci%20class%2F='fa%20fa-paste'%3E%3C%2F%2Fi%3E&_x:7&f:3&n:true%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E&_x:1&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E%3B&@_y:-0.875&x:5&a:7%3B&=&_x:5%3B&=%3B&@_y:-0.625&a:4&fa@:1&:0&:1&:1&:0&:0&:1&:0&:0&:1%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Record'%3E%3C%2F%2Fi%3E%2F%2F%3Ci%20class%2F='kb%20kb-Multimedia-Stop'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AM1%0A%0A%0A%3Ci%20class%2F='fa%20fa-list-ol'%3E%3C%2F%2Fi%3E&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Play'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AM1%0A%0A%0A%3Ci%20class%2F='fa%20fa-list-ol'%3E%3C%2F%2Fi%3E&_x:13&a:7%3B&=&=%3B&@_y:-0.75&x:3&p=R3&a:4%3B&=%0ANew%20tab&_x:9&a:7%3B&=%3B&@_y:-0.75&x:2&a:4%3B&=%0AClose&_x:1%3B&=%0A%3Ci%20class%2F='kb%20kb-Search-2'%3E%3C%2F%2Fi%3E&_x:7%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Left-Circle-Filled'%3E%3C%2F%2Fi%3E&_x:1%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Right-Circle-Filled'%3E%3C%2F%2Fi%3E%3B&@_y:-0.875&x:5&fa@:1&:2%3B%3B&=%0AReplace&_x:5&a:7%3B&=%3B&@_y:-0.625&a:4&fa@:1&:0&:0&:0&:0&:0&:1&:0&:0&:1%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Record'%3E%3C%2F%2Fi%3E%2F%2F%3Ci%20class%2F='kb%20kb-Multimedia-Stop'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AM2%0A%0A%0A%3Ci%20class%2F='fa%20fa-list-ol'%3E%3C%2F%2Fi%3E&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Play'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AM2%0A%0A%0A%3Ci%20class%2F='fa%20fa-list-ol'%3E%3C%2F%2Fi%3E&_x:13&a:7%3B&=&=%3B&@_y:-0.5&x:2.5&c=%23616161&a:4&f:3%3B&=%3Ci%20class%2F='kb%20kb-Unicode-Page-Up-3'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Down-3'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-logo-linux-tux'%3E%3C%2F%2Fi%3E&_x:10&fa@:0&:0&:0&:0&:0&:0&:1&:0&:0&:1%3B%3B&=%3Ci%20class%2F='kb%20kb-Arrows-Left-Circle-Filled'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Right-Circle-Filled'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-Hamburger-Menu'%3E%3C%2F%2Fi%3E%3B&@_rx:4&ry:8.175&y:-4.675&x:-0.5&c=%23a5afff&a:7%3B&=Nav%20Mouse%3B&@_rx:13&y:-4.675&x:-0.5%3B&=Num%20Symb%3B&@_r:15&rx:4&y:-4.675&x:-0.5&c=%23bfc7ff&a:5&fa@:2%3B%3B&=Shortcuts%20(hold)%3B&@_r:30&y:-2&x:-0.5&c=%23cccccc&a:7&f:3%3B&=%3Ci%20class%2F='mss%20mss-Unicode-BackSpace-DeleteLeft-Big-2'%3E%3C%2F%2Fi%3E%3B&@_x:-0.5&a:4&fa@:1&:0&:1%3B%3B&=nb%2F&%239251%2F%3B%0A%2F&%239251%2F%3B%0Annb%2F&%239251%2F%3B%0A%2F_%3B&@_r:45&y:-2&x:-0.5&a:7&f:3%3B&=Ctrl%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-45&rx:13&y:-5.675&x:-0.5&f:3%3B&=AltGr%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-30&y:-2&x:-0.5&f:3%3B&=Del%3B&@_x:-0.5&f:3%3B&=%3Ci%20class%2F='kb%20kb-Return-2'%3E%3C%2F%2Fi%3E%3B&@_r:-15&y:-1&x:-0.5&f:3%3B&=Alt)
+
+#### Description
+
+All the classic shortcuts in direct access on left halve, thus, shortcuts can be done one hand.
+
+Navigation keys are on right halve.
 
 ## Encoders
 
@@ -371,12 +287,34 @@ Activation of close char is done in file `config.h`:
 This feature displays a countdown timer of 25 minutes on OLED. The principle is from [The Pomodoro technique](https://francescocirillo.com/pages/pomodoro-technique).
 This feature can be upgraded with a [special animation](#Pomodoro%20animation).
 
+!> It is not based on a real-time tick, so the countdown is not fully accurate.
+
 #### Configuration
 
 Activation of pomodoro is done in file `config.h`:
 
 ```c
 #define POMODORO_TIMER 25 // time of pomodoro in minutes
+```
+
+### Custom transport
+
+Custom transport between halves is used to transfer commands from master to follower.
+Implementation is a simple overload of standard implementation only adding a data sent from master to follower.
+
+Commands sent *(if related feature is activated)*:
+
+- set OLED follower on or off
+- change animation to display
+- re-start animation
+- start/stop pomodoro timer
+
+#### Configuration
+
+Activation is done in file `rules.mk`:
+
+```c
+SPLIT_TRANSPORT = custom
 ```
 
 ## Features
@@ -428,16 +366,21 @@ Some standard keycodes are fully overridden according to modifiers and some cust
 Cording two or more keys to activate specific actions.
 |Cording|Description|Equivalent|
 |---|---|---|
-|Shortcuts|
-|`TAB` + `à`|Close|*Ctrl + w*|
-|`TAB` + `a`|Select all|*Ctrl + a*|
-|`TAB` + `u`|Cut|*Ctrl + x*|
-|`TAB` + `i`|Copy|*Ctrl + c*|
-|`TAB` + `e`|Paste|*Ctrl + v*|
-|`TAB` + `p`|Undo|*Ctrl + z*|
-|`TAB` + `o`|Redo|*Ctrl + y*|
-|`TAB` + `t`|Reopen last tab|*Ctrl + Shift + t*|
 |Quadrigrams|
+|`a` + `i`|Write quadrigram aire|aire|
+|`d` + `a`|Write quadrigram dans|dans|
+|`e` + `l`|Write quadrigram elle|elle|
+|`e` + `t`|Write quadrigram ette|ette|
+|`e` + `n`|Write quadrigram ente|ente|
+|`i` + `l`|Write quadrigram ille|ille|
+|`i` + `q`|Write quadrigram ique|ique|
+|`m` + `e`|Write quadrigram ment|ment|
+|`o` + `m`|Write quadrigram omme|omme|
+|`o` + `n`|Write quadrigram onne|onne|
+|`p` + `o`|Write quadrigram pour|pour|
+|`q` + `u`|Write quadrigram quel|quel|
+|`t` + `i`|Write quadrigram tion|tion|
+
 |`e` + `l`|Write quadrigram elle|elle|
 |`i` + `q`|Write quadrigram ique|ique|
 |`m` + `e`|Write quadrigram ment|ment|
@@ -457,6 +400,7 @@ Cording two or more keys to activate specific actions.
 |`SPACE` + `,`|Shift char , and append nbsp before|` ;`|
 |`SPACE` + `.`|Shift char . and append nbsp before|` :`|
 |Others|
+|`t` + `.`|Write `. ` and hold shift for next key |`. ` + hold Shift until next key|
 |`SPACE` + `h`|`https://`|`https://`|
 |`SPACE` + `g`|`/giphy `|`/giphy `|
 ||**Sequences using secrets**|
@@ -607,8 +551,8 @@ Items:
 ```
   1                   21
  ┌─────────────────────┐
-1│ LAY   Alpha  Num/S  │
- │ LAY   Nav/M  Med/R  │
+1│ LAY     Hightest    │
+ │ LAY   active layer  │
  │                     │
  │ MOD   Sft  Ctl  Gui │
  │ MOD   Alt  AlG      │
@@ -622,7 +566,7 @@ Items:
 
 The follower screen is used to display fun animations.
 Animations may be included simultaneously and cycle throw with the key C_OLED2_ANIMATION_CYCLE.
-!> The cycle can only work with a modification in transport layer in QMK core.
+!> The cycle can only work with custom transport enabled.
 
 #### Bongo cat
 
@@ -672,6 +616,8 @@ WPM_ENABLE = yes
 This animation is a [Conway's game of life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) with [DotLife](https://conwaylife.com/wiki/OCA:DotLife) rules.
 Each cell is a 2×2 square living on a toroidal universe (the whole screen) and living (birth, death, surviving) according to number of neighbors.
 
+!> If WPM is not enabled, the screen never goes off.
+
 ##### Configuration
 
 Activation of oled display is done in file `rules.mk`:
@@ -686,6 +632,25 @@ Activation of follower halve animation of game of life is done in file `config.h
 #define LIFE_ANIMATION
 ```
 
+#### Starfield
+
+This animation is featuring a starfield animation.
+It was first developped by @GauthamYerroju
+
+##### Configuration
+
+Activation of oled display is done in file `rules.mk`:
+
+```c
+OLED_DRIVER_ENABLE = yes
+```
+
+Activation of follower halve animation of starfield is done in file `config.h`:
+
+```c
+#define STARLIGHT_ANIMATION
+```
+
 Optional activation of synchronization of follower halve animation on user currently tapping speed is done in file `rules.mk`:
 
 ```c
@@ -697,7 +662,7 @@ WPM_ENABLE = yes
 This animation is an abstract representation of the pomodoro feature.
 It displays blank pixels to represent the remaining time. Black pixels are randomly placed and their number increments when time goes.
 
-It needs to have following activated features to work: [Pomodoro](#Pomodoro) and transport user data between halves.
+It needs to have following activated features to work: [Pomodoro](#Pomodoro) and custom transport data between halves.
 
 ##### Configuration
 
@@ -710,7 +675,6 @@ OLED_DRIVER_ENABLE = yes
 Activation of pomodoro animation is done in file `config.h`:
 
 ```c
-#define TRANSPORT_USER_DATA
 #define POMODORO_ANIMATION
 ```
 
@@ -722,6 +686,8 @@ This animation is a cat playing and walking around the screen: [Oneko](https://g
 ![Oneko jare](https://i.imgur.com/jfUK6CF.png)
 ![Oneko left1](https://i.imgur.com/Z8wDANp.png)
 ![Oneko left2](https://i.imgur.com/DM66ZOw.png)
+
+!> If WPM is not enabled, the screen never goes off.
 
 ##### Configuration
 
@@ -835,11 +801,13 @@ Each main feature is coded in a specific file to have code as clean and as indep
 |[oled_gfx_oneko.h](oled_gfx_oneko.h)|Sprites of Oneko animation|
 |[oled_gfx_oneko.c](oled_gfx_oneko.c)|Implementation of Oneko animation|
 |[oled_gfx_pomodoro.c](oled_gfx_pomodoro.c)|Implementation of pomodoro animation|
+|[oled_gfx_starfield.c](oled_gfx_starfield.c)|Implementation of starfield animation|
 |[oled.h](oled.h)|Definition of OLED external called functions|
 |[rgb.h](rgb.h)|Definition of RGB external called functions|
 |[rgb.c](rgb.c)|Implementation of RGB behavior|
 |[tap_dance.h](tap_dance.h)|Definition of tap dance keys|
 |[tap_dance.c](tap_dance.c)|Implementation of tap dance keys behavior|
+|[transport_custom.c](transport_custom.c)|Implementation of custom protocol between the two halves|
 |[transport_user.h](transport_user.h)|Definition of the data transfered between the two halves|
 |[transport_user.c](transport_user.c)|Implementation of the data transfered between the two halves|
 |[unicode_keys.c](unicode_keys.c)|Implementation of Unicode / Unicode map|
@@ -881,6 +849,7 @@ Memory footprint is given including QMK code and userspace/keyboard code with LT
 |[opt] BONGOCAT_ANIMATION *(option of OLED)* – *(by `#define`)*|2520|1130|
 |[opt] LIFE_ANIMATION *(option of OLED)* – *(by `#define`)*|2582|1252|
 |[opt] ONEKO_ANIMATION *(option of OLED)* – *(by `#define`)*|3502|*tbd*|
+|[opt] STARFIELD_ANIMATION *(option of OLED)* – *(by `#define`)*|*tbd*|*tbd*|
 |[opt] POMODORO_ANIMATION *(option of OLED)* – *(by `#define`)*|808|36|
 |RGBLIGHT_ENABLE|2206|2738|
 |[opt] RGBLIGHT_LAYER + RGBLIGHT_LAYER_BLINK *(options of RGB)* – *(by `#define`)*|840|168|
@@ -961,3 +930,20 @@ qmk flash -kb kyria -km seb-ma
 - [image2cpp (Convert image to C array)](https://javl.github.io/image2cpp/)
 - [Font and Image editor](https://joric.github.io/qle/)
 - [Font editor](https://helixfonteditor.netlify.app/)
+
+## License
+
+Copyright 2020 @seb-ma
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.

@@ -10,14 +10,20 @@ This application is a basic window that displays the layer currently active and 
 It is highly dependant of HID keyboard implementation.
 See for [HID device](../readme.md#HID) the device side.
 
+!> Currently WIP: usage_page and usage are not working properly (not filled by enumerate). This application can't work until fix is found.
+
 ## Dependencies
 
 This application has following dependencies:
 
-- Linux dependencies:
-  - `libhidapi-hidraw0` or `libhidapi-libusb0` or `hidapi` (according to distribution)
+- OS dependencies:
+  - python-dev
+  - libudev-dev
 - Python dependencies:
-  - [pyhidapi](https://pypi.org/project/hid/) (available on PyPI: pip install hid)
+  - [cython-hidapi](https://github.com/trezor/cython-hidapi) - available on PyPI: sudo pip install --install-option="--without-libusb" hidapi
+    - must use the Kernel's hidraw driver - Implementation in libusb prevents from using hid usage pages: https://github.com/libusb/hidapi/blob/master/libusb/hid.c#L598
+    - WARN: may be in conflict with [pyhidapi](https://pypi.org/project/hid/) if installed
+    - WARN 2: [patch](https://github.com/Foxboron/archlinux-pkgbuilds/blob/master/python-hidapi/revert-hid_get_input_report.patch) due to `missing undefined symbol: hid_get_input_report`
   - [tkinter](https://docs.python.org/library/tk.html)
 
 ## Usage as non-root
@@ -35,3 +41,20 @@ KERNEL=="hidraw*", ATTRS{busnum}=="1", ATTRS{idVendor}=="feed", ATTRS{idProduct}
 ```
 
 - then reload: ```udevadm control --reload-rules```
+
+## License
+
+Copyright 2020 @seb-ma
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.

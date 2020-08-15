@@ -1,3 +1,19 @@
+/*
+Copyright 2020 @seb-ma
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 #ifndef FOLLOWER_ONLY
 
 #include "keymap_bepo.h"
@@ -48,12 +64,12 @@ const key_alter_map_t key_mod_altgr_map[] PROGMEM = {
  else get key
 */
 const key_mod_full_map_t key_mod_full_map[] PROGMEM = {
-    //keycode,    key,        key_shift,   key_altgr,  key_shift_altgr
-    {BP_COMM,     BP_COMM,    S(BP_COMM),  BP_QUOT,     S(ALGR(BP_COMM))}, // , ; '
-    {BP_RSQU,     BP_RSQU,    S(BP_QUOT),  BP_IQUE,     S(ALGR(BP_QUOT))}, // ’ ? ¿
+    //keycode,    key,      key_shift,   key_altgr, key_shift_altgr
+    {BP_COMM,     BP_COMM,  S(BP_COMM),  BP_QUOT,   S(ALGR(BP_COMM))}, // , ; '
+    {BP_RSQU,     BP_RSQU,  S(BP_QUOT),  BP_IQUE,   S(ALGR(BP_QUOT))}, // ’ ? ¿
 
-    {C_COMMA_DOT, BP_COMM,    S(BP_COMM),  BP_DOT,      S(BP_DOT)},  // , ; . :
-    {BP_C,        BP_C,       S(BP_C),     BP_CCED,     S(BP_CCED)}, // c C ç Ç
+    {C_COMMA_DOT, BP_COMM,  S(BP_COMM),  BP_DOT,    S(BP_DOT)},  // , ; . :
+    {BP_C,        BP_C,     S(BP_C),     BP_CCED,   S(BP_CCED)}, // c C ç Ç
 #ifdef ENCODER_ENABLE
     {C_ENC1_CW,   KC_DOWN,  S(KC_DOWN),  KC_PGDOWN, S(KC_PGDOWN)},
     {C_ENC1_RCW,  KC_UP,    S(KC_UP),    KC_PGUP,   S(KC_PGUP)},
@@ -179,20 +195,19 @@ void do_f_keycode(const uint16_t keycode, void (*f)(uint16_t)) {
 
 /* Get the keycode with the mods applied */
 uint16_t get_keycode_with_mods_applied(const uint16_t keycode) {
-    uint16_t code = keycode;
-    if (keycode != C_DUMMY) {
-        const uint8_t real_mods = get_mods();
-        // Left mods
-        if (real_mods & MOD_BIT(KC_LCTL)) {code = LCTL(code);}
-        if (real_mods & MOD_BIT(KC_LSFT)) {code = LSFT(code);}
-        if (real_mods & MOD_BIT(KC_LALT)) {code = LALT(code);}
-        if (real_mods & MOD_BIT(KC_LGUI)) {code = LGUI(code);}
-        // Right mods
-        if (real_mods & MOD_BIT(KC_RCTL)) {code = RCTL(code);}
-        if (real_mods & MOD_BIT(KC_RSFT)) {code = RSFT(code);}
-        if (real_mods & MOD_BIT(KC_RALT)) {code = RALT(code);}
-        if (real_mods & MOD_BIT(KC_RGUI)) {code = RGUI(code);}
-    }
+    uint16_t code = (keycode != C_DUMMY) ? keycode : 0;
+    const uint8_t real_mods = get_mods();
+    // Left mods
+    if (real_mods & MOD_BIT(KC_LCTL)) {code = LCTL(code);}
+    if (real_mods & MOD_BIT(KC_LSFT)) {code = LSFT(code);}
+    if (real_mods & MOD_BIT(KC_LALT)) {code = LALT(code);}
+    if (real_mods & MOD_BIT(KC_LGUI)) {code = LGUI(code);}
+    // Right mods
+    if (real_mods & MOD_BIT(KC_RCTL)) {code = RCTL(code);}
+    if (real_mods & MOD_BIT(KC_RSFT)) {code = RSFT(code);}
+    if (real_mods & MOD_BIT(KC_RALT)) {code = RALT(code);}
+    if (real_mods & MOD_BIT(KC_RGUI)) {code = RGUI(code);}
+
     return code;
 }
 
@@ -229,12 +244,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint16_t previous_keycode = C_DUMMY;
     static uint16_t next_previous_keycode = C_DUMMY;
     static uint16_t next_previous_keycode_not_altered = C_DUMMY;
-    if (record->event.pressed) {
+    static uint16_t next_previous_keycode_new = C_DUMMY;
+    // Don't do it on modifiers
+    if (record->event.pressed && keycode_new != C_DUMMY && (keycode_new < KC_LCTRL || keycode_new > KC_RGUI)) {
         nb_char_sent = 1;
         // Store last keycode for reference in user functions
         previous_keycode = next_previous_keycode;
-        next_previous_keycode = (keycode != keycode_new) ? keycode_new : get_keycode_with_mods_applied(keycode_new);
+        next_previous_keycode = (keycode != keycode_new) ? keycode_new : get_keycode_with_mods_applied(keycode);
         next_previous_keycode_not_altered = keycode;
+        next_previous_keycode_new = (keycode != keycode_new) ? keycode_new : keycode;
     }
 
     //-----------------------------
@@ -295,13 +313,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
                 ;
             }
-        } else if (!record->event.pressed && keycode == next_previous_keycode_not_altered && next_previous_keycode != next_previous_keycode_not_altered) {
+        } else if (!record->event.pressed
+                && next_previous_keycode_not_altered == keycode
+                && next_previous_keycode_not_altered != next_previous_keycode
+                && next_previous_keycode_not_altered != next_previous_keycode_new) {
             // Specific case when modifiers are released too early thus custom key is not recognized when release is processed
             // here: only check if keycode from layout is the same as the last pressed and was a custom key
-            // Don't do it on modifiers
-            if (keycode < KC_LCTRL || keycode > KC_RGUI) {
-                do_f_keycode(next_previous_keycode, unregister_code16);
-            }
+            do_f_keycode(next_previous_keycode, unregister_code16);
         }
     }
     // Process all other keycodes normally

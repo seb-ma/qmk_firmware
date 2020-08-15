@@ -1,37 +1,54 @@
+/*
+Copyright 2020 @seb-ma
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 #pragma once
 #ifdef OLED_DRIVER_ENABLE
 
 /* List of position of first char of each item */
-#define FONT_OFF_LINE     0x20 // Number of chars on 1 line
+#define FONT_OFF_LINE      0x20 // Number of chars on 1 line
 // First custom line in font
-#define FONT_POS_LAYERS_1 0x80
-#define FONT_POS_WIN_1    0x83
-#define FONT_POS_LINUX_1  0x85
-#define FONT_POS_MAC_1    0x87
-#define FONT_POS_MODS_1   0x89
-#define FONT_POS_MACROS_1 0x8C
-#define FONT_POS_ALPHA_L  0x8F
-#define FONT_POS_NUMS     0x94
-#define FONT_POS_NAV      0x99
-#define FONT_POS_MEDIAS   0x9D
+#define FONT_POS_LAYERS_1  0x80
+#define FONT_POS_WIN_1     (FONT_POS_LAYERS_1  + 3)
+#define FONT_POS_LINUX_1   (FONT_POS_WIN_1   + 2)
+#define FONT_POS_MAC_1     (FONT_POS_LINUX_1   + 2)
+#define FONT_POS_MODS_1    (FONT_POS_MAC_1     + 2)
+#define FONT_POS_MACROS_1  (FONT_POS_MODS_1    + 3)
+#define FONT_POS_ALPHA_L   (FONT_POS_MACROS_1  + 3)
+#define FONT_POS_NUMS      (FONT_POS_ALPHA_L   + 5)
+#define FONT_POS_NAV       (FONT_POS_NUMS      + 5)
+#define FONT_POS_MEDIAS    (FONT_POS_NAV       + 4)
 // Second custom line in font
-#define FONT_POS_LAYERS_2 (FONT_POS_LAYERS_1 + FONT_OFF_LINE)
-#define FONT_POS_WIN_2    (FONT_POS_WIN_1    + FONT_OFF_LINE)
-#define FONT_POS_LINUX_2  (FONT_POS_LINUX_1  + FONT_OFF_LINE)
-#define FONT_POS_MAC_2    (FONT_POS_MAC_1    + FONT_OFF_LINE)
-#define FONT_POS_MODS_2   (FONT_POS_MODS_1   + FONT_OFF_LINE)
-#define FONT_POS_MACROS_2 (FONT_POS_MACROS_1 + FONT_OFF_LINE)
-#define FONT_POS_ALPHA_H  (FONT_POS_ALPHA_L  + FONT_OFF_LINE)
-#define FONT_POS_WARN     0xB4
-#define FONT_POS_PLAY     0xB6
-#define FONT_POS_REC      0xB8
-#define FONT_POS_SHIFT    0xBA
-#define FONT_POS_ALT      0xBC
-#define FONT_POS_GUI      0xBE
+#define FONT_POS_LAYERS_2  (FONT_POS_LAYERS_1  + FONT_OFF_LINE)
+#define FONT_POS_WIN_2     (FONT_POS_WIN_1     + FONT_OFF_LINE)
+#define FONT_POS_LINUX_2   (FONT_POS_LINUX_1   + FONT_OFF_LINE)
+#define FONT_POS_MAC_2     (FONT_POS_MAC_1     + FONT_OFF_LINE)
+#define FONT_POS_MODS_2    (FONT_POS_MODS_1    + FONT_OFF_LINE)
+#define FONT_POS_MACROS_2  (FONT_POS_MACROS_1  + FONT_OFF_LINE)
+#define FONT_POS_ALPHA_H   (FONT_POS_ALPHA_L   + FONT_OFF_LINE)
+#define FONT_POS_SHORTCUTS (FONT_POS_ALPHA_H   + 5)
+#define FONT_POS_WARN      (FONT_POS_SHORTCUTS + 4)
+#define FONT_POS_PLAY      (FONT_POS_WARN      + 2)
+#define FONT_POS_REC       (FONT_POS_PLAY      + 2)
+#define FONT_POS_SHIFT     (FONT_POS_REC       + 2)
+#define FONT_POS_ALT       (FONT_POS_SHIFT     + 2)
+#define FONT_POS_GUI       (FONT_POS_ALT       + 2)
 // Third custom line in font
-#define FONT_POS_CTRL     0xC0
-#define FONT_POS_ALTGR    0xC3
-#define FONT_POS_POMODORO 0xC6
+#define FONT_POS_CTRL      (FONT_POS_GUI       + 2)
+#define FONT_POS_ALTGR     (FONT_POS_CTRL      + 3)
+#define FONT_POS_POMODORO  (FONT_POS_ALTGR     + 3)
 
 
 #ifndef FOLLOWER_ONLY
@@ -68,10 +85,11 @@ static const char logos_2rows[][LOGO_SIZE_2R][4] PROGMEM = {
  Values are char position in oled_custom_font.c */
 static const char logos_layers_lst[LAYERS_SIZE + 1][6] PROGMEM = {
     // Layers
-    {FONT_POS_ALPHA_L, FONT_POS_ALPHA_L + 1, FONT_POS_ALPHA_L + 2, FONT_POS_ALPHA_L + 3, FONT_POS_ALPHA_L + 4, 0}, // alpha
-    {FONT_POS_NUMS,    FONT_POS_NUMS    + 1, FONT_POS_NUMS    + 2, FONT_POS_NUMS    + 3, FONT_POS_NUMS    + 4, 0}, // num/symb
-    {FONT_POS_NAV,     FONT_POS_NAV     + 1, FONT_POS_NAV     + 2, FONT_POS_NAV     + 3, 0x20,                 0}, // nav/mouse
-    {FONT_POS_MEDIAS,  FONT_POS_MEDIAS  + 1, FONT_POS_MEDIAS  + 2, 0x20,                 0x20,                 0}, // media/rgb
+    {FONT_POS_ALPHA_L,   FONT_POS_ALPHA_L   + 1, FONT_POS_ALPHA_L   + 2, FONT_POS_ALPHA_L + 3,   FONT_POS_ALPHA_L + 4, 0}, // alpha
+    {FONT_POS_NUMS,      FONT_POS_NUMS      + 1, FONT_POS_NUMS      + 2, FONT_POS_NUMS    + 3,   FONT_POS_NUMS    + 4, 0}, // num/symb
+    {FONT_POS_NAV,       FONT_POS_NAV       + 1, FONT_POS_NAV       + 2, FONT_POS_NAV     + 3,   0x20,                 0}, // nav/mouse
+    {FONT_POS_MEDIAS,    FONT_POS_MEDIAS    + 1, FONT_POS_MEDIAS    + 2, 0x20,                   0x20,                 0}, // media/rgb
+    {FONT_POS_SHORTCUTS, FONT_POS_SHORTCUTS + 1, FONT_POS_SHORTCUTS + 2, FONT_POS_SHORTCUTS + 3, 0x20,                 0}, // shortcuts
 
     // Extras
     {FONT_POS_ALPHA_H, FONT_POS_ALPHA_H + 1, FONT_POS_ALPHA_H + 2, FONT_POS_ALPHA_H + 3, FONT_POS_ALPHA_H + 4, 0}, // alpha caps lock (at index LAYER_SIZE)

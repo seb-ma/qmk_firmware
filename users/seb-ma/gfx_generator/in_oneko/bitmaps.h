@@ -1,4 +1,6 @@
-/* Bitmap sources of Oneko: https://github.com/tie/oneko */
+/* Bitmap sources of Oneko: https://github.com/tie/oneko
+    "oneko is public domain software"
+ */
 #define PROGMEM
 
 // Place here data from https://javl.github.io/image2cpp/ (in Draw mode, use "Vertical - 1 bit per pixel")

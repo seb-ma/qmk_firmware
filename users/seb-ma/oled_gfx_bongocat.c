@@ -1,10 +1,29 @@
+/*
+Copyright 2020 @seb-ma
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 #include "oled.h"
 #if defined(OLED_DRIVER_ENABLE) && defined(RENDER_ANIMATIONS) && defined(BONGOCAT_ANIMATION)
 #include QMK_KEYBOARD_H
+#include "lib/lib8tion/lib8tion.h"
 
 #include "oled_gfx_bongocat.h"
 
-#define ANIM_FRAME_DURATION 250 // Duration of each frame (at standard pace)
+#define ANIM_FRAME_DURATION 250     // Duration of each frame (at standard pace)
+#define ANIM_FRAME_DURATION_MIN 100 // Minimal duration of each frame
+#define ANIM_FRAME_DURATION_MAX 500 // Maximal duration of each frame
 
 /*
 Frames of bongo cat playing on keyboard
@@ -93,6 +112,8 @@ void bongocat_render_init_frame(t_animation* animation) {
 
     animation->start_timer = timer_read32();
     animation->frame_duration = ANIM_FRAME_DURATION;
+    animation->frame_duration_min = ANIM_FRAME_DURATION_MIN;
+    animation->frame_duration_max = ANIM_FRAME_DURATION_MAX;
     // Dependant to WPM
     animation->ratioPerc = 0;
     // Base frame
@@ -115,12 +136,12 @@ void bongocat_render_next_frame(t_animation* animation) {
         bongocat_render_init_frame(animation);
     } else if (last_frames.previous_frame == 0) {
         // Previous frame is base. Randomly select another frame
-        last_frames.previous_frame = rand() % nb_diffs;
+        last_frames.previous_frame = random8_max(nb_diffs);
         last_frames.nb_since_frame0++;
         render_diff(&diffs[last_frames.previous_frame]);
     } else {
         // Base or an opposite paw
-        uint8_t rnd = rand() % (1 + nb_diffs / 2);
+        uint8_t rnd = random8_max(1 + nb_diffs / 2);
         if (rnd == 0) {
             bongocat_render_init_frame(animation);
         } else {

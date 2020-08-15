@@ -1,6 +1,22 @@
+/*
+Copyright 2020 @seb-ma
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 #include "oled.h"
 #if defined(OLED_DRIVER_ENABLE) && defined(RENDER_ANIMATIONS) && defined(POMODORO_ANIMATION)
-#include <string.h>
+#include "lib/lib8tion/lib8tion.h"
 
 #define ANIM_FRAME_DURATION 1000 // Duration of each frame
 
@@ -47,9 +63,7 @@ static char screen[NB_ROWS * NB_COLS] = {0xff};
 /* Number of pixels still activated on screen */
 static uint32_t nb_pixels_remaining = 8L * NB_ROWS * NB_COLS;
 
-/* Write a char of cells to OLED
-Similar function to the one in oled_gfx_game_life but as it is dependant to CELL_SIZE that may not be equals, need to be redefined
-*/
+/* Write a char of cells to OLED */
 static void write_char_cells_oled(const char value, const uint16_t i, const uint16_t j) {
 #if CELL_SIZE == 1
     oled_write_raw_byte(value, i * OLED_DISPLAY_WIDTH + j);
@@ -78,7 +92,10 @@ void pomodoro_render_init_frame(t_animation* animation) {
     animation->frame_duration = ANIM_FRAME_DURATION;
     // Not dependant to WPM
     animation->ratioPerc = -1;
-    memset(screen, 0xff, NB_ROWS * NB_COLS);
+    animation->frame_duration_min = ANIM_FRAME_DURATION;
+    animation->frame_duration_max = ANIM_FRAME_DURATION;
+
+    memset8(screen, 0xff, NB_ROWS * NB_COLS);
     nb_pixels_remaining = 8L * NB_ROWS * NB_COLS;
     for (uint16_t i = 0; i < OLED_MATRIX_SIZE; i++) {
         oled_write_raw_byte(0xff, i);
@@ -101,12 +118,12 @@ void pomodoro_render_next_frame(t_animation* animation) {
 
             // Remove pixels according to elapsed time at a random position
             while (nb_pixels_remaining > nbPix) {
-                uint16_t start = rand() % (NB_ROWS * NB_COLS);
+                uint16_t start = random16_max(NB_ROWS * NB_COLS);
                 for (uint16_t i = 0; i < NB_ROWS * NB_COLS; i++) {
                     uint16_t index = (i + start) % (NB_ROWS * NB_COLS);
                     uint8_t value = screen[index];
                     if (value != 0x00) {
-                        for (uint8_t b = rand() % 8; b < 16 && value != 0; b++) {
+                        for (uint8_t b = random8_max(8); b < 16 && value != 0; b++) {
                             if (1 & (value >> b % 8)) {
                                 value &= ~(1 << b % 8);
                                 nb_pixels_remaining--;

@@ -1,7 +1,22 @@
+/*
+Copyright 2020 @seb-ma
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 #include "oled.h"
 #if defined(OLED_DRIVER_ENABLE) && defined(RENDER_ANIMATIONS) && defined(LIFE_ANIMATION)
-
-#include <string.h>
+#include "lib/lib8tion/lib8tion.h"
 
 #define ANIM_FRAME_DURATION 500 // Duration of each frame
 
@@ -65,29 +80,16 @@ Implementation:
 /* Universe of the game of life */
 static char universe[NB_ROWS * NB_COLS] = {0};
 
-/* Write a char of cells to OLED
-Similar function to the one in oled_gfx_pomodoro but as it is dependant to CELL_SIZE that may not be equals, need to be redefined
-*/
-static void write_char_cells_oled(const char value, const uint16_t i, const uint16_t j) {
+/* Write a cell to OLED */
+static void write_cell_oled(const uint16_t x, const uint16_t y, const bool value) {
 #if CELL_SIZE == 1
-    oled_write_raw_byte(value, i * OLED_DISPLAY_WIDTH + j);
-#elif CELL_SIZE <= 4
-    uint32_t val32 = 0;
-    for (uint8_t b = 0; b < 8; b++) {
-        bool pix = 1 & (value >> b);
-        uint8_t pixVal = 0;
-        for (uint8_t size = 0; size < CELL_SIZE; size++) {
-            pixVal = pixVal << 1 | pix;
-        }
-        val32 = val32 << CELL_SIZE | pixVal;
-    }
+    oled_write_pixel(i, j, value);
+#else
     for (uint8_t a = 0; a < CELL_SIZE; a++) {
         for (uint8_t b = 0; b < CELL_SIZE; b++) {
-            oled_write_raw_byte(((char*)&val32)[a], (CELL_SIZE * i + a) * OLED_DISPLAY_WIDTH + CELL_SIZE * j + b);
+            oled_write_pixel(x * CELL_SIZE + a, y * CELL_SIZE + b, value);
         }
     }
-#else // CELL_SIZE value
-    #error Algorithm must be defined for defined CELL_SIZE value
 #endif // CELL_SIZE value
 }
 
@@ -96,7 +98,7 @@ void gamelife_render_init_frame(t_animation* animation) {
     for (uint16_t i = 0; i < sizeof(universe); i++) {
         char value = 0;
         for (int8_t b = 0; b < 8; b++) {
-            value |= ((rand() % 100) < INIT_RATIO) << b;
+            value |= (random8_max(100) < INIT_RATIO) << b;
         }
         universe[i] = value;
     }
@@ -104,6 +106,8 @@ void gamelife_render_init_frame(t_animation* animation) {
     animation->frame_duration = ANIM_FRAME_DURATION;
     // Not dependant to WPM
     animation->ratioPerc = -1;
+    animation->frame_duration_min = ANIM_FRAME_DURATION;
+    animation->frame_duration_max = ANIM_FRAME_DURATION;
 }
 
 /* Callback to render the next frame of the animation */
@@ -115,10 +119,10 @@ void gamelife_render_next_frame(t_animation* animation) {
     // For each column
     for (uint8_t j = 0; j < NB_COLS + 2; j++) {
         if (j < NB_COLS - 2) {
-            memset(&tmp_slice_neighbors[((j + 1) % 3) * 8 * NB_ROWS], 0, 8 * NB_ROWS);
+            memset8(&tmp_slice_neighbors[((j + 1) % 3) * 8 * NB_ROWS], 0, 8 * NB_ROWS);
         } else {
             // Restore tmp_slice_neighbors of j = NB_COLS - 1 and 0
-            memcpy(&tmp_slice_neighbors[((j + 1) % 3) * 8 * NB_ROWS], &tmp_slice_neighbors[(3 + NB_COLS - 2 - j) * 8 * NB_ROWS], 8 * NB_ROWS);
+            memcpy8(&tmp_slice_neighbors[((j + 1) % 3) * 8 * NB_ROWS], &tmp_slice_neighbors[(3 + NB_COLS - 2 - j) * 8 * NB_ROWS], 8 * NB_ROWS);
         }
         if (j < NB_COLS) {
             for (uint8_t i = 0; i < NB_ROWS; i++) {
@@ -145,7 +149,7 @@ void gamelife_render_next_frame(t_animation* animation) {
                 char byte_cells = universe[((j - 1 + NB_COLS) % NB_COLS) * NB_ROWS + ((i + NB_ROWS) % NB_ROWS)];
                 // For each row
                 for (uint8_t b = 0; b < 8; b++) {
-                    const bool cell = 1 & (byte_cells >> b);
+                    bool cell = 1 & (byte_cells >> b);
                     const uint8_t count = tmp_slice_neighbors[((j - 1) % 3) * 8 * NB_ROWS + 8 * i + b];
 
                     // Evolution of cell based on neighbors
@@ -153,21 +157,22 @@ void gamelife_render_next_frame(t_animation* animation) {
                         // S23 + S0
                         // Survive if 2 or 3 neighbors (Conway rule) or 0 neighbour (DotLife rule)
                         //cell = 0;
+                        write_cell_oled((j - 1) % NB_COLS, i * 8 + b, 0);
                         byte_cells &= ~(1 << b);
                     } else if (!cell && count == 3) {
                         // B3: A new cell is born (Conway and DotLife rule)
                         //cell = 1;
+                        write_cell_oled((j - 1) % NB_COLS, i * 8 + b, 1);
                         byte_cells |= (1 << b);
                     }
                     // else: Cell remains the same
                 }
                 // Update universe and render to oled
                 universe[((j - 1 + NB_COLS) % NB_COLS) * NB_ROWS + ((i + NB_ROWS) % NB_ROWS)] = byte_cells;
-                write_char_cells_oled(byte_cells, i, (j - 1) % NB_COLS);
             }
         } else if (j <= 1) {
             // Save tmp_slice_neighbors of j = NB_COLS - 1 and 0
-            memcpy(&tmp_slice_neighbors[(3 + j) * 8 * NB_ROWS], &tmp_slice_neighbors[((j - 1) % 3) * 8 * NB_ROWS], 8 * NB_ROWS);
+            memcpy8(&tmp_slice_neighbors[(3 + j) * 8 * NB_ROWS], &tmp_slice_neighbors[((j - 1) % 3) * 8 * NB_ROWS], 8 * NB_ROWS);
         }
     }
 }

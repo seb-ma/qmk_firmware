@@ -1,3 +1,19 @@
+/*
+Copyright 2020 @seb-ma
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 #ifdef RGBLIGHT_ENABLE
 
 #include "custom_keys.h"
@@ -60,6 +76,7 @@ bool handle_rgb(const uint16_t keycode, keyrecord_t *const record) {
             break;
         }
     }
+    rgb_display_layer(layer_state);
     return true;
 }
 
@@ -75,6 +92,7 @@ enum layer_index {
     IDX_LAYER_RGB_NUM_SYMB,
     IDX_LAYER_RGB_NAV_MOUSE,
     IDX_LAYER_RGB_MEDIA_RGB,
+    IDX_LAYER_RGB_SHORTCUTS,
     IDX_LAYER_RGB_MACRO_RECORD,
     IDX_LAYER_RGB_LEADER,
     IDX_LAYER_RGB_CAPSLOCK,
@@ -83,6 +101,13 @@ enum layer_index {
 };
 
 _Static_assert(IDX_LAYER_SIZE == RGBLIGHT_MAX_LAYERS, "RGBLIGHT_MAX_LAYERS has incorrect value regarding layer_index declaration");
+
+/* Clear all layers state */
+void clear_rgb_layers(void) {
+    for (uint8_t i = 0; i < IDX_LAYER_SIZE; i++) {
+        rgblight_set_layer_state(i, false);
+    }
+}
 
 #endif // RGBLIGHT_LAYERS
 
@@ -95,8 +120,11 @@ void rgb_display_layer(const layer_state_t state) {
         rgblight_set_layer_state(IDX_LAYER_RGB_NUM_SYMB,  layer_state_cmp(state, _FUNC_NUM_SYMB));
         rgblight_set_layer_state(IDX_LAYER_RGB_NAV_MOUSE, layer_state_cmp(state, _NAV_MOUSE));
         rgblight_set_layer_state(IDX_LAYER_RGB_MEDIA_RGB, layer_state_cmp(state, _MEDIA_RGB));
+        rgblight_set_layer_state(IDX_LAYER_RGB_SHORTCUTS, layer_state_cmp(state, _SHORTCUTS));
 #else // RGBLIGHT_LAYERS
-        if (layer_state_cmp(state, _MEDIA_RGB)) {
+        if (layer_state_cmp(state, _SHORTCUTS)) {
+            rgblight_sethsv_range(HSV_GOLD, 0, RGBLED_NUM);
+        } else if (layer_state_cmp(state, _MEDIA_RGB)) {
             rgblight_sethsv_range(HSV_PURPLE, 0, RGBLED_NUM);
         } else if (layer_state_cmp(state, _NAV_MOUSE)) {
             rgblight_sethsv_range(HSV_BLUE, 0, RGBLED_NUM);
@@ -105,6 +133,10 @@ void rgb_display_layer(const layer_state_t state) {
         } else if (layer_state_cmp(state, _BEPO)) {
             rgblight_sethsv_range(HSV_RED, 0, RGBLED_NUM);
         }
+#endif // RGBLIGHT_LAYERS
+    } else {
+#ifdef RGBLIGHT_LAYERS
+        clear_rgb_layers();
 #endif // RGBLIGHT_LAYERS
     }
 }

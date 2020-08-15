@@ -1,3 +1,20 @@
+#
+# Copyright 2020 @seb-ma
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
 #-------------
 # Compilation
 #-------------
@@ -14,22 +31,50 @@ SRC += combo.c \
        oled_gfx_game_life.c \
        oled_gfx_oneko.c \
        oled_gfx_pomodoro.c \
+       oled_gfx_starfield.c \
        rgb.c \
        tap_dance.c \
        transport_user.c \
        user_feature_closechar.c \
        user_func.c
 
+# Libraries
+SRC += lib/lib8tion/lib8tion.c
+
 # Set NO_SECRETS if secrets file does not exist or requested in build chain
 ifeq ("$(wildcard $(USER_PATH)/secrets.h)", "")
     OPT_DEFS += -DNO_SECRETS
 else
-ifeq ($(strip $(NO_SECRETS)), yes)
-    OPT_DEFS += -DNO_SECRETS
-endif
+    ifeq ($(strip $(NO_SECRETS)), yes)
+        OPT_DEFS += -DNO_SECRETS
+    endif
 endif
 
- # Link Time Optimization (LTO) when compiling the keyboard (+ automatically set NO_ACTION_MACRO and NO_ACTION_FUNCTION)
+# If SPLIT_TRANSPORT is custom, set transport user data feature
+ifeq ($(strip $(SPLIT_TRANSPORT)), custom)
+    OPT_DEFS += -DTRANSPORT_USER_DATA
+    QUANTUM_SRC += transport_custom.c
+
+    # Section copied from common_features.mk to avoid errors duriong ld
+
+    # Functions added via QUANTUM_LIB_SRC are only included in the final binary if they're called.
+    # Unused functions are pruned away, which is why we can add multiple drivers here without bloat.
+    ifeq ($(PLATFORM),AVR)
+        QUANTUM_LIB_SRC += i2c_master.c \
+                            i2c_slave.c
+    endif
+
+    SERIAL_DRIVER ?= bitbang
+    ifeq ($(strip $(SERIAL_DRIVER)), bitbang)
+        QUANTUM_LIB_SRC += serial.c
+    else
+        QUANTUM_LIB_SRC += serial_$(strip $(SERIAL_DRIVER)).c
+    endif
+
+    # End of Section copied from common_features.mk
+endif
+
+# Link Time Optimization (LTO) when compiling the keyboard (+ automatically set NO_ACTION_MACRO and NO_ACTION_FUNCTION)
 LTO_ENABLE = yes
 
 

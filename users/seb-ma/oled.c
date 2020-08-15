@@ -1,3 +1,19 @@
+/*
+Copyright 2020 @seb-ma
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 #ifdef OLED_DRIVER_ENABLE
 #include <stdio.h>
 
@@ -23,6 +39,9 @@ render_init_frame_fct render_init[] = {
     NULL,
 #   endif
 #   ifdef ONEKO_ANIMATION
+    NULL,
+#   endif
+#   ifdef STARFIELD_ANIMATION
     NULL,
 #   endif
 };
@@ -56,6 +75,9 @@ render_next_frame_fct render_next[NB_ANIMATIONS];
 #ifdef POMODORO_SIDE
 /* bi-state value used as a trigger to reinit pomodoro */
 static bool previous_pomodoro_reinit_state;
+
+uint32_t pomodoro_start_timer = 0;
+
 #endif // POMODORO_SIDE
 
 
@@ -78,6 +100,10 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 #   ifdef ONEKO_ANIMATION
     render_init[i]   = oneko_render_init_frame;
     render_next[i++] = oneko_render_next_frame;
+#   endif
+#   ifdef STARFIELD_ANIMATION
+    render_init[i]   = starfield_render_init_frame;
+    render_next[i++] = starfield_render_next_frame;
 #   endif
 
     previous_anim_reinit_state = !user_data_m2s.anim_reinit_toggle;
@@ -165,10 +191,12 @@ void render_layer_state(void) {
     uint8_t layer_high = get_highest_layer(layer_state);
     for (uint8_t i = 0; i < 2; i++) {
         write_logo(logo, i);
-        // Display alpha logo lower or upper according to caps lock
-        oled_write_P(logos_layers_lst[(i == 0 && state.caps_lock) ? LAYERS_SIZE : 2 * i], layer_high == (2 * i)); // 5
-        oled_write_space_nb(2);
-        oled_write_ln_P(logos_layers_lst[2 * i + 1], layer_high == (2 * i + 1)); // 5
+        if (i == 0) {
+            oled_write_space_nb(4);
+            // Display alpha logo lower or upper according to caps lock
+            oled_write_P(logos_layers_lst[(layer_high == 0 && state.caps_lock) ? LAYERS_SIZE : layer_high], false); // 5
+        }
+        oled_advance_page(true);
     }
 }
 
@@ -255,8 +283,8 @@ void render_leader(void) {
 It looks like (with inverted color when element is selected):
       1                   21
      ┌─────────────────────┐
-    1│ LAY   Alpha  Num/S  │
-     │ LAY   Nav/M  Med/R  │
+    1│ LAY    Hightest     │
+     │ LAY   Active Layer  │
      │                     │
      │ MOD   Sft  Ctl  Gui │
      │ MOD   Alt  AlG      │
@@ -291,23 +319,29 @@ void render_animation(void) {
     if (animation.ratioPerc != -1) {
 #   ifdef WPM_ENABLE
         // Compute the ratio to apply to pace animation based on current word per minute typping
-        animation.ratioPerc = (get_current_wpm() == 0) ? 0 : MIN(200, MAX(25, 100 * get_current_wpm() / STANDARD_WPM));
+        animation.ratioPerc = (get_current_wpm() == 0) ? 0 : MIN(animation.frame_duration_max, MAX(animation.frame_duration_min, 100 * get_current_wpm() / STANDARD_WPM));
 #   else
-        animation.ratioPerc = 100;
+        animation.ratioPerc = -1;
 #   endif
     }
-    // Switch off if timeout without key pressed
-    if (animation.ratioPerc != 0) {
+
+#   ifdef WPM_ENABLE
+    // Switch off if timeout without key pressed and no pomodoro running
+    // XXX: Find a clean way to have key press detection without WPM_ENABLE (add it to custom transport)
+    if (get_current_wpm() > 0
+#       ifdef POMODORO_SIDE
+        || pomodoro_start_timer != 0
+#       endif // POMODORO_SIDE
+    ) {
         timeout_animation = timer_read32();
     } else if (timer_elapsed32(timeout_animation) > OLED_TIMEOUT) {
         oled_off();
         return;
     }
+#   endif
 
     if (user_data_m2s.anim_reinit_toggle != previous_anim_reinit_state
     || user_data_m2s.animation_idx != previous_anim_index) {
-        // Used for adding random in animations
-        srand(timer_read32());
         // Restart animation
         previous_anim_reinit_state = user_data_m2s.anim_reinit_toggle;
         previous_anim_index = user_data_m2s.animation_idx;
@@ -322,7 +356,6 @@ void render_animation(void) {
 #endif // RENDER_ANIMATIONS
 
 #ifdef POMODORO_SIDE
-uint32_t pomodoro_start_timer = 0;
 
 /* Display the pomodoro timer */
 void render_pomodoro(void) {

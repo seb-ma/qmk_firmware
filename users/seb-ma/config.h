@@ -1,3 +1,19 @@
+/*
+Copyright 2020 @seb-ma
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 #pragma once
 
 //-----------------------------
@@ -24,14 +40,12 @@
 
     // non light version: add animations
 #   if !defined(HALVE_BOTH_LIGHT)
-        // Include modification of buffer used between master and follower to transmit data (currently a single uint8_t)
-        // Thus, it can't work alone, modifications in struct _Serial_m2s_buffer_t (for serial protocol) and functions transport_master and transport_slave are needed
-#       define TRANSPORT_USER_DATA
 #       define POMODORO_TIMER           25 // If defined: activate a pomodoro timer on follower screen (time in minutes)
 
 #       define BONGOCAT_ANIMATION          // Render bongo cat animation on follower screen
 #       define ONEKO_ANIMATION             // Render Oneko (walking cat) animation on follower screen
 #       define LIFE_ANIMATION              // Render game of life animation on follower screen
+#       define STARFIELD_ANIMATION         // Render starfield animation on follower screen
 #       if defined(POMODORO_TIMER) && defined(TRANSPORT_USER_DATA)
 #           define POMODORO_ANIMATION      // Render pomodoro animation on follower screen
 #       endif
@@ -63,7 +77,7 @@
 #       define NB_COMBO_SECRETS      0
 #   endif
 
-#   define COMBO_COUNT             (27 + NB_COMBO_SECRETS) // Number of existing combos
+#   define COMBO_COUNT             (28 + NB_COMBO_SECRETS) // Number of existing combos
 #   define COMBO_TERM               40 // Set the time out period for combos in ms
 #endif // COMBO_ENABLE
 
@@ -79,15 +93,15 @@
 #endif // DYNAMIC_MACRO_ENABLE
 
 // One shot tap
-#define NO_ACTION_ONESHOT               // Disable one-shot modifiers
+//#define NO_ACTION_ONESHOT               // Disable one-shot modifiers
 #ifndef NO_ACTION_ONESHOT
-#   define ONESHOT_TAP_TOGGLE        3 // Tapping this number of times holds the key until tapped once again
-#   define ONESHOT_TIMEOUT        3000 // Time (in ms) before the one shot key is released
+#   define ONESHOT_TAP_TOGGLE        2 // Tapping this number of times holds the key until tapped once again
+#   define ONESHOT_TIMEOUT        2000 // Time (in ms) before the one shot key is released
 #endif // NO_ACTION_ONESHOT
 
 #ifdef OLED_DRIVER_ENABLE
 #   define OLED_FONT_H   "oled_custom_font.c" // Font code file to use for custom characters
-#   define OLED_FONT_END                  199 // Number of characters in custom font
+#   define OLED_FONT_END                  203 // Number of characters in custom font
 #endif // OLED_DRIVER_ENABLE
 
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
@@ -98,7 +112,7 @@
 #ifdef RGBLIGHT_ENABLE
 #   define RGBLIGHT_LAYERS             // Lets define lighting layers that can be toggled on or off. Great for showing the current keyboard layer or caps lock state.
 #   ifdef RGBLIGHT_LAYERS
-#       define RGBLIGHT_MAX_LAYERS   7 // Can be expanded up to 32 if more lighting layers are needed.
+#       define RGBLIGHT_MAX_LAYERS   8 // Can be expanded up to 32 if more lighting layers are needed.
 #       if (RGBLIGHT_MAX_LAYERS <= 8)  // Reduce structures size of rgb layers from 32 to 16 or 8 bits if possible
 #           define LAYER_STATE_8BIT
 #       elif (RGBLIGHT_MAX_LAYERS <= 16)
@@ -127,7 +141,9 @@
 
 // Mouse
 #ifdef MOUSEKEY_ENABLE
-    /* Adjust the cursor and scrolling acceleration */
+    /* Adjust the cursor and scrolling acceleration
+     original configuration from pierrec83: https://github.com/qmk/qmk_firmware/blob/master/keyboards/kyria/keymaps/pierrec83/config.h
+     */
     // Set the mouse settings to a comfortable speed/accuracy trade-off
     // Assume the screen refresh rate is 60 Htz or higher
     // The default is 50. This makes the mouse ~3 times faster and more accurate
