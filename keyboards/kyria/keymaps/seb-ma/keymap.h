@@ -173,15 +173,15 @@ Physical keys representation by default:
 //                          ┌───────┬───────┬───────┬───────┐                                     ┌───────┬───────┬───────┬───────┐
 //          ┌───────┬───────┤       │       │       │       │                                     │       │       │       │       ├───────┬───────┐
 //          │       │       │   ▲   │   ↑   │   ▼   │ Btn3  │                                     │  Cut  │   ▲   │   ↑   │   ▼   │       │       │
-//    Row 1 │  ___  │       │(mouse)│(mouse)│(mouse)│(mouse)│                                     │       │       │       │       │ Pause │Insert │
+//    Row 1 │  ___  │       │(mouse)│(mouse)│(mouse)│(mouse)│                                     │       │       │       │       │Pr.Scr │Insert │
 //          │       │       ├───────┼───────┼───────┼───────┤                                     ├───────┼───────┼───────┼───────┤       │       │
 //          ├───────┼───────┤       │       │       │       │                                     │       │       │       │       ├───────┼───────┤
 //          │       │       │   ←   │   ↓   │   →   │ Btn1  │                                     │ Copy  │   ←   │   ↓   │   →   │       │       │
-//    Row 2 │DynM1●■│DynM1 ►│(mouse)│(mouse)│(mouse)│(mouse)│                                     │       │       │       │       │ Find  │ Undo  │
-//          │       │       ├───────┼───────┼───────┼───────┤    1      2            1      2     ├───────┼───────┼───────┼───────┤       │       │
+//    Row 2 │DynM1●■│DynM1 ►│(mouse)│(mouse)│(mouse)│(mouse)│                                     │       │       │       │       │FindNxt│ Undo  │
+//          │       │       ├───────┼───────┼───────┼───────┤    1      2            1      2     ├───────┼───────┼───────┼───────┤ Find  │       │
 //          ├───────┼───────┤       │       │       │       │┌───────┬───────┐   ┌───────┬───────┐│       │       │       │       ├───────┼───────┤
 //          │       │       │   ◄   │       │   ►   │ Btn2  ││       │       │   │       │       ││ Paste │   ◄   │       │   ►   │       │       │
-//    Row 3 │DynM2●■│DynM2 ►│(mouse)│       │(mouse)│(mouse)││  ___  │  ___  │   │  ___  │  ___  ││       │       │       │       │Pr.Scr │ Redo  │
+//    Row 3 │DynM2●■│DynM2 ►│(mouse)│       │(mouse)│(mouse)││  ___  │  ___  │   │  ___  │  ___  ││       │       │       │       │Replace│ Redo  │
 //          │       │       ├───────┴───────┴───────┴───────┘│       │       │   │       │       │└───────┴───────┴───────┴───────┤       │       │
 //          └───────┴───────┘     ▄▄▄▄▄▄▄┌───────┬───────┬───┴───┬───┴───┬───┘   └───┬───┴───┬───┴───┬───────┬───────┐▄▄▄▄▄▄▄     └───────┴───────┘
 //                               ▐       ▌       │       │       │       │           │       │       │       │       ▐       ▌
@@ -196,9 +196,9 @@ Physical keys representation by default:
 #define NAV_MOUSE_ROW2_LEFT        DYN_REC_START1, DYN_MACRO_PLAY1, KC_MS_LEFT,    KC_MS_DOWN, KC_MS_RIGHT,    KC_MS_BTN1,
 #define NAV_MOUSE_ROW3_LEFT        DYN_REC_START2, DYN_MACRO_PLAY2, KC_MS_WH_LEFT, XXXXXXX,    KC_MS_WH_RIGHT, KC_MS_BTN2,
 // Navigation
-#define NAV_MOUSE_ROW1_RIGHT       C(BP_X),        KC_PGUP,         KC_UP,         KC_PGDOWN,  KC_PAUSE,       KC_INSERT,
-#define NAV_MOUSE_ROW2_RIGHT       C(BP_C),        KC_LEFT,         KC_DOWN,       KC_RIGHT,   C(BP_F),        C(BP_Z),
-#define NAV_MOUSE_ROW3_RIGHT       C(BP_V),        KC_HOME,         XXXXXXX,       KC_END,     KC_PSCREEN,     C(BP_Y),
+#define NAV_MOUSE_ROW1_RIGHT       C(BP_X),        KC_PGUP,         KC_UP,         KC_PGDOWN,  KC_PSCREEN,     KC_INSERT,
+#define NAV_MOUSE_ROW2_RIGHT       C(BP_C),        KC_LEFT,         KC_DOWN,       KC_RIGHT,   C_FIND,         C(BP_Z),
+#define NAV_MOUSE_ROW3_RIGHT       C(BP_V),        KC_HOME,         XXXXXXX,       KC_END,     C(BP_H),        C(BP_Y),
 
 #define NAV_MOUSE_THUMB_ROW1_LEFT                             _______, _______,
 #define NAV_MOUSE_THUMB_ROW2_LEFT  _______, _______, _______, _______, _______,
@@ -255,18 +255,18 @@ Physical keys representation by default:
 //
 //              1       2       3       4       5       6                                             1       2       3       4       5       6
 //                          ┌───────┬───────┬───────┬───────┐                                     ┌───────┬───────┬───────┬───────┐
-//          ┌───────┬───────┤       │       │       │       │                                     │       │       │       │       ├───────┬───────┐
-//          │       │       │       │       │ Undo  │ Redo  │                                     │       │   ▲   │   ↑   │   ▼   │       │       │
-//    Row 1 │  ___  │       │       │       │       │       │                                     │       │       │       │       │       │       │
-//          │       │       ├───────┼───────┼───────┼───────┤                                     ├───────┼───────┼───────┼───────┤       │       │
+//          ┌───────┬───────┤       │       │       │       │                                     │ Shift │       │       │       ├───────┬───────┐
+//          │       │       │  New  │       │ Undo  │ Redo  │                                     │ Ctrl  │   ▲   │   ↑   │   ▼   │ Shift │       │
+//    Row 1 │  ___  │       │  tab  │       │       │       │                                     │   ←   │       │       │       │ Ctrl  │       │
+//          │       │       ├───────┼───────┼───────┼───────┤                                     ├───────┼───────┼───────┼───────┤   →   │       │
 //          ├───────┼───────┤       │       │       │       │                                     │       │       │       │       ├───────┼───────┤
-//          │       │       │  Cut  │ Copy  │ Paste │Select │                                     │       │   ←   │   ↓   │   →   │       │       │
-//    Row 2 │DynM1●■│DynM1 ►│       │       │       │  all  │                                     │       │       │       │       │       │       │
-//          │       │       ├───────┼───────┼───────┼───────┤    1      2            1      2     ├───────┼───────┼───────┼───────┤       │       │
+//          │       │       │  Cut  │ Copy  │ Paste │Select │                                     │ Ctrl  │   ←   │   ↓   │   →   │       │       │
+//    Row 2 │DynM1●■│DynM1 ►│       │       │       │  all  │                                     │   ←   │       │       │       │ Ctrl  │       │
+//          │       │       ├───────┼───────┼───────┼───────┤    1      2            1      2     ├───────┼───────┼───────┼───────┤   →   │       │
 //          ├───────┼───────┤       │       │       │       │┌───────┬───────┐   ┌───────┬───────┐│       │       │       │       ├───────┼───────┤
-//          │       │       │ Close │  New  │ Find  │Replace││       │       │   │       │       ││       │   ◄   │       │   ►   │       │       │
-//    Row 3 │DynM2●■│DynM2 ►│       │  tab  │       │       ││  ___  │  ___  │   │  ___  │  ___  ││       │       │       │       │       │       │
-//          │       │       ├───────┴───────┴───────┴───────┘│       │       │   │       │       │└───────┴───────┴───────┴───────┤       │       │
+//          │       │       │ Close │Replace│ Find  │  F3   ││       │       │   │       │       ││ Shift │   ◄   │       │   ►   │       │       │
+//    Row 3 │DynM2●■│DynM2 ►│       │       │       │       ││  ___  │  ___  │   │  ___  │  ___  ││   ←   │       │       │       │ Shift │       │
+//          │       │       ├───────┴───────┴───────┴───────┘│       │       │   │       │       │└───────┴───────┴───────┴───────┤   →   │       │
 //          └───────┴───────┘     ▄▄▄▄▄▄▄┌───────┬───────┬───┴───┬───┴───┬───┘   └───┬───┴───┬───┴───┬───────┬───────┐▄▄▄▄▄▄▄     └───────┴───────┘
 //                               ▐       ▌       │       │       │       │           │       │       │       │       ▐       ▌
 //                   Thumb row 2 ▐  ___  ▌  ___  │  ___  │  ___  │  ___  │           │  ___  │  ___  │  ___  │  ___  ▐  ___  ▌
@@ -275,13 +275,13 @@ Physical keys representation by default:
 //                                   1       2       3       4       5                   1       2       3       4       5
 //
 
-#define SHORTCUTS_ROW1_LEFT        _______,        XXXXXXX,         XXXXXXX, XXXXXXX,   C(BP_Z), C(BP_Y),
-#define SHORTCUTS_ROW2_LEFT        DYN_REC_START1, DYN_MACRO_PLAY1, C(BP_X), C(BP_C),   C(BP_V), C(BP_A),
-#define SHORTCUTS_ROW3_LEFT        DYN_REC_START2, DYN_MACRO_PLAY2, C(BP_W), C(BP_T),   C(BP_F), C(BP_H),
+#define SHORTCUTS_ROW1_LEFT        _______,        XXXXXXX,         C(BP_T), XXXXXXX,   C(BP_Z),        C(BP_Y),
+#define SHORTCUTS_ROW2_LEFT        DYN_REC_START1, DYN_MACRO_PLAY1, C(BP_X), C(BP_C),   C(BP_V),        C(BP_A),
+#define SHORTCUTS_ROW3_LEFT        DYN_REC_START2, DYN_MACRO_PLAY2, C(BP_W), C(BP_H),   C(BP_F),        KC_F3,
 
-#define SHORTCUTS_ROW1_RIGHT       XXXXXXX,        KC_PGUP,         KC_UP,   KC_PGDOWN, XXXXXXX, XXXXXXX,
-#define SHORTCUTS_ROW2_RIGHT       XXXXXXX,        KC_LEFT,         KC_DOWN, KC_RIGHT,  XXXXXXX, XXXXXXX,
-#define SHORTCUTS_ROW3_RIGHT       XXXXXXX,        KC_HOME,         XXXXXXX, KC_END,    XXXXXXX, XXXXXXX,
+#define SHORTCUTS_ROW1_RIGHT       S(C(KC_LEFT)),  KC_PGUP,         KC_UP,   KC_PGDOWN, S(C(KC_RIGHT)), XXXXXXX,
+#define SHORTCUTS_ROW2_RIGHT       C(KC_LEFT),     KC_LEFT,         KC_DOWN, KC_RIGHT,  C(KC_RIGHT),    XXXXXXX,
+#define SHORTCUTS_ROW3_RIGHT       S(KC_LEFT),     KC_HOME,         XXXXXXX, KC_END,    S(KC_RIGHT),    XXXXXXX,
 
 #define SHORTCUTS_THUMB_ROW1_LEFT                             _______, _______,
 #define SHORTCUTS_THUMB_ROW2_LEFT  _______, _______, _______, _______, _______,

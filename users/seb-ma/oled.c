@@ -145,7 +145,7 @@ bool handle_oled(const uint16_t keycode, keyrecord_t *const record) {
             eeconfig_update_user(user_config.raw);
             return false;
         case C_OLED2_ANIMATION_CYCLE:
-            user_data_m2s.animation_idx = (user_data_m2s.animation_idx + 1) % NB_ANIMATIONS;
+            user_data_m2s.animation_idx = (user_data_m2s.animation_idx + 1) % MAX(1, NB_ANIMATIONS);
             // No break intended to execute next case (C_OLED2_REINIT) and reinit animation too
         case C_OLED2_REINIT:
             user_data_m2s.anim_reinit_toggle = !user_data_m2s.anim_reinit_toggle;

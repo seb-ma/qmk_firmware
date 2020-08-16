@@ -70,6 +70,9 @@ const key_mod_full_map_t key_mod_full_map[] PROGMEM = {
 
     {C_COMMA_DOT, BP_COMM,  S(BP_COMM),  BP_DOT,    S(BP_DOT)},  // , ; . :
     {BP_C,        BP_C,     S(BP_C),     BP_CCED,   S(BP_CCED)}, // c C ç Ç
+
+    {C_FIND,      KC_F3,    C(BP_F),   S(KC_F3),   S(C(BP_F))},
+
 #ifdef ENCODER_ENABLE
     {C_ENC1_CW,   KC_DOWN,  S(KC_DOWN),  KC_PGDOWN, S(KC_PGDOWN)},
     {C_ENC1_RCW,  KC_UP,    S(KC_UP),    KC_PGUP,   S(KC_PGUP)},
