@@ -16,7 +16,7 @@ For example, in these implementations, [Combos](#Combos) and [Leader key](#Leade
 Some features need to be improved/corrected or may be added. Here is my list:
 
 - Known bugs
-  - [ ] HID: host application does not see usage page/usage of the device
+  - [ ] HID: host application does not work
 - Evolutions
   - [ ] HID: send time from host to have an accurate timer (to use on pomodoro + display time if pomodoro is inactive)
   - [ ] LAYOUT: add a layout for games (or ALPHA that bypass all processing in custom_keys, deactivate unneeded stuff…)
@@ -62,7 +62,7 @@ Some features need to be improved/corrected or may be added. Here is my list:
     1. [Memory footprint](#Memory%20footprint)
     1. [Compilation and flashing](#Compilation%20and%20flashing)
 1. [Useful documentation and tools](#Useful%20documentation%20and%20tools)
-    1. [QMK documentation](#QMK%20documentation)
+    1. [QMK documentation](#QMK%20documentation%20and%20tools)
     1. [External documentation](#External%20documentation)
     1. [External tools](#External%20tools)
 1. [License](#License)
@@ -77,16 +77,17 @@ All layers share:
 - the keys at column 1 of left halve for row 1 and row 2 (except on Media layer)
 
 Encoders are on thumb row 2 at external position (drawn in bold line above).
-Behavior is identical in all layers except in [Media / RGB](#Misc)
+Behavior is identical in all layers except in [Media / RGB](#Media%20/%20RGB)
 
 #### Layers navigation
 
 Base layer is alphabetic.
 Accessing other layers is done by:
 
-- key NUM/SYM: hold to temporary access or tap to enter/exit [Numeric / Symbols / Functions](#Numeric) layer
-- key NAV/MOU: hold to temporary access or tap to enter/exit [Navigation / Mouse](#Navigation) layer
-- keys NUM/SYM + NAV/MOU: hold to temporary access or tap to enter/exit [Media / RGB](#Misc) layer
+- key NUM/SYM: hold to temporary access or tap to enter/exit [Numeric / Symbols / Functions](#Numeric%20/%20Symbols) layer
+- key NAV/MOU: hold to temporary access or tap to enter/exit [Navigation / Mouse / Dynamic macros / Shortcuts](#Navigation%20/%20Mouse) layer
+- keys NUM/SYM + NAV/MOU: hold to temporary access or tap to enter/exit [Media / RGB](#Media%20/%20RGB) layer
+- key TAB: hold to temporary access [Shortcuts](#Shortcuts) layer
 
 ### Base (alphabetic)
 
@@ -519,17 +520,12 @@ End of table contains all symbols used to display graphics on master screen (ite
 ### Master screen
 
 The master screen is used to display status of keyboard.
-For each item, information are listed and font is reversed if activated.
-
-![Status display](https://i.imgur.com/CJ0vINg.png)
+For each item, information are listed and font is reversed on activate modifiers.
 
 Items:
 
 - Layers
-  - Alpha (in uppercase if caps lock is activated)
-  - Numerics/Symbols
-  - Navigation/Mouse
-  - Media/RGB
+  - Hightest active layer (in uppercase for alpha if caps lock is activated)
 - Modifiers
   - Shift
   - Ctrl
@@ -537,29 +533,18 @@ Items:
   - Alt
   - AltGr
 - Dynamic macros
-  - Macro 1 (Play, Record, Warning)
-  - Macro 2 (Play, Record, Warning)
+  - Macro 1 (Play/Record, Warning)
+  - Macro 2 (Play/Record, Warning)
 
 #### Representation
 
-```
-  1                   21
- ┌─────────────────────┐
-1│ LAY     Hightest    │
- │ LAY   active layer  │
- │                     │
- │ MOD   Sft  Ctl  Gui │
- │ MOD   Alt  AlG      │
- │                     │
- │ DYM   1  Pl  Rc  Wn │
-8│ DYM   2  Pl  Rc  Wn │
- └─────────────────────┘
-```
+![Status display](https://i.imgur.com/hfVNJ3K.png)
 
 ### Follower screen
 
 The follower screen is used to display fun animations.
 Animations may be included simultaneously and cycle throw with the key C_OLED2_ANIMATION_CYCLE.
+
 !> The cycle can only work with custom transport enabled.
 
 #### Bongo cat
@@ -568,7 +553,7 @@ This animation is featuring [bongo cat](https://bongo-cat.glitch.me/) tapping on
 
 ![paws up](https://imgur.com/LkryRFS.png) ![left paw on 1st key](https://imgur.com/EkrcZRO.png) ![paws up](https://imgur.com/LkryRFS.png) ![right paw on 5th key](https://imgur.com/cm8Wxla.png) […]
 
-This animation can be synchronized with WPM feature to rythm animation.
+This animation can be synchronized with WPM feature to rhythm animation.
 Animation is composed of 16 frames randomly displayed:
 
 - paws up
@@ -629,7 +614,7 @@ Activation of follower halve animation of game of life is done in file `config.h
 #### Starfield
 
 This animation is featuring a starfield animation.
-It was first developped by @GauthamYerroju
+It was first developed by @GauthamYerroju
 
 ##### Configuration
 
@@ -701,33 +686,11 @@ Activation of follower halve animation of Oneko is done in file `config.h`:
 
 ### LED positions
 
-Physical leds position (xx) related to keys
+Physical LEDs position related to keys
 Master and follower may be swapped (right / left), 0-9 are always on master, 10-19 on follower.
 
-```text
-                                     Master                                                             Follower
-
-          1       2       3       4       5       6                                             1       2       3       4       5       6
-                      ┌───────┬──────(04)─────┬───────┐                                     ┌───────┬─────(14)──────┬───────┐
-      ┌──(09)─┬─(05)──┤       │       │       │       │                                     │       │       │       │       ├──(15)─┬─(19)──┐
-      │       │       │       │       │       │       │                                     │       │       │       │       │       │       │
-Row 1 │       │       │       │       │       │       │                                     │       │       │       │       │       │       │
-      │       │       ├───────┼───────┼───────┼──(03)─┤                                     ├─(13)──┼───────┼───────┼───────┤       │       │
-      ├───────┼───────┤       │       │       │       │                                     │       │       │       │       ├───────┼───────┤
-      │       │       │       │       │       │       │                                     │       │       │       │       │       │       │
-Row 2 │       │       │       │       │       │       │                                     │       │       │       │       │       │       │
-      │       │       ├───────┼───────┼───────┼───────┤    1      2            1      2     ├───────┼───────┼───────┼───────┤       │       │
-      ├──(08)─┼──(06)─┤       │       │       │       │┌───────┬───────┐   ┌───────┬───────┐│       │       │       │       ├──(16)─┼─(18)──┤
-      │       │       │       │       │       │       ││      (00)     │   │     (10)      ││       │       │       │       │       │       │
-Row 3 │       │       │       │       │       │       ││       │       │   │       │       ││       │       │       │       │       │       │
-      │       │       ├───────┴───────┴───────┴───────┘│       │       │   │       │       │└───────┴───────┴───────┴───────┤       │       │
-      └───────┴───────┘    ┌(07)───┬───(02)┬────(01)───┴───┬───┴───┬───┘   └───┬───┴───┬───┴───(11)────┬(12)───┬───(17)┐    └───────┴───────┘
-                           │       │       │       │       │       │           │       │       │       │       │       │
-               Thumb row 2 │       │       │       │       │       │           │       │       │       │       │       │
-                           │       │       │       │       │       │           │       │       │       │       │       │
-                           └───────┴───────┴───────┴───────┴───────┘           └───────┴───────┴───────┴───────┴───────┘
-                               1       2       3       4       5                  1       2       3       4       5
-```
+![keyboard-layout-editor - LEDs](https://i.imgur.com/z5mO3Db.png)
+[keyboard-layout-editor - LEDs](http://www.keyboard-layout-editor.com/##@_name=Kyria%3B&@_y:0.25&x:3&g:true&a:7%3B&=&_x:-0.25&c=%23ff0000&g:false&w:0.5&h:0.5%3B&=4&_x:8.5&w:0.5&h:0.5%3B&=14&_x:-0.25&c=%23cccccc&g:true%3B&=%3B&@_y:-0.75&x:0.25&c=%23ff0000&g:false&w:0.5&h:0.5%3B&=9&_x:0.5&w:0.5&h:0.5%3B&=5&_x:0.25&c=%23cccccc&g:true%3B&=&_x:1%3B&=&_x:7%3B&=&_x:1%3B&=&_x:0.25&c=%23ff0000&g:false&w:0.5&h:0.5%3B&=19&_x:0.5&w:0.5&h:0.5%3B&=15%3B&@_y:-0.875&x:5&c=%23cccccc&g:true%3B&=&_x:5%3B&=%3B&@_y:-0.625%3B&=&=&_x:13%3B&=&=%3B&@_y:-0.75&x:3%3B&=&_x:1.25&c=%23ff0000&g:false&w:0.5&h:0.5%3B&=3&_x:5.5&w:0.5&h:0.5%3B&=13&_x:1.25&c=%23cccccc&g:true%3B&=%3B&@_y:-0.75&x:2%3B&=&_x:1%3B&=&_x:7%3B&=&_x:1%3B&=%3B&@_y:-0.875&x:5%3B&=&_x:5%3B&=%3B&@_y:-0.625%3B&=&=&_x:13%3B&=&=%3B&@_y:-0.75&x:3%3B&=&_x:9%3B&=%3B&@_y:-0.75&x:2%3B&=&_x:1%3B&=&_x:7%3B&=&_x:1%3B&=%3B&@_y:-0.875&x:5%3B&=&_x:5%3B&=%3B&@_y:-0.875&x:0.25&c=%23ff0000&g:false&w:0.5&h:0.5%3B&=8&_x:0.5&w:0.5&h:0.5%3B&=6&_x:13.5&w:0.5&h:0.5%3B&=18&_x:0.5&w:0.5&h:0.5%3B&=16%3B&@_y:-0.75&c=%23cccccc&g:true%3B&=&=&_x:13%3B&=&=%3B&@_y:-0.75&x:2.5&c=%23ff0000&g:false&w:0.5&h:0.5%3B&=7&_x:1.25&w:0.5&h:0.5%3B&=2&_x:7.5&w:0.5&h:0.5%3B&=12&_x:1.25&w:0.5&h:0.5%3B&=17%3B&@_y:-0.75&x:2.5&c=%23cccccc&g:true%3B&=&_x:2&c=%23ff0000&g:false&w:0.5&h:0.5%3B&=1&_x:5&w:0.5&h:0.5%3B&=11&_x:2&c=%23cccccc&g:true%3B&=%3B&@_y:-0.75&x:7&c=%23ff0000&g:false&w:0.5&h:0.5%3B&=0&_x:2&w:0.5&h:0.5%3B&=10%3B&@_rx:4&ry:8.175&y:-4.675000000000001&x:-0.5&c=%23cccccc&g:true%3B&=%3B&@_rx:13&y:-4.675000000000001&x:-0.5%3B&=%3B&@_r:15&rx:4&y:-4.675000000000001&x:-0.5%3B&=%3B&@_r:30&y:-2&x:-0.5%3B&=%3B&@_x:-0.5%3B&=%3B&@_r:45&y:-2&x:-0.5%3B&=%3B&@_x:-0.5%3B&=%3B&@_r:-45&rx:13&y:-5.675000000000001&x:-0.5%3B&=%3B&@_x:-0.5%3B&=%3B&@_r:-30&y:-2&x:-0.5%3B&=%3B&@_x:-0.5%3B&=%3B&@_r:-15&y:-1&x:-0.5%3B&=)
 
 ### RGB modes
 
@@ -924,6 +887,7 @@ qmk flash -kb kyria -km seb-ma
 - [image2cpp (Convert image to C array)](https://javl.github.io/image2cpp/)
 - [Font and Image editor](https://joric.github.io/qle/)
 - [Font editor](https://helixfonteditor.netlify.app/)
+- [keyboard layout editor (link for Kyria)](http://www.keyboard-layout-editor.com/##@_name=Kyria%3B&@_y:0.25&x:3&a:7%3B&=&_x:9%3B&=%3B&@_y:-0.75&x:2%3B&=&_x:1%3B&=&_x:7%3B&=&_x:1%3B&=%3B&@_y:-0.875&x:5%3B&=&_x:5%3B&=%3B&@_y:-0.625%3B&=&=&_x:13%3B&=&=%3B&@_y:-0.75&x:3%3B&=&_x:9%3B&=%3B&@_y:-0.75&x:2%3B&=&_x:1%3B&=&_x:7%3B&=&_x:1%3B&=%3B&@_y:-0.875&x:5%3B&=&_x:5%3B&=%3B&@_y:-0.625%3B&=&=&_x:13%3B&=&=%3B&@_y:-0.75&x:3%3B&=&_x:9%3B&=%3B&@_y:-0.75&x:2%3B&=&_x:1%3B&=&_x:7%3B&=&_x:1%3B&=%3B&@_y:-0.875&x:5%3B&=&_x:5%3B&=%3B&@_y:-0.625%3B&=&=&_x:13%3B&=&=%3B&@_y:-0.5&x:2.5%3B&=&_x:10%3B&=%3B&@_rx:4&ry:8.175&y:-4.675000000000001&x:-0.5%3B&=%3B&@_rx:13&y:-4.675000000000001&x:-0.5%3B&=%3B&@_r:15&rx:4&y:-4.675000000000001&x:-0.5%3B&=%3B&@_r:30&y:-2&x:-0.5%3B&=%3B&@_x:-0.5%3B&=%3B&@_r:45&y:-2&x:-0.5%3B&=%3B&@_x:-0.5%3B&=%3B&@_r:-45&rx:13&y:-5.675000000000001&x:-0.5%3B&=%3B&@_x:-0.5%3B&=%3B&@_r:-30&y:-2&x:-0.5%3B&=%3B&@_x:-0.5%3B&=%3B&@_r:-15&y:-1&x:-0.5%3B&=)
 
 ## License
 

@@ -244,16 +244,16 @@ void render_dynamic_macros(void) {
         // Keep playing only a defined time (no data to identify end of macro playing)
         if (timer_elapsed32(dyn_macros_state[i].timer_played) < DYNMACRO_STATE_DISPLAY_DURATION) {
             oled_write_space_nb(2);
-            oled_write_P(logos_1row[LOGO_PLAY], true); // 2
+            oled_write_P(logos_1row[LOGO_PLAY], false); // 2
         }
         if (dyn_macros_state[i].recording) {
             oled_write_space_nb(2);
-            oled_write_P(logos_1row[LOGO_REC], true); // 2
+            oled_write_P(logos_1row[LOGO_REC], false); // 2
         }
         // Keep warning only a defined time
         if (timer_elapsed32(dyn_macros_state[i].timer_last_error) < DYNMACRO_STATE_DISPLAY_DURATION) {
             oled_write_space_nb(2);
-            oled_write_P(logos_1row[LOGO_WARN], true); // 2
+            oled_write_P(logos_1row[LOGO_WARN], false); // 2
         }
         oled_advance_page(true);
     }
