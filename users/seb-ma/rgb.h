@@ -26,8 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern const rgblight_segment_t LAYER_RGB_BASE[] PROGMEM;
 extern const rgblight_segment_t LAYER_RGB_NUM_SYMB[] PROGMEM;
 extern const rgblight_segment_t LAYER_RGB_NAV_MOUSE[] PROGMEM;
-extern const rgblight_segment_t LAYER_RGB_MEDIA_RGB[] PROGMEM;
 extern const rgblight_segment_t LAYER_RGB_SHORTCUTS[] PROGMEM;
+extern const rgblight_segment_t LAYER_RGB_MEDIA_RGB[] PROGMEM;
 extern const rgblight_segment_t LAYER_RGB_MACRO_RECORD[] PROGMEM;
 extern const rgblight_segment_t LAYER_RGB_LEADER[] PROGMEM;
 extern const rgblight_segment_t LAYER_RGB_CAPSLOCK[] PROGMEM;
@@ -39,8 +39,8 @@ static const rgblight_segment_t* const rgblight_layers_user[RGBLIGHT_MAX_LAYERS 
     LAYER_RGB_BASE,
     LAYER_RGB_NUM_SYMB,
     LAYER_RGB_NAV_MOUSE,
-    LAYER_RGB_MEDIA_RGB,
     LAYER_RGB_SHORTCUTS,
+    LAYER_RGB_MEDIA_RGB,
     LAYER_RGB_MACRO_RECORD,
     LAYER_RGB_LEADER,
     LAYER_RGB_CAPSLOCK

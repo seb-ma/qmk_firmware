@@ -1,9 +1,11 @@
+/* Copyright Masayuki Koba, Tatsuya Kato, John Lerchey, Eric Anderson, Toshihiro Kanda, Kiichiroh Mukose */
+
 /* Bitmap sources of Oneko: https://github.com/tie/oneko
     "oneko is public domain software"
  */
 #define PROGMEM
 
-// Place here data from https://javl.github.io/image2cpp/ (in Draw mode, use "Vertical - 1 bit per pixel")
+// Data from https://javl.github.io/image2cpp/ (in Draw mode, use "Vertical - 1 bit per pixel")
 
 // 'awake', 32x32px
 const unsigned char awake [] PROGMEM = {

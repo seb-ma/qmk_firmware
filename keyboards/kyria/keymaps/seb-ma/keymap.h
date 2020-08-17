@@ -64,7 +64,7 @@ Physical keys representation by default:
 //-------------
 // bépo adapted:
 //  - move of 'w' from row 1 to row 3
-//  - replacement of altgr and altgr+shift on 'c' to have 'ç' and 'Ç' (chars becoming unavalable: ©ſ)
+//  - replacement of AltGr and AltGr+Shift on 'c' to have 'ç' and 'Ç' (chars becoming unavalable: ©ſ)
 //  - swap of `'` and `’`
 // holding tab: add nbsp automatically on chars «»!?;:
 // Layers NUMBERS/SYMBOLS + NAVIGATION/MOUSE to access layer MEDIA/RGB
@@ -96,7 +96,7 @@ Physical keys representation by default:
 //          │ /     │ \     ├───────┴───────┴───────┴───────┘│       │       │   │       │       │└───────┴───────┴───────┴───────┤ ˛▒  ª │ ˘▒    │
 //          └───────┴───────┘     ▄▄▄▄▄▄▄┌───────┬───────┬───┴───┬───┴───┬───┘   └───┬───┴───┬───┴───┬───────┬───────┐▄▄▄▄▄▄▄     └───────┴───────┘
 //                               ▐▲▼Pag#S▌(Layer)│(Layer)│       │       │           │       │       │       │(Layer)▐◄►Wrd#S▌
-//    Thumb row 2                ▐  Gui  ▌NAV/MOU│SHRTCUT│Sp NbSp│ Shift │           │ Shift │ Enter │  Alt  │NUM/SYM▐  App  ▌
+//    Thumb row 2                ▐  Gui  ▌NUM/SYM│SHRTCUT│Sp NbSp│ Shift │           │ Shift │ Enter │  Alt  │NAV/MOU▐  App  ▌
 //                               ▐  ↑↓   ▌       │  Tab  │_ NNbSp│       │           │       │       │       │       ▐  ←→   ▌
 //                                ▀▀▀▀▀▀▀└───────┴───────┴───────┴───────┘           └───────┴───────┴───────┴───────┘▀▀▀▀▀▀▀
 //                                   1       2       3       4       5                   1       2       3       4       5
@@ -109,19 +109,19 @@ Physical keys representation by default:
 #define BEPO_ROW3_LEFT        BP_ECIR,      BP_AGRV, BP_Y,    BP_X, BP_DOT, BP_K,
 #define BEPO_ROW3_RIGHT       BP_RSQU,      BP_Q,    BP_G,    BP_H, BP_F,   BP_W,
 
-#define BEPO_THUMB_ROW1_LEFT                                                     KC_BSPACE,          KC_LCTRL,
-#define BEPO_THUMB_ROW2_LEFT  KC_LGUI,   TT(_NAV_MOUSE), LT(_SHORTCUTS, KC_TAB), KC_SPACE,           KC_LSHIFT,
+#define BEPO_THUMB_ROW1_LEFT                                                         KC_BSPACE,      KC_LCTRL,
+#define BEPO_THUMB_ROW2_LEFT  KC_LGUI,   TT(_FUNC_NUM_SYMB), LT(_SHORTCUTS, KC_TAB), KC_SPACE,       KC_LSHIFT,
 #define BEPO_THUMB_ROW1_RIGHT KC_RALT,   KC_DELETE,
-#define BEPO_THUMB_ROW2_RIGHT KC_LSHIFT, KC_ENTER,       KC_LALT,                TT(_FUNC_NUM_SYMB), KC_APPLICATION
+#define BEPO_THUMB_ROW2_RIGHT KC_LSHIFT, KC_ENTER,           KC_LALT,                TT(_NAV_MOUSE), KC_APPLICATION
 
 //----------------------
 // Layer _FUNC_NUM_SYMB
 //----------------------
 // bépo adapted: (see custom_keys.c for implementation)
-//  - F11, F12 and F13 with altgr on F1, F2 and F3
-//  - BP_LCBR and BP_RCBR with altgr on F4 and F5
-//  - BP_DCIR and BP_CARN with altgr on F6 and F7
-//  - BP_BSLS and BP_SLSH with altgr on F8 and F9
+//  - F11, F12 and F13 with AltGr on F1, F2 and F3
+//  - BP_LCBR and BP_RCBR with AltGr on F4 and F5
+//  - BP_DCIR and BP_CARN with AltGr on F6 and F7
+//  - BP_BSLS and BP_SLSH with AltGr on F8 and F9
 //  - BP_COMM, BP_DOT (and shift association) on right of key 0
 //
 //                                           Left                                                             Right
@@ -171,18 +171,18 @@ Physical keys representation by default:
 //
 //              1       2       3       4       5       6                                             1       2       3       4       5       6
 //                          ┌───────┬───────┬───────┬───────┐                                     ┌───────┬───────┬───────┬───────┐
-//          ┌───────┬───────┤       │       │       │       │                                     │       │       │       │       ├───────┬───────┐
-//          │       │       │   ▲   │   ↑   │   ▼   │ Btn3  │                                     │  Cut  │   ▲   │   ↑   │   ▼   │       │       │
-//    Row 1 │  ___  │       │(mouse)│(mouse)│(mouse)│(mouse)│                                     │       │       │       │       │Pr.Scr │Insert │
-//          │       │       ├───────┼───────┼───────┼───────┤                                     ├───────┼───────┼───────┼───────┤       │       │
+//          ┌───────┬───────┤       │       │       │       │                                     │ Shift │       │       │       ├───────┬───────┐
+//          │       │       │   ▲   │   ↑   │   ▼   │ Btn3  │                                     │ Ctrl  │   ▲   │   ↑   │   ▼   │ Shift │       │
+//    Row 1 │  ___  │       │(mouse)│(mouse)│(mouse)│(mouse)│                                     │   ←   │       │       │       │ Ctrl  │       │
+//          │       │       ├───────┼───────┼───────┼───────┤                                     ├───────┼───────┼───────┼───────┤   →   │       │
 //          ├───────┼───────┤       │       │       │       │                                     │       │       │       │       ├───────┼───────┤
-//          │       │       │   ←   │   ↓   │   →   │ Btn1  │                                     │ Copy  │   ←   │   ↓   │   →   │       │       │
-//    Row 2 │DynM1●■│DynM1 ►│(mouse)│(mouse)│(mouse)│(mouse)│                                     │       │       │       │       │FindNxt│ Undo  │
-//          │       │       ├───────┼───────┼───────┼───────┤    1      2            1      2     ├───────┼───────┼───────┼───────┤ Find  │       │
+//          │       │       │   ←   │   ↓   │   →   │ Btn1  │                                     │ Ctrl  │   ←   │   ↓   │   →   │       │       │
+//    Row 2 │DynM1●■│DynM1 ►│(mouse)│(mouse)│(mouse)│(mouse)│                                     │   ←   │       │       │       │ Ctrl  │       │
+//          │       │       ├───────┼───────┼───────┼───────┤    1      2            1      2     ├───────┼───────┼───────┼───────┤   →   │       │
 //          ├───────┼───────┤       │       │       │       │┌───────┬───────┐   ┌───────┬───────┐│       │       │       │       ├───────┼───────┤
-//          │       │       │   ◄   │       │   ►   │ Btn2  ││       │       │   │       │       ││ Paste │   ◄   │       │   ►   │       │       │
-//    Row 3 │DynM2●■│DynM2 ►│(mouse)│       │(mouse)│(mouse)││  ___  │  ___  │   │  ___  │  ___  ││       │       │       │       │Replace│ Redo  │
-//          │       │       ├───────┴───────┴───────┴───────┘│       │       │   │       │       │└───────┴───────┴───────┴───────┤       │       │
+//          │       │       │   ◄   │       │   ►   │ Btn2  ││       │       │   │       │       ││ Shift │   ◄   │       │   ►   │       │       │
+//    Row 3 │DynM2●■│DynM2 ►│(mouse)│       │(mouse)│(mouse)││  ___  │  ___  │   │  ___  │  ___  ││   ←   │       │       │       │ Shift │       │
+//          │       │       ├───────┴───────┴───────┴───────┘│       │       │   │       │       │└───────┴───────┴───────┴───────┤   →   │       │
 //          └───────┴───────┘     ▄▄▄▄▄▄▄┌───────┬───────┬───┴───┬───┴───┬───┘   └───┬───┴───┬───┴───┬───────┬───────┐▄▄▄▄▄▄▄     └───────┴───────┘
 //                               ▐       ▌       │       │       │       │           │       │       │       │       ▐       ▌
 //                   Thumb row 2 ▐  ___  ▌  ___  │  ___  │  ___  │  ___  │           │  ___  │  ___  │  ___  │  ___  ▐  ___  ▌
@@ -196,14 +196,55 @@ Physical keys representation by default:
 #define NAV_MOUSE_ROW2_LEFT        DYN_REC_START1, DYN_MACRO_PLAY1, KC_MS_LEFT,    KC_MS_DOWN, KC_MS_RIGHT,    KC_MS_BTN1,
 #define NAV_MOUSE_ROW3_LEFT        DYN_REC_START2, DYN_MACRO_PLAY2, KC_MS_WH_LEFT, XXXXXXX,    KC_MS_WH_RIGHT, KC_MS_BTN2,
 // Navigation
-#define NAV_MOUSE_ROW1_RIGHT       C(BP_X),        KC_PGUP,         KC_UP,         KC_PGDOWN,  KC_PSCREEN,     KC_INSERT,
-#define NAV_MOUSE_ROW2_RIGHT       C(BP_C),        KC_LEFT,         KC_DOWN,       KC_RIGHT,   C_FIND,         C(BP_Z),
-#define NAV_MOUSE_ROW3_RIGHT       C(BP_V),        KC_HOME,         XXXXXXX,       KC_END,     C(BP_H),        C(BP_Y),
+#define NAV_MOUSE_ROW1_RIGHT       S(C(KC_LEFT)),  KC_PGUP,         KC_UP,         KC_PGDOWN,  S(C(KC_RIGHT)), XXXXXXX,
+#define NAV_MOUSE_ROW2_RIGHT       C(KC_LEFT),     KC_LEFT,         KC_DOWN,       KC_RIGHT,   C(KC_RIGHT),    XXXXXXX,
+#define NAV_MOUSE_ROW3_RIGHT       S(KC_LEFT),     KC_HOME,         XXXXXXX,       KC_END,     S(KC_RIGHT),    XXXXXXX,
 
 #define NAV_MOUSE_THUMB_ROW1_LEFT                             _______, _______,
 #define NAV_MOUSE_THUMB_ROW2_LEFT  _______, _______, _______, _______, _______,
 #define NAV_MOUSE_THUMB_ROW1_RIGHT _______, _______,
 #define NAV_MOUSE_THUMB_ROW2_RIGHT _______, _______, _______, _______, _______
+
+//------------------
+// Layer _SHORTCUTS
+//------------------
+//
+//                                           Left                                                             Right
+//
+//              1       2       3       4       5       6                                             1       2       3       4       5       6
+//                          ┌───────┬───────┬───────┬───────┐                                     ┌───────┬───────┬───────┬───────┐
+//          ┌───────┬───────┤       │       │       │       │                                     │       │       │       │       ├───────┬───────┐
+//          │       │       │  New  │ Pr.Scr│ Undo  │ Redo  │                                     │  ---  │  ---  │  ---  │  ---  │       │       │
+//    Row 1 │  ___  │       │  tab  │       │       │       │                                     │       │       │       │       │  ---  │  ---  │
+//          │       │       ├───────┼───────┼───────┼───────┤                                     ├───────┼───────┼───────┼───────┤       │       │
+//          ├───────┼───────┤       │       │       │       │                                     │       │       │       │       ├───────┼───────┤
+//          │       │       │  Cut  │ Copy  │ Paste │Select │                                     │  ---  │  ---  │  ---  │  ---  │       │       │
+//    Row 2 │DynM1●■│DynM1 ►│       │       │       │  all  │                                     │       │       │       │       │  ---  │  ---  │
+//          │       │       ├───────┼───────┼───────┼───────┤    1      2            1      2     ├───────┼───────┼───────┼───────┤       │       │
+//          ├───────┼───────┤       │       │       │       │┌───────┬───────┐   ┌───────┬───────┐│       │       │       │       ├───────┼───────┤
+//          │       │       │ Close │Replace│ Find  │  F3   ││       │       │   │       │       ││  ---  │  ---  │  ---  │  ---  │       │       │
+//    Row 3 │DynM2●■│DynM2 ►│       │       │       │       ││  ___  │  ___  │   │  ___  │  ___  ││       │       │       │       │  ---  │  ---  │
+//          │       │       ├───────┴───────┴───────┴───────┘│       │       │   │       │       │└───────┴───────┴───────┴───────┤       │       │
+//          └───────┴───────┘     ▄▄▄▄▄▄▄┌───────┬───────┬───┴───┬───┴───┬───┘   └───┬───┴───┬───┴───┬───────┬───────┐▄▄▄▄▄▄▄     └───────┴───────┘
+//                               ▐       ▌       │       │       │       │           │       │       │       │       ▐       ▌
+//                   Thumb row 2 ▐  ___  ▌  ___  │  ___  │  ___  │  ___  │           │  ___  │  ___  │  ___  │  ___  ▐  ___  ▌
+//                               ▐       ▌       │       │       │       │           │       │       │       │       ▐       ▌
+//                                ▀▀▀▀▀▀▀└───────┴───────┴───────┴───────┘           └───────┴───────┴───────┴───────┘▀▀▀▀▀▀▀
+//                                   1       2       3       4       5                   1       2       3       4       5
+//
+
+#define SHORTCUTS_ROW1_LEFT        _______,        XXXXXXX,         C(BP_T), KC_PSCREEN, C(BP_Z), C(BP_Y),
+#define SHORTCUTS_ROW2_LEFT        DYN_REC_START1, DYN_MACRO_PLAY1, C(BP_X), C(BP_C),    C(BP_V), C(BP_A),
+#define SHORTCUTS_ROW3_LEFT        DYN_REC_START2, DYN_MACRO_PLAY2, C(BP_W), C(BP_H),    C(BP_F), KC_F3,
+
+#define SHORTCUTS_ROW1_RIGHT       _______,        _______,         _______, _______,    _______, _______,
+#define SHORTCUTS_ROW2_RIGHT       _______,        _______,         _______, _______,    _______, _______,
+#define SHORTCUTS_ROW3_RIGHT       _______,        _______,         _______, _______,    _______, _______,
+
+#define SHORTCUTS_THUMB_ROW1_LEFT                             _______, _______,
+#define SHORTCUTS_THUMB_ROW2_LEFT  _______, _______, _______, _______, _______,
+#define SHORTCUTS_THUMB_ROW1_RIGHT _______, _______,
+#define SHORTCUTS_THUMB_ROW2_RIGHT _______, _______, _______, _______, _______
 
 //------------------
 // Layer _MEDIA_RGB
@@ -246,48 +287,6 @@ Physical keys representation by default:
 #define MEDIA_RGB_THUMB_ROW2_LEFT  KC_AUDIO_MUTE, _______, _______, _______, _______,
 #define MEDIA_RGB_THUMB_ROW1_RIGHT _______,       _______,
 #define MEDIA_RGB_THUMB_ROW2_RIGHT _______,       _______, _______, _______, KC_MEDIA_PLAY_PAUSE
-
-//------------------
-// Layer _SHORTCUTS
-//------------------
-//
-//                                           Left                                                             Right
-//
-//              1       2       3       4       5       6                                             1       2       3       4       5       6
-//                          ┌───────┬───────┬───────┬───────┐                                     ┌───────┬───────┬───────┬───────┐
-//          ┌───────┬───────┤       │       │       │       │                                     │ Shift │       │       │       ├───────┬───────┐
-//          │       │       │  New  │       │ Undo  │ Redo  │                                     │ Ctrl  │   ▲   │   ↑   │   ▼   │ Shift │       │
-//    Row 1 │  ___  │       │  tab  │       │       │       │                                     │   ←   │       │       │       │ Ctrl  │       │
-//          │       │       ├───────┼───────┼───────┼───────┤                                     ├───────┼───────┼───────┼───────┤   →   │       │
-//          ├───────┼───────┤       │       │       │       │                                     │       │       │       │       ├───────┼───────┤
-//          │       │       │  Cut  │ Copy  │ Paste │Select │                                     │ Ctrl  │   ←   │   ↓   │   →   │       │       │
-//    Row 2 │DynM1●■│DynM1 ►│       │       │       │  all  │                                     │   ←   │       │       │       │ Ctrl  │       │
-//          │       │       ├───────┼───────┼───────┼───────┤    1      2            1      2     ├───────┼───────┼───────┼───────┤   →   │       │
-//          ├───────┼───────┤       │       │       │       │┌───────┬───────┐   ┌───────┬───────┐│       │       │       │       ├───────┼───────┤
-//          │       │       │ Close │Replace│ Find  │  F3   ││       │       │   │       │       ││ Shift │   ◄   │       │   ►   │       │       │
-//    Row 3 │DynM2●■│DynM2 ►│       │       │       │       ││  ___  │  ___  │   │  ___  │  ___  ││   ←   │       │       │       │ Shift │       │
-//          │       │       ├───────┴───────┴───────┴───────┘│       │       │   │       │       │└───────┴───────┴───────┴───────┤   →   │       │
-//          └───────┴───────┘     ▄▄▄▄▄▄▄┌───────┬───────┬───┴───┬───┴───┬───┘   └───┬───┴───┬───┴───┬───────┬───────┐▄▄▄▄▄▄▄     └───────┴───────┘
-//                               ▐       ▌       │       │       │       │           │       │       │       │       ▐       ▌
-//                   Thumb row 2 ▐  ___  ▌  ___  │  ___  │  ___  │  ___  │           │  ___  │  ___  │  ___  │  ___  ▐  ___  ▌
-//                               ▐       ▌       │       │       │       │           │       │       │       │       ▐       ▌
-//                                ▀▀▀▀▀▀▀└───────┴───────┴───────┴───────┘           └───────┴───────┴───────┴───────┘▀▀▀▀▀▀▀
-//                                   1       2       3       4       5                   1       2       3       4       5
-//
-
-#define SHORTCUTS_ROW1_LEFT        _______,        XXXXXXX,         C(BP_T), XXXXXXX,   C(BP_Z),        C(BP_Y),
-#define SHORTCUTS_ROW2_LEFT        DYN_REC_START1, DYN_MACRO_PLAY1, C(BP_X), C(BP_C),   C(BP_V),        C(BP_A),
-#define SHORTCUTS_ROW3_LEFT        DYN_REC_START2, DYN_MACRO_PLAY2, C(BP_W), C(BP_H),   C(BP_F),        KC_F3,
-
-#define SHORTCUTS_ROW1_RIGHT       S(C(KC_LEFT)),  KC_PGUP,         KC_UP,   KC_PGDOWN, S(C(KC_RIGHT)), XXXXXXX,
-#define SHORTCUTS_ROW2_RIGHT       C(KC_LEFT),     KC_LEFT,         KC_DOWN, KC_RIGHT,  C(KC_RIGHT),    XXXXXXX,
-#define SHORTCUTS_ROW3_RIGHT       S(KC_LEFT),     KC_HOME,         XXXXXXX, KC_END,    S(KC_RIGHT),    XXXXXXX,
-
-#define SHORTCUTS_THUMB_ROW1_LEFT                             _______, _______,
-#define SHORTCUTS_THUMB_ROW2_LEFT  _______, _______, _______, _______, _______,
-#define SHORTCUTS_THUMB_ROW1_RIGHT _______, _______,
-#define SHORTCUTS_THUMB_ROW2_RIGHT _______, _______, _______, _______, _______
-
 
 /*
 //----------------

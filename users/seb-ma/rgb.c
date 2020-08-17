@@ -91,8 +91,8 @@ enum layer_index {
     IDX_LAYER_RGB_BASE = 0,
     IDX_LAYER_RGB_NUM_SYMB,
     IDX_LAYER_RGB_NAV_MOUSE,
-    IDX_LAYER_RGB_MEDIA_RGB,
     IDX_LAYER_RGB_SHORTCUTS,
+    IDX_LAYER_RGB_MEDIA_RGB,
     IDX_LAYER_RGB_MACRO_RECORD,
     IDX_LAYER_RGB_LEADER,
     IDX_LAYER_RGB_CAPSLOCK,
@@ -119,19 +119,25 @@ void rgb_display_layer(const layer_state_t state) {
         rgblight_set_layer_state(IDX_LAYER_RGB_BASE,      layer_state_cmp(state, _BEPO));
         rgblight_set_layer_state(IDX_LAYER_RGB_NUM_SYMB,  layer_state_cmp(state, _FUNC_NUM_SYMB));
         rgblight_set_layer_state(IDX_LAYER_RGB_NAV_MOUSE, layer_state_cmp(state, _NAV_MOUSE));
-        rgblight_set_layer_state(IDX_LAYER_RGB_MEDIA_RGB, layer_state_cmp(state, _MEDIA_RGB));
         rgblight_set_layer_state(IDX_LAYER_RGB_SHORTCUTS, layer_state_cmp(state, _SHORTCUTS));
+        rgblight_set_layer_state(IDX_LAYER_RGB_MEDIA_RGB, layer_state_cmp(state, _MEDIA_RGB));
 #else // RGBLIGHT_LAYERS
-        if (layer_state_cmp(state, _SHORTCUTS)) {
-            rgblight_sethsv_range(HSV_GOLD, 0, RGBLED_NUM);
-        } else if (layer_state_cmp(state, _MEDIA_RGB)) {
-            rgblight_sethsv_range(HSV_PURPLE, 0, RGBLED_NUM);
-        } else if (layer_state_cmp(state, _NAV_MOUSE)) {
-            rgblight_sethsv_range(HSV_BLUE, 0, RGBLED_NUM);
-        } else if (layer_state_cmp(state, _FUNC_NUM_SYMB)) {
-            rgblight_sethsv_range(HSV_ORANGE, 0, RGBLED_NUM);
-        } else if (layer_state_cmp(state, _BEPO)) {
-            rgblight_sethsv_range(HSV_RED, 0, RGBLED_NUM);
+        switch(get_highest_layer(state)) {
+            case _BEPO:
+                rgblight_sethsv_range(HSV_RED, 0, RGBLED_NUM);
+                break;
+            case _FUNC_NUM_SYMB:
+                rgblight_sethsv_range(HSV_ORANGE, 0, RGBLED_NUM);
+                break;
+            case _NAV_MOUSE:
+                rgblight_sethsv_range(HSV_BLUE, 0, RGBLED_NUM);
+                break;
+            case _MEDIA_RGB:
+                rgblight_sethsv_range(HSV_PURPLE, 0, RGBLED_NUM);
+                break;
+            case _SHORTCUTS:
+                rgblight_sethsv_range(HSV_GOLD, 0, RGBLED_NUM);
+                break;
         }
 #endif // RGBLIGHT_LAYERS
     } else {

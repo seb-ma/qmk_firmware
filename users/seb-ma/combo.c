@@ -57,11 +57,12 @@ enum combo_events {
     COMBO_nbsp_rsqu,
     // Others (2)
     COMBO_end_sentence,
-    COMBO_https,
     COMBO_giphy,
 #ifndef NO_SECRETS
     COMBO_uid,
     COMBO_product,
+    COMBO_p1,
+    COMBO_p2,
 #endif
 
     COMBO_SIZE
@@ -101,11 +102,12 @@ const uint16_t combo_nbsp_dot     [] PROGMEM = {KC_SPACE, BP_DOT , COMBO_END}; /
 const uint16_t combo_nbsp_rsqu    [] PROGMEM = {KC_SPACE, BP_RSQU, COMBO_END}; // ’ (non shifted of ?) (different from standard bépo map due to relocation of "'")
 // Others
 const uint16_t combo_end_sentence [] PROGMEM = {BP_T,     BP_DOT,  COMBO_END};
-const uint16_t combo_https        [] PROGMEM = {KC_SPACE, BP_H,    COMBO_END};
 const uint16_t combo_giphy        [] PROGMEM = {KC_SPACE, BP_G,    COMBO_END};
 #ifndef NO_SECRETS
 const uint16_t combo_uid          [] PROGMEM = {BP_S,     BP_M,    COMBO_END};
 const uint16_t combo_product      [] PROGMEM = {BP_S,     BP_K,    COMBO_END};
+const uint16_t combo_p1           [] PROGMEM = {BP_P,     BP_T,    COMBO_END};
+const uint16_t combo_p2           [] PROGMEM = {BP_P,     BP_S,    COMBO_END};
 #endif // NO_SECRETS
 
 /* Declaration of combos */
@@ -144,11 +146,12 @@ combo_t key_combos[COMBO_COUNT] = {
 
     /* Others */
     [COMBO_end_sentence] = COMBO_ACTION(combo_end_sentence),
-    [COMBO_https]        = COMBO_ACTION(combo_https),
     [COMBO_giphy]        = COMBO_ACTION(combo_giphy),
 #ifndef NO_SECRETS
     [COMBO_uid]          = COMBO_ACTION(combo_uid),
     [COMBO_product]      = COMBO_ACTION(combo_product),
+    [COMBO_p1]           = COMBO_ACTION(combo_p1),
+    [COMBO_p2]           = COMBO_ACTION(combo_p2),
 #endif
 };
 
@@ -232,22 +235,14 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
 #endif
             nb_char_sent = 2;
             break;
-        case COMBO_https:
-            send_str(PSTR("https://"));
-            nb_char_sent = 8;
-            break;
         case COMBO_giphy:
             send_str(PSTR("/giphy "));
             nb_char_sent = 7;
             break;
 #ifndef NO_SECRETS
-        case COMBO_uid:
-            send_str(secrets[SEC_UID]);
-            nb_char_sent = strlen_P(secrets[SEC_UID]);
-            break;
-        case COMBO_product:
-            send_str(secrets[SEC_PRODUCT]);
-            nb_char_sent = strlen_P(secrets[SEC_PRODUCT]);
+        case COMBO_uid ... COMBO_p2:
+            send_str(secrets[combo_index - COMBO_uid]);
+            nb_char_sent = strlen_P(secrets[combo_index - COMBO_uid]);
             break;
 #endif // NO_SECRETS
         }

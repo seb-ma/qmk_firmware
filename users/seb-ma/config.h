@@ -72,12 +72,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Combo
 #ifdef COMBO_ENABLE
 #   ifndef NO_SECRETS
-#       define NB_COMBO_SECRETS      2 // Number of existing combos related to !NO_SECRETS
+#       define NB_COMBO_SECRETS      4 // Number of existing combos related to !NO_SECRETS
 #   else
 #       define NB_COMBO_SECRETS      0
 #   endif
 
-#   define COMBO_COUNT             (28 + NB_COMBO_SECRETS) // Number of existing combos
+#   define COMBO_COUNT             (27 + NB_COMBO_SECRETS) // Number of existing combos
 #   define COMBO_TERM               40 // Set the time out period for combos in ms
 #endif // COMBO_ENABLE
 

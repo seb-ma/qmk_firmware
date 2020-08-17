@@ -41,6 +41,12 @@ const close_char_map_t close_char_map[] = {
     {BP_LBRC, BP_RBRC}, // []
 };
 
+/* Identify basic smileys to avoid pushing or poping a false open/close char */
+bool is_smiley(const uint16_t previous_keycode, const uint16_t keycode) {
+    return ((previous_keycode == BP_COLN || previous_keycode == BP_SCLN || previous_keycode == BP_MINS) // Eyes or nose : ; -
+     && (keycode == BP_LPRN || keycode == BP_RPRN)); // Mouth ( )
+}
+
 /* Handle the keys corresponding to an opening char: "(«[{
  Return the key itself or the first closing key if this is the special close key
 */
@@ -62,25 +68,28 @@ uint16_t handle_open_close_char(const uint16_t keycode, const bool ignore_mods, 
             return keycode_close_char;
         } else {
             const uint16_t keycode_mods = ignore_mods ? keycode : get_keycode_with_mods_applied(keycode);
-            if (index_close_char >= 0 && keycode_mods == close_char[index_close_char]) {
-                // If the close char was manually tapped, remove it
-                index_close_char--;
-                return keycode;
-            } else if (keycode == KC_BSPACE && index_close_char >= 0) {
-                for (uint8_t i = 0; i < sizeof(close_char_map) / sizeof(close_char_map_t); i++) {
-                    // If the open char was a mistake (backspaced), remove the last close char
-                    if (close_char_map[i].open == previous_keycode && close_char_map[i].close == close_char[index_close_char]) {
-                        index_close_char--;
-                        return keycode;
+            // Ignore smileys
+            if (!is_smiley(previous_keycode, keycode_mods)) {
+                if (index_close_char >= 0 && keycode_mods == close_char[index_close_char]) {
+                    // If the close char was manually tapped, remove it
+                    index_close_char--;
+                    return keycode;
+                } else if (keycode == KC_BSPACE && index_close_char >= 0) {
+                    for (uint8_t i = 0; i < sizeof(close_char_map) / sizeof(close_char_map_t); i++) {
+                        // If the open char was a mistake (backspaced), remove the last close char
+                        if (close_char_map[i].open == previous_keycode && close_char_map[i].close == close_char[index_close_char]) {
+                            index_close_char--;
+                            return keycode;
+                        }
+                        // If the close char was a mistake (backspaced), retreive the last close char
+                        if (close_char_map[i].close == previous_keycode) {
+                            index_close_char++;
+                            return keycode;
+                        }
                     }
-                    // If the close char was a mistake (backspaced), retreive the last close char
-                    if (close_char_map[i].close == previous_keycode) {
-                        index_close_char++;
-                        return keycode;
-                    }
+                } else {
+                    closechar_push(keycode_mods);
                 }
-            } else {
-                closechar_push(keycode_mods);
             }
         }
     } else if (keycode == C_CLOSE_CHAR) {

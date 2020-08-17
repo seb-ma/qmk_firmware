@@ -33,7 +33,7 @@ typedef struct {
     const uint16_t key_alter;
 } key_alter_map_t;
 
-/* Map of keys interpreted according to altgr mod - if altgr -> get key_alter, else get keycode */
+/* Map of keys interpreted according to AltGr mod - if AltGr -> get key_alter, else get keycode */
 const key_alter_map_t key_mod_altgr_map[] PROGMEM = {
     {KC_ESC,  KC_CAPSLOCK},
     {KC_F1,   KC_F11},
@@ -70,8 +70,6 @@ const key_mod_full_map_t key_mod_full_map[] PROGMEM = {
 
     {C_COMMA_DOT, BP_COMM,  S(BP_COMM),  BP_DOT,    S(BP_DOT)},  // , ; . :
     {BP_C,        BP_C,     S(BP_C),     BP_CCED,   S(BP_CCED)}, // c C ç Ç
-
-    {C_FIND,      KC_F3,    C(BP_F),   S(KC_F3),   S(C(BP_F))},
 
 #ifdef ENCODER_ENABLE
     {C_ENC1_CW,   KC_DOWN,  S(KC_DOWN),  KC_PGDOWN, S(KC_PGDOWN)},
@@ -248,8 +246,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint16_t next_previous_keycode = C_DUMMY;
     static uint16_t next_previous_keycode_not_altered = C_DUMMY;
     static uint16_t next_previous_keycode_new = C_DUMMY;
-    // Don't do it on modifiers
-    if (record->event.pressed && keycode_new != C_DUMMY && (keycode_new < KC_LCTRL || keycode_new > KC_RGUI)) {
+    // Don't do it on modifiers and don't store QMK functions
+    if (record->event.pressed && keycode_new != C_DUMMY && keycode_new <= QK_MODS_MAX && (keycode_new < KC_LCTRL || keycode_new > KC_RGUI)) {
         nb_char_sent = 1;
         // Store last keycode for reference in user functions
         previous_keycode = next_previous_keycode;

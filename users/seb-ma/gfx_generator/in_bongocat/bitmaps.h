@@ -1,7 +1,9 @@
+/* Copyright @StrayRogue and @DitzyFlama */
+
 /* Bitmap sources of Bongo cat: https://bongo-cat.glitch.me/ */
 #define PROGMEM
 
-// Place here data from https://javl.github.io/image2cpp/ (in Draw mode, use "Vertical - 1 bit per pixel")
+// Data from https://javl.github.io/image2cpp/ (in Draw mode, use "Vertical - 1 bit per pixel")
 
 // 'key1', 128x64px
 const unsigned char key1 [] PROGMEM = {

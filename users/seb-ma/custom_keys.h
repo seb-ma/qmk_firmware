@@ -23,7 +23,6 @@ enum user_keycodes {
     C_DUMMY = SAFE_RANGE,  // To use as a not special user key - nothing to do or let QMK handle it
 
     C_COMMA_DOT,           // Comma and dot in numbers layer
-    C_FIND,                // Shortcuts for Find and find next
 #ifdef USER_CLOSE_CHAR
     C_CLOSE_CHAR,          // Close last opening char
     C_CLOSE_CHAR_CLEAR,    // Close lasts opening chars

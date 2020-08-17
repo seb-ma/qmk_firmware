@@ -88,8 +88,8 @@ static const char logos_layers_lst[LAYERS_SIZE + 1][6] PROGMEM = {
     {FONT_POS_ALPHA_L,   FONT_POS_ALPHA_L   + 1, FONT_POS_ALPHA_L   + 2, FONT_POS_ALPHA_L + 3,   FONT_POS_ALPHA_L + 4, 0}, // alpha
     {FONT_POS_NUMS,      FONT_POS_NUMS      + 1, FONT_POS_NUMS      + 2, FONT_POS_NUMS    + 3,   FONT_POS_NUMS    + 4, 0}, // num/symb
     {FONT_POS_NAV,       FONT_POS_NAV       + 1, FONT_POS_NAV       + 2, FONT_POS_NAV     + 3,   0x20,                 0}, // nav/mouse
-    {FONT_POS_MEDIAS,    FONT_POS_MEDIAS    + 1, FONT_POS_MEDIAS    + 2, 0x20,                   0x20,                 0}, // media/rgb
     {FONT_POS_SHORTCUTS, FONT_POS_SHORTCUTS + 1, FONT_POS_SHORTCUTS + 2, FONT_POS_SHORTCUTS + 3, 0x20,                 0}, // shortcuts
+    {FONT_POS_MEDIAS,    FONT_POS_MEDIAS    + 1, FONT_POS_MEDIAS    + 2, 0x20,                   0x20,                 0}, // media/rgb
 
     // Extras
     {FONT_POS_ALPHA_H, FONT_POS_ALPHA_H + 1, FONT_POS_ALPHA_H + 2, FONT_POS_ALPHA_H + 3, FONT_POS_ALPHA_H + 4, 0}, // alpha caps lock (at index LAYER_SIZE)

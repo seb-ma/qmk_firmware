@@ -32,9 +32,9 @@ Some features need to be improved/corrected or may be added. Here is my list:
     - [General information](#General%20information)
     1. [Base layer (alphas)](#Base%20(alphabetic))
     1. [Numerics / Symbols / Functions](#Numeric%20/%20Symbols)
-    1. [Navigation / Mouse / Dynamic macros / Shortcuts](#Navigation%20/%20Mouse)
-    1. [Media / RGB](#Media%20/%20RGB)
+    1. [Navigation / Mouse / Dynamic macros](#Navigation%20/%20Mouse)
     1. [Shortcuts](#Shortcuts)
+    1. [Media / RGB](#Media%20/%20RGB)
 1. [Encoders](#Encoders)
     1. [Left encoder](#Left%20encoder)
     1. [Right encoder](#Right%20encoder)
@@ -76,7 +76,7 @@ All layers share:
 - the same layout for thumbs (except on Media layer for encoders)
 - the keys at column 1 of left halve for row 1 and row 2 (except on Media layer)
 
-Encoders are on thumb row 2 at external position (drawn in bold line above).
+Encoders are on thumb row 2 at external position (drawn in dark gray line above).
 Behavior is identical in all layers except in [Media / RGB](#Media%20/%20RGB)
 
 #### Layers navigation
@@ -85,7 +85,7 @@ Base layer is alphabetic.
 Accessing other layers is done by:
 
 - key NUM/SYM: hold to temporary access or tap to enter/exit [Numeric / Symbols / Functions](#Numeric%20/%20Symbols) layer
-- key NAV/MOU: hold to temporary access or tap to enter/exit [Navigation / Mouse / Dynamic macros / Shortcuts](#Navigation%20/%20Mouse) layer
+- key NAV/MOU: hold to temporary access or tap to enter/exit [Navigation / Mouse / Dynamic macros](#Navigation%20/%20Mouse) layer
 - keys NUM/SYM + NAV/MOU: hold to temporary access or tap to enter/exit [Media / RGB](#Media%20/%20RGB) layer
 - key TAB: hold to temporary access [Shortcuts](#Shortcuts) layer
 
@@ -95,8 +95,8 @@ The base layer is the alphabetic layer.
 
 #### Representation
 
-![keyboard-layout-editor - Base (alphabetic)](https://i.imgur.com/08RNpZs.png)
-[keyboard-layout-editor - Base (alphabetic)](http://www.keyboard-layout-editor.com/##@_backcolor=%23ffffff&name=Kyria%3B&@_x:18.75&c=%23f1f1f1&t=%23646464&fa@:1&:1&:1&:1%3B%3B&=Shift%0Akey%0AAltGr%20Shift%0AAltGr%3B&@_y:-0.75&x:3&c=%23cccccc&t=%23000000&p=R1&f:3%3B&=P%0Ap%0A%C2%A7%0A%2F&&_x:9&f:3%3B&=D%0Ad%0A%C3%90%0A%C3%B0%3B&@_y:-0.75&x:2&f:3%3B&=%C3%89%0A%C3%A9%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23779%2F%3B%3C%2F%2Fspan%3E%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23769%2F%3B%3C%2F%2Fspan%3E&_x:1&f:3%3B&=O%0Ao%0A%C5%92%0A%C5%93&_x:7&f:3%3B&=V%0Av%0A%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23780%2F%3B%3C%2F%2Fspan%3E&_x:1&f:3%3B&=L%0Al%0A%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23823%2F%3B%3C%2F%2Fspan%3E%3B&@_y:-0.875&x:5&f:3%3B&=%C3%88%0A%C3%A8%0A%60%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23768%2F%3B%3C%2F%2Fspan%3E&_x:5&f:3%3B&=!%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23770%2F%3B%3C%2F%2Fspan%3E%0A%0A%C2%A1%3B&@_y:-0.625&f:3%3B&=%0A%0A%0A%3Ci%20class%2F='kb%20kb-Unicode-Lock-Closed-1'%3E%3C%2F%2Fi%3E%E2%87%A7%0A%0A%0AEsc&_f:3%3B&=B%0Ab%0A%C2%A6%0A%7C&_x:13&f:3%3B&=J%0Aj%0A%C4%B2%0A%C4%B3&_f:3%3B&=Z%0Az%0A%C6%8F%0A%C9%99%3B&@_y:-0.75&x:3&p=R2&f:3%3B&=I%0Ai%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23775%2F%3B%3C%2F%2Fspan%3E%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23776%2F%3B%3C%2F%2Fspan%3E&_x:9&f:3%3B&=S%0As%0A%E1%BA%9E%0A%C3%9F%3B&@_y:-0.75&x:2&f:3%3B&=U%0Au%0A%C3%99%0A%C3%B9&_x:1&f:3&n:true%3B&=E%0Ae%0A%C2%A4%E2%96%92%0A%E2%82%AC&_x:7&f:3&n:true%3B&=T%0At%0A%C3%9E%0A%C3%BE&_x:1&f:3%3B&=R%0Ar%0A%E2%84%A2%0A%C2%AE%3B&@_y:-0.875&x:5&f:3%3B&=%2F%3B%0A,%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23806%2F%3B%3C%2F%2Fspan%3E%0A'&_x:5&f:3%3B&=C%0Ac%0A%C3%87%0A%C3%A7%3B&@_y:-0.625&c=%23dec29d&fa@:1&:1&:1&:1&:0&:0&:6%3B%3B&=%0A%0A%0AClear%20%3Ci%20class%2F='kb%20kb-Undo-2'%3E%3C%2F%2Fi%3E%0A%0A%0A%3Ci%20class%2F='kb%20kb-Undo-2'%3E%3C%2F%2Fi%3E&_c=%23cccccc&f:3%3B&=A%0Aa%0A%C3%86%0A%C3%A6&_x:13&f:3%3B&=N%0An%0A%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23834%2F%3B%3C%2F%2Fspan%3E&_f:3%3B&=M%0Am%0A%C2%BA%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23772%2F%3B%3C%2F%2Fspan%3E%3B&@_y:-0.75&x:3&p=R3&f:3%3B&=X%0Ax%0A%E2%80%99%0A%7D&_x:9&f:3%3B&=G%0Ag%0A%0A%C2%B5%E2%96%92%3B&@_y:-0.75&x:2&f:3%3B&=Y%0Ay%0A%E2%80%98%0A%7B&_x:1&f:3%3B&=%2F:%0A.%0A%C2%B7%0A%E2%80%A6&_x:7&f:3%3B&=Q%0Aq%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23787%2F%3B%3C%2F%2Fspan%3E%0A%C2%B0&_x:1&f:3%3B&=H%0Ah%0A%E2%80%A1%0A%E2%80%A0%3B&@_y:-0.875&x:5&f:3%3B&=K%0Ak%0A%0A~&_x:5&f:3%3B&=%3F%0A%E2%80%99%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23803%2F%3B%3C%2F%2Fspan%3E%0A%C2%BF%3B&@_y:-0.625&f:3%3B&=%C3%8A%0A%C3%AA%0A%0A%2F%2F&_f:3%3B&=%C3%80%0A%C3%A0%0A%0A%5C&_x:13&f:3%3B&=F%0Af%0A%C2%AA%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23808%2F%3B%3C%2F%2Fspan%3E&_f:3%3B&=W%0Aw%0A%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23774%2F%3B%3C%2F%2Fspan%3E%3B&@_y:-0.5&x:2.5&c=%23616161&f:3%3B&=%3Ci%20class%2F='kb%20kb-Unicode-Page-Up-3'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Down-3'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-logo-linux-tux'%3E%3C%2F%2Fi%3E&_x:10&fa@:0&:0&:0&:0&:0&:0&:6&:0&:0&:1%3B%3B&=%3Ci%20class%2F='kb%20kb-Line-Start'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Line-End'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-Hamburger-Menu'%3E%3C%2F%2Fi%3E%3B&@_rx:4&ry:8.175&y:-4.675&x:-0.5&c=%23a5afff&a:7%3B&=Nav%20Mouse%3B&@_rx:13&y:-4.675&x:-0.5%3B&=Num%20Symb%3B&@_r:15&rx:4&y:-4.675&x:-0.5&c=%23bfc7ff&a:4&fa@:0&:0&:0&:0&:0&:0&:6&:0&:2%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Tab-1'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0AShorcuts%20(hold)%3B&@_r:30&y:-2&x:-0.5&c=%23cccccc&a:7%3B&=%3Ci%20class%2F='mss%20mss-Unicode-BackSpace-DeleteLeft-Big-2'%3E%3C%2F%2Fi%3E%3B&@_x:-0.5&a:4&fa@:1&:0&:1%3B%3B&=nb%2F&%239251%2F%3B%0A%2F&%239251%2F%3B%0Annb%2F&%239251%2F%3B%0A%2F_%3B&@_r:45&y:-2&x:-0.5&a:7&f:3%3B&=Ctrl%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-45&rx:13&y:-5.675&x:-0.5&f:3%3B&=AltGr%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-30&y:-2&x:-0.5&f:3%3B&=Del%3B&@_x:-0.5&f:3%3B&=%3Ci%20class%2F='kb%20kb-Return-2'%3E%3C%2F%2Fi%3E%3B&@_r:-15&y:-1&x:-0.5&f:3%3B&=Alt)
+![keyboard-layout-editor - Base (alphabetic)](https://i.imgur.com/C5Y8WDh.png)
+[keyboard-layout-editor - Base (alphabetic)](http://www.keyboard-layout-editor.com/##@_backcolor=%23ffffff&name=Kyria%3B&@_x:18.75&c=%23f1f1f1&t=%23646464&fa@:1&:1&:1&:1%3B%3B&=Shift%0Akey%0AAltGr%20Shift%0AAltGr%3B&@_y:-0.75&x:3&c=%23cccccc&t=%23000000&p=R1&f:3%3B&=P%0Ap%0A%C2%A7%0A%2F&&_x:9&f:3%3B&=D%0Ad%0A%C3%90%0A%C3%B0%3B&@_y:-0.75&x:2&f:3%3B&=%C3%89%0A%C3%A9%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23779%2F%3B%3C%2F%2Fspan%3E%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23769%2F%3B%3C%2F%2Fspan%3E&_x:1&f:3%3B&=O%0Ao%0A%C5%92%0A%C5%93&_x:7&f:3%3B&=V%0Av%0A%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23780%2F%3B%3C%2F%2Fspan%3E&_x:1&f:3%3B&=L%0Al%0A%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23823%2F%3B%3C%2F%2Fspan%3E%3B&@_y:-0.875&x:5&f:3%3B&=%C3%88%0A%C3%A8%0A%60%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23768%2F%3B%3C%2F%2Fspan%3E&_x:5&f:3%3B&=!%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23770%2F%3B%3C%2F%2Fspan%3E%0A%0A%C2%A1%3B&@_y:-0.625&f:3%3B&=%0A%0A%0A%3Ci%20class%2F='kb%20kb-Unicode-Lock-Closed-1'%3E%3C%2F%2Fi%3E%E2%87%A7%0A%0A%0AEsc&_f:3%3B&=B%0Ab%0A%C2%A6%0A%7C&_x:13&f:3%3B&=J%0Aj%0A%C4%B2%0A%C4%B3&_f:3%3B&=Z%0Az%0A%C6%8F%0A%C9%99%3B&@_y:-0.75&x:3&p=R2&f:3%3B&=I%0Ai%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23775%2F%3B%3C%2F%2Fspan%3E%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23776%2F%3B%3C%2F%2Fspan%3E&_x:9&f:3%3B&=S%0As%0A%E1%BA%9E%0A%C3%9F%3B&@_y:-0.75&x:2&f:3%3B&=U%0Au%0A%C3%99%0A%C3%B9&_x:1&f:3&n:true%3B&=E%0Ae%0A%C2%A4%E2%96%92%0A%E2%82%AC&_x:7&f:3&n:true%3B&=T%0At%0A%C3%9E%0A%C3%BE&_x:1&f:3%3B&=R%0Ar%0A%E2%84%A2%0A%C2%AE%3B&@_y:-0.875&x:5&f:3%3B&=%2F%3B%0A,%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23806%2F%3B%3C%2F%2Fspan%3E%0A'&_x:5&f:3%3B&=C%0Ac%0A%C3%87%0A%C3%A7%3B&@_y:-0.625&c=%23dec29d&fa@:1&:1&:1&:1&:0&:0&:6%3B%3B&=%0A%0A%0AClear%20%3Ci%20class%2F='kb%20kb-Undo-2'%3E%3C%2F%2Fi%3E%0A%0A%0A%3Ci%20class%2F='kb%20kb-Undo-2'%3E%3C%2F%2Fi%3E&_c=%23cccccc&f:3%3B&=A%0Aa%0A%C3%86%0A%C3%A6&_x:13&f:3%3B&=N%0An%0A%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23834%2F%3B%3C%2F%2Fspan%3E&_f:3%3B&=M%0Am%0A%C2%BA%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23772%2F%3B%3C%2F%2Fspan%3E%3B&@_y:-0.75&x:3&p=R3&f:3%3B&=X%0Ax%0A%E2%80%99%0A%7D&_x:9&f:3%3B&=G%0Ag%0A%0A%C2%B5%E2%96%92%3B&@_y:-0.75&x:2&f:3%3B&=Y%0Ay%0A%E2%80%98%0A%7B&_x:1&f:3%3B&=%2F:%0A.%0A%C2%B7%0A%E2%80%A6&_x:7&f:3%3B&=Q%0Aq%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23787%2F%3B%3C%2F%2Fspan%3E%0A%C2%B0&_x:1&f:3%3B&=H%0Ah%0A%E2%80%A1%0A%E2%80%A0%3B&@_y:-0.875&x:5&f:3%3B&=K%0Ak%0A%0A~&_x:5&f:3%3B&=%3F%0A%E2%80%99%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23803%2F%3B%3C%2F%2Fspan%3E%0A%C2%BF%3B&@_y:-0.625&f:3%3B&=%C3%8A%0A%C3%AA%0A%0A%2F%2F&_f:3%3B&=%C3%80%0A%C3%A0%0A%0A%5C&_x:13&f:3%3B&=F%0Af%0A%C2%AA%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23808%2F%3B%3C%2F%2Fspan%3E&_f:3%3B&=W%0Aw%0A%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23774%2F%3B%3C%2F%2Fspan%3E%3B&@_y:-0.5&x:2.5&c=%23616161&f:3%3B&=%3Ci%20class%2F='kb%20kb-Unicode-Page-Up-3'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Down-3'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-logo-linux-tux'%3E%3C%2F%2Fi%3E&_x:10&fa@:0&:0&:0&:0&:0&:0&:6&:0&:0&:1%3B%3B&=%3Ci%20class%2F='kb%20kb-Line-Start'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Line-End'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-Hamburger-Menu'%3E%3C%2F%2Fi%3E%3B&@_rx:4&ry:8.175&y:-4.675&x:-0.5&c=%23a5afff&a:7%3B&=Num%20Symb%3B&@_rx:13&y:-4.675&x:-0.5%3B&=Nav%20Mouse%3B&@_r:15&rx:4&y:-4.675&x:-0.5&c=%23bfc7ff&a:4&fa@:0&:0&:0&:0&:0&:0&:6&:0&:2%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Tab-1'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0AShorcuts%20(hold)%3B&@_r:30&y:-2&x:-0.5&c=%23cccccc&a:7%3B&=%3Ci%20class%2F='mss%20mss-Unicode-BackSpace-DeleteLeft-Big-2'%3E%3C%2F%2Fi%3E%3B&@_x:-0.5&a:4&fa@:1&:0&:1%3B%3B&=nb%2F&%239251%2F%3B%0A%2F&%239251%2F%3B%0Annb%2F&%239251%2F%3B%0A%2F_%3B&@_r:45&y:-2&x:-0.5&c=%23018aaa&a:7&f:3%3B&=Ctrl%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-45&rx:13&y:-5.675&x:-0.5&f:3%3B&=AltGr%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-30&y:-2&x:-0.5&c=%23cccccc&f:3%3B&=Del%3B&@_x:-0.5&f:3%3B&=%3Ci%20class%2F='kb%20kb-Return-2'%3E%3C%2F%2Fi%3E%3B&@_r:-15&y:-1&x:-0.5&c=%23018aaa&f:3%3B&=Alt)
 
 #### Description
 
@@ -109,8 +109,8 @@ This layer is based on [BÉPO](https://bepo.fr) with some adjustments:
 Specific keys:
 |Code|Description|
 |---|---|
-|Clo|Automatically close opened chars `"(«[{` (see [Close char](#Close%20Char) feature for details)|
-|AltGr + Clo|Reset buffer of registered char of Close char feature|
+|CloseChar|Automatically close opened chars `"(«[{` (see [Close char](#Close%20Char) feature for details)|
+|AltGr + CloseChar|Reset buffer of registered char of Close char feature|
 |AltGr + Esc|Toggle Caps lock|
 
 ### Numeric / Symbols
@@ -119,8 +119,8 @@ This is the numeric / symbols / functions layer.
 
 #### Representation
 
-![keyboard-layout-editor - Numeric / Symbols](https://i.imgur.com/F3cp8ZD.png)
-[keyboard-layout-editor - Numeric / Symbols](http://www.keyboard-layout-editor.com/##@_backcolor=%23ffffff&name=Kyria%3B&@_x:18.75&c=%23f1f1f1&t=%23646464&fa@:1&:1&:1&:1%3B%3B&=Shift%0Akey%0AAltGr%20Shift%0AAltGr%3B&@_y:-0.75&x:3&c=%23add1ad&t=%23000000&p=R1&fa@:1&:0&:1&:1&:0&:0&:0&:0&:0&:1%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:9&c=%23cccccc%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%3B&@_y:-0.75&x:2&c=%23add1ad%3B&=%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Up-3'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:1%3B&=%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Down-3'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:7&c=%23cccccc%3B&=%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Up-3'%3E%3C%2F%2Fi%3E&_x:1%3B&=%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Down-3'%3E%3C%2F%2Fi%3E%3B&@_y:-0.875&x:5&c=%23add1ad%3B&=%0ABtn%203%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:5&c=%23cccccc%3B&=%0A%3Ci%20class%2F='fa%20fa-cut'%3E%3C%2F%2Fi%3E%3B&@_y:-0.625&f:3%3B&=%0A%0A%0A%3Ci%20class%2F='kb%20kb-Unicode-Lock-Closed-1'%3E%3C%2F%2Fi%3E%E2%87%A7%0A%0A%0AEsc&_a:7%3B&=&_x:13&a:4%3B&=%0A%3Ci%20class%2F='kb%20kb-Unicode-PrintScreen-1'%3E%3C%2F%2Fi%3E&=%0AInsert%3B&@_y:-0.75&x:3&c=%23add1ad&p=R2%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:9&c=%23cccccc%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%3B&@_y:-0.75&x:2&c=%23add1ad%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:1&n:true%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:7&c=%23cccccc&n:true%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E&_x:1%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E%3B&@_y:-0.875&x:5&c=%23add1ad%3B&=%0ABtn%201%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:5&c=%23cccccc%3B&=%0A%3Ci%20class%2F='fa%20fa-copy'%3E%3C%2F%2Fi%3E%3B&@_y:-0.625&fa@:1&:0&:1&:1&:0&:0&:1&:0&:0&:1%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Record'%3E%3C%2F%2Fi%3E%2F%2F%3Ci%20class%2F='kb%20kb-Multimedia-Stop'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AM1%0A%0A%0A%3Ci%20class%2F='fa%20fa-list-ol'%3E%3C%2F%2Fi%3E&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Play'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AM1%0A%0A%0A%3Ci%20class%2F='fa%20fa-list-ol'%3E%3C%2F%2Fi%3E&_x:13&fa@:1&:1&:1&:1%3B%3B&=%0Anext%0A%0Anew%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-Search-2'%3E%3C%2F%2Fi%3E&_f:3%3B&=%0A%3Ci%20class%2F='mss%20mss-Undo-5'%3E%3C%2F%2Fi%3E%3B&@_y:-0.75&x:3&p=R3&a:7%3B&=&_x:9%3B&=%3B&@_y:-0.75&x:2&c=%23add1ad&a:4&fa@:1&:0&:1&:1&:0&:0&:0&:0&:0&:1%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Left-Circle-Filled'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:1%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Right-Circle-Filled'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:7&c=%23cccccc%3B&=%0A%3Ci%20class%2F='kb%20kb-Line-Start'%3E%3C%2F%2Fi%3E&_x:1%3B&=%0A%3Ci%20class%2F='kb%20kb-Line-End'%3E%3C%2F%2Fi%3E%3B&@_y:-0.875&x:5&c=%23add1ad%3B&=%0ABtn%202%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:5&c=%23cccccc%3B&=%0A%3Ci%20class%2F='fa%20fa-paste'%3E%3C%2F%2Fi%3E%3B&@_y:-0.625&fa@:1&:0&:1&:1&:0&:0&:1&:0&:0&:1%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Record'%3E%3C%2F%2Fi%3E%2F%2F%3Ci%20class%2F='kb%20kb-Multimedia-Stop'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AM2%0A%0A%0A%3Ci%20class%2F='fa%20fa-list-ol'%3E%3C%2F%2Fi%3E&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Play'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AM2%0A%0A%0A%3Ci%20class%2F='fa%20fa-list-ol'%3E%3C%2F%2Fi%3E&_x:13&fa@:1&:2%3B%3B&=%0AReplace&_f:3%3B&=%0A%3Ci%20class%2F='mss%20mss-Redo-2'%3E%3C%2F%2Fi%3E%3B&@_y:-0.5&x:2.5&c=%23616161&f:3%3B&=%3Ci%20class%2F='kb%20kb-Unicode-Page-Up-3'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Down-3'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-logo-linux-tux'%3E%3C%2F%2Fi%3E&_x:10&fa@:0&:0&:0&:0&:0&:0&:0&:0&:0&:1%3B%3B&=%3Ci%20class%2F='kb%20kb-Line-Start'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Line-End'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-Hamburger-Menu'%3E%3C%2F%2Fi%3E%3B&@_rx:4&ry:8.175&y:-4.675&x:-0.5&c=%23a5afff&a:7%3B&=Alpha%3B&@_rx:13&y:-4.675&x:-0.5%3B&=Media%20RGB%3B&@_r:15&rx:4&y:-4.675&x:-0.5&c=%23bfc7ff&a:4&fa@:0&:0&:0&:0&:0&:0&:0&:0&:2%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Tab-1'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0AShortcuts%20(hold)%3B&@_r:30&y:-2&x:-0.5&c=%23cccccc&a:7%3B&=%3Ci%20class%2F='mss%20mss-Unicode-BackSpace-DeleteLeft-Big-2'%3E%3C%2F%2Fi%3E%3B&@_x:-0.5&a:4&fa@:1&:0&:1%3B%3B&=nb%2F&%239251%2F%3B%0A%2F&%239251%2F%3B%0Annb%2F&%239251%2F%3B%0A%2F_%3B&@_r:45&y:-2&x:-0.5&a:7&f:3%3B&=Ctrl%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-45&rx:13&y:-5.675&x:-0.5&f:3%3B&=AltGr%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-30&y:-2&x:-0.5&f:3%3B&=Del%3B&@_x:-0.5&f:3%3B&=%3Ci%20class%2F='kb%20kb-Return-2'%3E%3C%2F%2Fi%3E%3B&@_r:-15&y:-1&x:-0.5&f:3%3B&=Alt)
+![keyboard-layout-editor - Numeric / Symbols](https://i.imgur.com/n8x0prK.png)
+[keyboard-layout-editor - Numeric / Symbols](http://www.keyboard-layout-editor.com/##@_backcolor=%23ffffff&name=Kyria%3B&@_x:18.75&c=%23f1f1f1&t=%23646464&fa@:1&:1&:1&:1%3B%3B&=Shift%0Akey%0AAltGr%20Shift%0AAltGr%3B&@_y:-0.75&x:3&c=%23cccccc&t=%23000000&p=R1&f:3%3B&=%0A3%0A%0A%E2%80%9D&_x:9&f:3%3B&=%0A8%0A%0A%C2%BC%3B&@_y:-0.75&x:2&f:3%3B&=%0A2%0A%0A%E2%80%9C&_x:1&f:3%3B&=%0A4%0A%0A%E2%89%A4&_x:7&f:3%3B&=%0A7%0A%0A%C2%AC&_x:1&f:3%3B&=%0A9%0A%0A%C2%BD%3B&@_y:-0.875&x:5&f:3%3B&=%0A5%0A%0A%E2%89%A5&_x:5&f:3%3B&=%0A6%3B&@_y:-0.625&f:3%3B&=%0A%0A%0A%3Ci%20class%2F='kb%20kb-Unicode-Lock-Closed-1'%3E%3C%2F%2Fi%3E%E2%87%A7%0A%0A%0AEsc&_f:3%3B&=%0A1%0A%0A%E2%80%9E&_x:13&f:3%3B&=%0A0%0A%0A%C2%BE&_f:3%3B&=%2F%3B%0A,%0A%2F:%0A.%3B&@_y:-0.75&x:3&p=R2&f:3%3B&=%0A%C2%BB%0A%0A%3E&_x:9&f:3%3B&=%0A-%0A%0A%E2%88%92%3B&@_y:-0.75&x:2&f:3%3B&=%0A%C2%AB%0A%0A%3C&_x:1&f:3&n:true%3B&=%0A(%0A%0A%5B&_x:7&f:3&n:true%3B&=%0A+%0A%0A%C2%B1&_x:1&f:3%3B&=%0A%2F%2F%0A%0A%C3%B7%3B&@_y:-0.875&x:5&f:3%3B&=%0A)%0A%0A%5D&_x:5&f:3%3B&=%0A%2F@%3B&@_y:-0.625&c=%23dec29d&fa@:1&:1&:1&:1&:0&:0&:6%3B%3B&=%0A%0A%0AClear%20%3Ci%20class%2F='kb%20kb-Undo-2'%3E%3C%2F%2Fi%3E%0A%0A%0A%3Ci%20class%2F='kb%20kb-Undo-2'%3E%3C%2F%2Fi%3E&_c=%23cccccc&f:3%3B&=%0A%22%0A%0A%E2%80%94&_x:13&f:3%3B&=%0A*%0A%0A%C3%97&_f:3%3B&=%C2%B0%0A%2F=%0A%E2%80%B2%0A%E2%89%A0%3B&@_y:-0.75&x:3&p=R3&f:3%3B&=%0A%2F&fnof%2F%3B3%0A%0A%2F&fnof%2F%3B13&_x:9&f:3%3B&=%0A%2F&fnof%2F%3B8%0A%0A%5C%3B&@_y:-0.75&x:2&f:3%3B&=%0A%2F&fnof%2F%3B2%0A%0A%2F&fnof%2F%3B12&_x:1&f:3%3B&=%0A%2F&fnof%2F%3B4%0A%0A%7B&_x:7&f:3%3B&=%0A%2F&fnof%2F%3B7%0A%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23780%2F%3B%3C%2F%2Fspan%3E&_x:1&f:3%3B&=%0A%2F&fnof%2F%3B9%0A%0A%2F%2F%3B&@_y:-0.875&x:5&f:3%3B&=%0A%2F&fnof%2F%3B5%0A%0A%7D&_x:5&f:3%3B&=%0A%2F&fnof%2F%3B6%0A%0A%3Cspan%20class%2F='cd'%3E%2F&%239676%2F%3B%2F&%23770%2F%3B%3C%2F%2Fspan%3E%3B&@_y:-0.625&f:3%3B&=%23%0A$%0A%C2%B6%0A%E2%80%93&_f:3%3B&=%0A%2F&fnof%2F%3B1%0A%0A%2F&fnof%2F%3B11&_x:13&f:3%3B&=%0A%2F&fnof%2F%3B10&_f:3%3B&=%60%0A%25%0A%E2%80%B3%3B&@_y:-0.5&x:2.5&c=%23616161&f:3%3B&=%3Ci%20class%2F='kb%20kb-Unicode-Page-Up-3'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Down-3'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-logo-linux-tux'%3E%3C%2F%2Fi%3E&_x:10&fa@:0&:0&:0&:0&:0&:0&:6&:0&:0&:1%3B%3B&=%3Ci%20class%2F='kb%20kb-Line-Start'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Line-End'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-Hamburger-Menu'%3E%3C%2F%2Fi%3E%3B&@_rx:4&ry:8.175&y:-4.675&x:-0.5&c=%23a5afff&a:7%3B&=Alpha%3B&@_rx:13&y:-4.675&x:-0.5%3B&=Media%20RGB%3B&@_r:15&rx:4&y:-4.675&x:-0.5&c=%23bfc7ff&a:4&fa@:0&:0&:0&:0&:0&:0&:6&:0&:2%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Tab-1'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0AShortcuts%20(hold)%3B&@_r:30&y:-2&x:-0.5&c=%23cccccc&a:7%3B&=%3Ci%20class%2F='mss%20mss-Unicode-BackSpace-DeleteLeft-Big-2'%3E%3C%2F%2Fi%3E%3B&@_x:-0.5&a:4&fa@:1&:0&:1%3B%3B&=nb%2F&%239251%2F%3B%0A%2F&%239251%2F%3B%0Annb%2F&%239251%2F%3B%0A%2F_%3B&@_r:45&y:-2&x:-0.5&c=%23018aaa&a:7&f:3%3B&=Ctrl%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-45&rx:13&y:-5.675&x:-0.5&f:3%3B&=AltGr%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-30&y:-2&x:-0.5&c=%23cccccc&f:3%3B&=Del%3B&@_x:-0.5&f:3%3B&=%3Ci%20class%2F='kb%20kb-Return-2'%3E%3C%2F%2Fi%3E%3B&@_r:-15&y:-1&x:-0.5&c=%23018aaa&f:3%3B&=Alt)
 
 #### Description
 
@@ -144,8 +144,8 @@ This is the navigation / mouse layer.
 
 #### Representation
 
-![keyboard-layout-editor - Navigation / Mouse](https://i.imgur.com/57bvUTB.png)
-[keyboard-layout-editor - Navigation / Mouse](http://www.keyboard-layout-editor.com/##@_backcolor=%23ffffff&name=Kyria%3B&@_x:18.75&c=%23f1f1f1&t=%23646464&fa@:1&:1&:1&:1%3B%3B&=Shift%0Akey%0AAltGr%20Shift%0AAltGr%3B&@_y:-0.75&x:3&c=%23add1ad&t=%23000000&p=R1&fa@:1&:0&:1&:1&:0&:0&:0&:0&:0&:1%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:9&c=%23cccccc%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%3B&@_y:-0.75&x:2&c=%23add1ad%3B&=%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Up-3'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:1%3B&=%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Down-3'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:7&c=%23cccccc%3B&=%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Up-3'%3E%3C%2F%2Fi%3E&_x:1%3B&=%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Down-3'%3E%3C%2F%2Fi%3E%3B&@_y:-0.875&x:5&c=%23add1ad%3B&=%0ABtn%203%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:5&c=%23cccccc%3B&=%0A%3Ci%20class%2F='fa%20fa-cut'%3E%3C%2F%2Fi%3E%3B&@_y:-0.625&f:3%3B&=%0A%0A%0A%3Ci%20class%2F='kb%20kb-Unicode-Lock-Closed-1'%3E%3C%2F%2Fi%3E%E2%87%A7%0A%0A%0AEsc&_a:7%3B&=&_x:13&a:4%3B&=%0A%3Ci%20class%2F='kb%20kb-Unicode-PrintScreen-1'%3E%3C%2F%2Fi%3E&=%0AInsert%3B&@_y:-0.75&x:3&c=%23add1ad&p=R2%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:9&c=%23cccccc%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%3B&@_y:-0.75&x:2&c=%23add1ad%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:1&n:true%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:7&c=%23cccccc&n:true%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E&_x:1%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E%3B&@_y:-0.875&x:5&c=%23add1ad%3B&=%0ABtn%201%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:5&c=%23cccccc%3B&=%0A%3Ci%20class%2F='fa%20fa-copy'%3E%3C%2F%2Fi%3E%3B&@_y:-0.625&fa@:1&:0&:1&:1&:0&:0&:1&:0&:0&:1%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Record'%3E%3C%2F%2Fi%3E%2F%2F%3Ci%20class%2F='kb%20kb-Multimedia-Stop'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AM1%0A%0A%0A%3Ci%20class%2F='fa%20fa-list-ol'%3E%3C%2F%2Fi%3E&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Play'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AM1%0A%0A%0A%3Ci%20class%2F='fa%20fa-list-ol'%3E%3C%2F%2Fi%3E&_x:13&fa@:1&:1&:1&:1%3B%3B&=%0Anext%0A%0Anew%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-Search-2'%3E%3C%2F%2Fi%3E&_f:3%3B&=%0A%3Ci%20class%2F='mss%20mss-Undo-5'%3E%3C%2F%2Fi%3E%3B&@_y:-0.75&x:3&p=R3&a:7%3B&=&_x:9%3B&=%3B&@_y:-0.75&x:2&c=%23add1ad&a:4&fa@:1&:0&:1&:1&:0&:0&:0&:0&:0&:1%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Left-Circle-Filled'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:1%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Right-Circle-Filled'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:7&c=%23cccccc%3B&=%0A%3Ci%20class%2F='kb%20kb-Line-Start'%3E%3C%2F%2Fi%3E&_x:1%3B&=%0A%3Ci%20class%2F='kb%20kb-Line-End'%3E%3C%2F%2Fi%3E%3B&@_y:-0.875&x:5&c=%23add1ad%3B&=%0ABtn%202%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:5&c=%23cccccc%3B&=%0A%3Ci%20class%2F='fa%20fa-paste'%3E%3C%2F%2Fi%3E%3B&@_y:-0.625&fa@:1&:0&:1&:1&:0&:0&:1&:0&:0&:1%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Record'%3E%3C%2F%2Fi%3E%2F%2F%3Ci%20class%2F='kb%20kb-Multimedia-Stop'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AM2%0A%0A%0A%3Ci%20class%2F='fa%20fa-list-ol'%3E%3C%2F%2Fi%3E&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Play'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AM2%0A%0A%0A%3Ci%20class%2F='fa%20fa-list-ol'%3E%3C%2F%2Fi%3E&_x:13&fa@:1&:2%3B%3B&=%0AReplace&_f:3%3B&=%0A%3Ci%20class%2F='mss%20mss-Redo-2'%3E%3C%2F%2Fi%3E%3B&@_y:-0.5&x:2.5&c=%23616161&f:3%3B&=%3Ci%20class%2F='kb%20kb-Unicode-Page-Up-3'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Down-3'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-logo-linux-tux'%3E%3C%2F%2Fi%3E&_x:10&fa@:0&:0&:0&:0&:0&:0&:0&:0&:0&:1%3B%3B&=%3Ci%20class%2F='kb%20kb-Line-Start'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Line-End'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-Hamburger-Menu'%3E%3C%2F%2Fi%3E%3B&@_rx:4&ry:8.175&y:-4.675&x:-0.5&c=%23a5afff&a:7%3B&=Alpha%3B&@_rx:13&y:-4.675&x:-0.5%3B&=Media%20RGB%3B&@_r:15&rx:4&y:-4.675&x:-0.5&c=%23bfc7ff&a:4&fa@:0&:0&:0&:0&:0&:0&:0&:0&:2%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Tab-1'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0AShortcuts%20(hold)%3B&@_r:30&y:-2&x:-0.5&c=%23cccccc&a:7%3B&=%3Ci%20class%2F='mss%20mss-Unicode-BackSpace-DeleteLeft-Big-2'%3E%3C%2F%2Fi%3E%3B&@_x:-0.5&a:4&fa@:1&:0&:1%3B%3B&=nb%2F&%239251%2F%3B%0A%2F&%239251%2F%3B%0Annb%2F&%239251%2F%3B%0A%2F_%3B&@_r:45&y:-2&x:-0.5&a:7&f:3%3B&=Ctrl%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-45&rx:13&y:-5.675&x:-0.5&f:3%3B&=AltGr%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-30&y:-2&x:-0.5&f:3%3B&=Del%3B&@_x:-0.5&f:3%3B&=%3Ci%20class%2F='kb%20kb-Return-2'%3E%3C%2F%2Fi%3E%3B&@_r:-15&y:-1&x:-0.5&f:3%3B&=Alt)
+![keyboard-layout-editor - Navigation / Mouse](https://i.imgur.com/YaXyXhA.png)
+[keyboard-layout-editor - Navigation / Mouse](http://www.keyboard-layout-editor.com/##@_backcolor=%23ffffff&name=Kyria%3B&@_x:18.75&c=%23f1f1f1&t=%23646464&fa@:1&:1&:1&:1%3B%3B&=Shift%0Akey%0AAltGr%20Shift%0AAltGr%3B&@_y:-0.75&x:3&c=%23add1ad&t=%23000000&p=R1&fa@:1&:0&:1&:1&:0&:0&:0&:0&:0&:1%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:9&c=%23cccccc%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%3B&@_y:-0.75&x:2&c=%23add1ad%3B&=%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Up-3'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:1%3B&=%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Down-3'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:7&c=%23cccccc%3B&=%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Up-3'%3E%3C%2F%2Fi%3E&_x:1%3B&=%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Down-3'%3E%3C%2F%2Fi%3E%3B&@_y:-0.875&x:5&c=%23add1ad%3B&=%0ABtn%203%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:5&c=%23cccccc&fa@:1&:2%3B%3B&=%0AShift%20word%20%20%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E%3B&@_y:-0.625%3B&=%0A%0A%0A%3Ci%20class%2F='kb%20kb-Unicode-Lock-Closed-1'%3E%3C%2F%2Fi%3E%E2%87%A7%0A%0A%0AEsc&_c=%23018aaa&a:7&f:3%3B&=Alt&_x:13&c=%23cccccc&a:4%3B&=%0AShift%20word%20%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E&_a:7%3B&=%3B&@_y:-0.75&x:3&c=%23add1ad&p=R2&a:4&fa@:1&:0&:0&:0&:0&:0&:0&:0&:0&:1%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:9&c=%23cccccc%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%3B&@_y:-0.75&x:2&c=%23add1ad%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:1&n:true%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:7&c=%23cccccc&n:true%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E&_x:1%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E%3B&@_y:-0.875&x:5&c=%23add1ad%3B&=%0ABtn%201%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:5&c=%23cccccc&fa@:1&:2%3B%3B&=%0Aword%20%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E%3B&@_y:-0.625&fa@:1&:0&:0&:0&:0&:0&:1&:0&:0&:1%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Record'%3E%3C%2F%2Fi%3E%2F%2F%3Ci%20class%2F='kb%20kb-Multimedia-Stop'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AM1%0A%0A%0A%3Ci%20class%2F='fa%20fa-list-ol'%3E%3C%2F%2Fi%3E&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Play'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AM1%0A%0A%0A%3Ci%20class%2F='fa%20fa-list-ol'%3E%3C%2F%2Fi%3E&_x:13&fa@:1&:2%3B%3B&=%0Aword%20%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E&_a:7%3B&=%3B&@_y:-0.75&x:3&p=R3%3B&=&_x:9%3B&=%3B&@_y:-0.75&x:2&c=%23add1ad&a:4&fa@:1&:0&:0&:0&:0&:0&:0&:0&:0&:1%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Line-Start'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:1%3B&=%0A%3Ci%20class%2F='kb%20kb-Line-End'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:7&c=%23cccccc%3B&=%0A%3Ci%20class%2F='kb%20kb-Line-Start'%3E%3C%2F%2Fi%3E&_x:1%3B&=%0A%3Ci%20class%2F='kb%20kb-Line-End'%3E%3C%2F%2Fi%3E%3B&@_y:-0.875&x:5&c=%23add1ad%3B&=%0ABtn%202%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='fa%20fa-mouse-pointer'%3E%3C%2F%2Fi%3E&_x:5&c=%23cccccc&fa@:1&:2%3B%3B&=%0AShift%20%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E%3B&@_y:-0.625&fa@:1&:0&:0&:0&:0&:0&:1&:0&:0&:1%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Record'%3E%3C%2F%2Fi%3E%2F%2F%3Ci%20class%2F='kb%20kb-Multimedia-Stop'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AM2%0A%0A%0A%3Ci%20class%2F='fa%20fa-list-ol'%3E%3C%2F%2Fi%3E&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Play'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AM2%0A%0A%0A%3Ci%20class%2F='fa%20fa-list-ol'%3E%3C%2F%2Fi%3E&_x:13&fa@:1&:2%3B%3B&=%0AShift%20%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E&_a:7%3B&=%3B&@_y:-0.5&x:2.5&c=%23616161&a:4&f:3%3B&=%3Ci%20class%2F='kb%20kb-Unicode-Page-Up-3'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Down-3'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-logo-linux-tux'%3E%3C%2F%2Fi%3E&_x:10&fa@:0&:0&:0&:0&:0&:0&:0&:0&:0&:1%3B%3B&=%3Ci%20class%2F='kb%20kb-Line-Start'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Line-End'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-Hamburger-Menu'%3E%3C%2F%2Fi%3E%3B&@_rx:4&ry:8.175&y:-4.675&x:-0.5&c=%23a5afff&a:7%3B&=Media%20RGB%3B&@_rx:13&y:-4.675&x:-0.5%3B&=Alpha%3B&@_r:15&rx:4&y:-4.675&x:-0.5&c=%23bfc7ff&a:4&fa@:0&:0&:0&:0&:0&:0&:0&:0&:2%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Tab-1'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0AShortcuts%20(hold)%3B&@_r:30&y:-2&x:-0.5&c=%23cccccc&a:7%3B&=%3Ci%20class%2F='mss%20mss-Unicode-BackSpace-DeleteLeft-Big-2'%3E%3C%2F%2Fi%3E%3B&@_x:-0.5&a:4&fa@:1&:0&:1%3B%3B&=nb%2F&%239251%2F%3B%0A%2F&%239251%2F%3B%0Annb%2F&%239251%2F%3B%0A%2F_%3B&@_r:45&y:-2&x:-0.5&c=%23018aaa&a:7&f:3%3B&=Ctrl%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-45&rx:13&y:-5.675&x:-0.5&f:3%3B&=AltGr%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-30&y:-2&x:-0.5&c=%23cccccc&f:3%3B&=Del%3B&@_x:-0.5&f:3%3B&=%3Ci%20class%2F='kb%20kb-Return-2'%3E%3C%2F%2Fi%3E%3B&@_r:-15&y:-1&x:-0.5&c=%23018aaa&f:3%3B&=Alt)
 
 #### Description
 
@@ -167,14 +167,31 @@ Activation of mouse navigation is done in file `rules.mk`:
 MOUSEKEY_ENABLE = yes
 ```
 
+### Shortcuts
+
+This is the shortcuts layer.
+
+Only the left halve has shortcuts and the right halve is a passthrough to the [Navigation / Mouse](#Navigation%20/%20Mouse).
+
+#### Representation
+
+![keyboard-layout-editor - Shortcuts](https://i.imgur.com/OdnFb7H.png)
+[keyboard-layout-editor - Shortcuts](http://www.keyboard-layout-editor.com/##@_backcolor=%23ffffff&name=Kyria%3B&@_x:18.75&c=%23f1f1f1&t=%23646464&fa@:1&:1&:1&:1%3B%3B&=Shift%0Akey%0AAltGr%20Shift%0AAltGr%3B&@_y:-0.75&x:3&c=%23cccccc&t=%23000000&p=R1&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Unicode-PrintScreen-1'%3E%3C%2F%2Fi%3E&_x:9&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%3B&@_y:-0.75&x:2&f:3%3B&=%0ANew%20tab&_x:1&fa@:1&:0%3B%3B&=%0A%3Ci%20class%2F='mss%20mss-Undo-5'%3E%3C%2F%2Fi%3E&_x:7%3B&=%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Up-3'%3E%3C%2F%2Fi%3E&_x:1%3B&=%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Down-3'%3E%3C%2F%2Fi%3E%3B&@_y:-0.875&x:5%3B&=%0A%3Ci%20class%2F='mss%20mss-Redo-2'%3E%3C%2F%2Fi%3E&_x:5&fa@:1&:2%3B%3B&=%0AShift%20word%20%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E%3B&@_y:-0.625%3B&=%0A%0A%0A%3Ci%20class%2F='kb%20kb-Unicode-Lock-Closed-1'%3E%3C%2F%2Fi%3E%E2%87%A7%0A%0A%0AEsc&_c=%23018aaa&a:7&f:3%3B&=Alt&_x:13&c=%23cccccc&a:4%3B&=%0AShift%20word%20%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E&_a:7%3B&=%3B&@_y:-0.75&x:3&p=R2&a:4&f:3%3B&=%0A%3Ci%20class%2F='fa%20fa-copy'%3E%3C%2F%2Fi%3E&_x:9&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%3B&@_y:-0.75&x:2&f:3%3B&=%0A%3Ci%20class%2F='fa%20fa-cut'%3E%3C%2F%2Fi%3E&_x:1&f:3&n:true%3B&=%0A%3Ci%20class%2F='fa%20fa-paste'%3E%3C%2F%2Fi%3E&_x:7&f:3&n:true%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E&_x:1&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E%3B&@_y:-0.875&x:5&f:3%3B&=%0ASelect%20all&_x:5%3B&=%0Aword%20%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E%3B&@_y:-0.625&fa@:1&:0&:0&:0&:0&:0&:1&:0&:0&:1%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Record'%3E%3C%2F%2Fi%3E%2F%2F%3Ci%20class%2F='kb%20kb-Multimedia-Stop'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AM1%0A%0A%0A%3Ci%20class%2F='fa%20fa-list-ol'%3E%3C%2F%2Fi%3E&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Play'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AM1%0A%0A%0A%3Ci%20class%2F='fa%20fa-list-ol'%3E%3C%2F%2Fi%3E&_x:13&fa@:1&:2%3B%3B&=%0Aword%20%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E&_a:7%3B&=%3B&@_y:-0.75&x:3&p=R3&a:4%3B&=%0AReplace&_x:9&a:7%3B&=%3B&@_y:-0.75&x:2&a:4&f:3%3B&=%0AClose&_x:1&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Search-2'%3E%3C%2F%2Fi%3E&_x:7&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Line-Start'%3E%3C%2F%2Fi%3E&_x:1&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Line-End'%3E%3C%2F%2Fi%3E%3B&@_y:-0.875&x:5&f:3%3B&=%0ANext%20%3Ci%20class%2F='kb%20kb-Search-2'%3E%3C%2F%2Fi%3E&_x:5%3B&=%0AShift%20%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E%3B&@_y:-0.625&fa@:1&:0&:0&:0&:0&:0&:1&:0&:0&:1%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Record'%3E%3C%2F%2Fi%3E%2F%2F%3Ci%20class%2F='kb%20kb-Multimedia-Stop'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AM2%0A%0A%0A%3Ci%20class%2F='fa%20fa-list-ol'%3E%3C%2F%2Fi%3E&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Play'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AM2%0A%0A%0A%3Ci%20class%2F='fa%20fa-list-ol'%3E%3C%2F%2Fi%3E&_x:13&fa@:1&:2%3B%3B&=%0AShift%20%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E&_a:7%3B&=%3B&@_y:-0.5&x:2.5&c=%23616161&a:4&f:3%3B&=%3Ci%20class%2F='kb%20kb-Unicode-Page-Up-3'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Down-3'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-logo-linux-tux'%3E%3C%2F%2Fi%3E&_x:10&fa@:0&:0&:0&:0&:0&:0&:0&:0&:0&:1%3B%3B&=%3Ci%20class%2F='kb%20kb-Line-Start'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Line-End'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-Hamburger-Menu'%3E%3C%2F%2Fi%3E%3B&@_rx:4&ry:8.175&y:-4.675&x:-0.5&c=%23a5afff&a:7%3B&=Num%20Symb%3B&@_rx:13&y:-4.675&x:-0.5%3B&=Nav%20Mouse%3B&@_r:15&rx:4&y:-4.675&x:-0.5&c=%23bfc7ff&a:5&fa@:2%3B%3B&=Shortcuts%20(hold)%3B&@_r:30&y:-2&x:-0.5&c=%23cccccc&a:7&f:3%3B&=%3Ci%20class%2F='mss%20mss-Unicode-BackSpace-DeleteLeft-Big-2'%3E%3C%2F%2Fi%3E%3B&@_x:-0.5&a:4&fa@:1&:0&:1%3B%3B&=nb%2F&%239251%2F%3B%0A%2F&%239251%2F%3B%0Annb%2F&%239251%2F%3B%0A%2F_%3B&@_r:45&y:-2&x:-0.5&c=%23018aaa&a:7&f:3%3B&=Ctrl%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-45&rx:13&y:-5.675&x:-0.5&f:3%3B&=AltGr%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-30&y:-2&x:-0.5&c=%23cccccc&f:3%3B&=Del%3B&@_x:-0.5&f:3%3B&=%3Ci%20class%2F='kb%20kb-Return-2'%3E%3C%2F%2Fi%3E%3B&@_r:-15&y:-1&x:-0.5&c=%23018aaa&f:3%3B&=Alt)
+
+#### Description
+
+All the classic shortcuts in direct access on left halve, thus, shortcuts can be done one hand.
+
+Navigation keys are on right halve.
+
 ### Media / RGB
 
 This is the Media / RGB layer.
 
 #### Representation
 
-![keyboard-layout-editor - Media / RGB](https://i.imgur.com/dXLznnC.png)
-[keyboard-layout-editor - Media / RGB](http://www.keyboard-layout-editor.com/##@_backcolor=%23ffffff&name=Kyria%3B&@_x:18.75&c=%23f1f1f1&t=%23646464&fa@:1&:1&:1&:1%3B%3B&=Shift%0Akey%0AAltGr%20Shift%0AAltGr%3B&@_y:-0.75&x:3&c=%23a5c3e6&t=%23000000&p=R1&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0ASat&_x:9&fa@:1&:2%3B%3B&=%0ASnake%0A%0A%0A%0A%0AMode%3B&@_y:-0.75&x:2&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0AHue&_x:1&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0AValue&_x:7&f:3%3B&=%0ABreath%0A%0A%0A%0A%0AMode&_x:1&f:3%3B&=%0AGradient%0A%0A%0A%0A%0AMode%3B&@_y:-0.875&x:5&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0ASpeed&_x:5&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AMode%3B&@_y:-0.625&c=%23cccccc&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-Unicode-Screen-Bright'%3E%3C%2F%2Fi%3E&_c=%23a5c3e6&fa@:1&:2&:0&:1%3B%3B&=%0A%0A%0Aeepr%0A%0A%0AToggle&_x:13%3B&=%0ARainbow%0A%0A%0A%0A%0AMode&_c=%23d192d9%3B&=%0A%0A%0Atgl%C2%A0eepr%0A%0A%0AToggle%3B&@_y:-0.75&x:3&c=%23a5c3e6&p=R2&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0ASat&_x:9&f:3%3B&=%0ASwirl%0A%0A%0A%0A%0AMode%3B&@_y:-0.75&x:2&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0AHue&_x:1&f:3&n:true%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0AValue&_x:7&f:3&n:true%3B&=%0AKnight%0A%0A%0A%0A%0AMode&_x:1&f:3%3B&=%0AXmas%0A%0A%0A%0A%0AMode%3B&@_y:-0.875&x:5&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0ASpeed&_x:5&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AMode%3B&@_y:-0.625&c=%23cccccc&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-Unicode-Screen-Bright'%3E%3C%2F%2Fi%3E&_c=%23a5c3e6&f:3%3B&=%0APlain&_x:13&c=%23cccccc&a:7%3B&=&_c=%23d192d9&a:4%3B&=%0A%0A%0Aeepr%0A%0A%0ACycle%20animat.%3B&@_y:-0.75&x:3&c=%23f2ac9d&p=R3&fa@:1&:0&:0&:1&:0&:0&:0&:0&:0&:1%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-logo-windows-8'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0AUnicode&_x:9&c=%23cccccc&a:7%3B&=%3B&@_y:-0.75&x:2&c=%23f2ac9d&a:4%3B&=%0A%3Ci%20class%2F='kb%20kb-logo-linux-tux'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0AUnicode&_x:1%3B&=%0A%3Ci%20class%2F='kb%20kb-logo-windows-8'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0AUnicode&_x:7&c=%23cccccc&a:7%3B&=&_x:1%3B&=%3B&@_y:-0.875&x:5&c=%23f2ac9d&a:4%3B&=%0A%3Ci%20class%2F='kb%20kb-logo-apple'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0AUnicode&_x:5&c=%23cccccc&a:7%3B&=%3B&@_y:-0.625&c=%23f2ac9d&a:4%3B&=%0AToggle%0A%0A%0A%0A%0A%0A%0A%0AUnicode&=%0ACycle%0A%0A%0A%0A%0A%0A%0A%0AUnicode&_x:13&c=%23d192d9&fa@:1&:1%3B%3B&=%0AStart%2F%2Fstop%20Pomodoro&_f:3%3B&=%0AInit%20animat.%3B&@_y:-0.5&x:2.5&c=%23616161&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Volume-Down-1'%3E%3C%2F%2Fi%3E%0A%0A%3Ci%20class%2F='kb%20kb-Multimedia-Volume-Up-2'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-Multimedia-Mute-2'%3E%3C%2F%2Fi%3E&_x:10&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Rewind-Start'%3E%3C%2F%2Fi%3E%0A%0A%3Ci%20class%2F='kb%20kb-Multimedia-FastForward-End'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-Multimedia-Play-Pause'%3E%3C%2F%2Fi%3E%3B&@_rx:4&ry:8.175&y:-4.675&x:-0.5&c=%23a5afff&a:7&f:3%3B&=Alpha%3B&@_rx:13&y:-4.675&x:-0.5&f:3%3B&=Num%20Symb%3B&@_r:15&rx:4&y:-4.675&x:-0.5&c=%23bfc7ff&a:4&fa@:1&:0&:0&:0&:0&:0&:0&:0&:2%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Tab-1'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0AShortcuts%20(hold)%3B&@_r:30&y:-2&x:-0.5&c=%23cccccc&a:7&f:3%3B&=%3Ci%20class%2F='mss%20mss-Unicode-BackSpace-DeleteLeft-Big-2'%3E%3C%2F%2Fi%3E%3B&@_x:-0.5&a:4&fa@:1&:0&:1%3B%3B&=nb%2F&%239251%2F%3B%0A%2F&%239251%2F%3B%0Annb%2F&%239251%2F%3B%0A%2F_%3B&@_r:45&y:-2&x:-0.5&a:7&f:3%3B&=Ctrl%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-45&rx:13&y:-5.675&x:-0.5&f:3%3B&=AltGr%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-30&y:-2&x:-0.5&f:3%3B&=Del%3B&@_x:-0.5&f:3%3B&=%3Ci%20class%2F='kb%20kb-Return-2'%3E%3C%2F%2Fi%3E%3B&@_r:-15&y:-1&x:-0.5&f:3%3B&=Alt)
+![keyboard-layout-editor - Media / RGB](https://i.imgur.com/Ym9YI9O.png)
+[keyboard-layout-editor - Media / RGB](http://www.keyboard-layout-editor.com/##@_backcolor=%23ffffff&name=Kyria%3B&@_x:18.75&c=%23f1f1f1&t=%23646464&fa@:1&:1&:1&:1%3B%3B&=Shift%0Akey%0AAltGr%20Shift%0AAltGr%3B&@_y:-0.75&x:3&c=%23a5c3e6&t=%23000000&p=R1&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0ASat&_x:9&fa@:1&:2%3B%3B&=%0ASnake%0A%0A%0A%0A%0AMode%3B&@_y:-0.75&x:2&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0AHue&_x:1&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0AValue&_x:7&f:3%3B&=%0ABreath%0A%0A%0A%0A%0AMode&_x:1&f:3%3B&=%0AGradient%0A%0A%0A%0A%0AMode%3B&@_y:-0.875&x:5&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0ASpeed&_x:5&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AMode%3B&@_y:-0.625&c=%23cccccc&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-Unicode-Screen-Bright'%3E%3C%2F%2Fi%3E&_c=%23a5c3e6&fa@:1&:2&:0&:1%3B%3B&=%0A%0A%0Aeepr%0A%0A%0AToggle&_x:13%3B&=%0ARainbow%0A%0A%0A%0A%0AMode&_c=%23d192d9%3B&=%0A%0A%0Atgl%C2%A0eepr%0A%0A%0AToggle%3B&@_y:-0.75&x:3&c=%23a5c3e6&p=R2&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0ASat&_x:9&f:3%3B&=%0ASwirl%0A%0A%0A%0A%0AMode%3B&@_y:-0.75&x:2&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0AHue&_x:1&f:3&n:true%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0AValue&_x:7&f:3&n:true%3B&=%0AKnight%0A%0A%0A%0A%0AMode&_x:1&f:3%3B&=%0AXmas%0A%0A%0A%0A%0AMode%3B&@_y:-0.875&x:5&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0ASpeed&_x:5&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AMode%3B&@_y:-0.625&c=%23cccccc&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-Unicode-Screen-Bright'%3E%3C%2F%2Fi%3E&_c=%23a5c3e6&f:3%3B&=%0APlain&_x:13&c=%23cccccc&a:7%3B&=&_c=%23d192d9&a:4%3B&=%0A%0A%0Aeepr%0A%0A%0ACycle%20animat.%3B&@_y:-0.75&x:3&c=%23f2ac9d&p=R3&fa@:1&:0&:0&:1&:0&:0&:0&:0&:0&:1%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-logo-windows-8'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0AUnicode&_x:9&c=%23cccccc&a:7%3B&=%3B&@_y:-0.75&x:2&c=%23f2ac9d&a:4%3B&=%0A%3Ci%20class%2F='kb%20kb-logo-linux-tux'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0AUnicode&_x:1%3B&=%0A%3Ci%20class%2F='kb%20kb-logo-windows-8'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0AUnicode&_x:7&c=%23cccccc&a:7%3B&=&_x:1%3B&=%3B&@_y:-0.875&x:5&c=%23f2ac9d&a:4%3B&=%0A%3Ci%20class%2F='kb%20kb-logo-apple'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0A%0AUnicode&_x:5&c=%23cccccc&a:7%3B&=%3B&@_y:-0.625&c=%23f2ac9d&a:4%3B&=%0AToggle%0A%0A%0A%0A%0A%0A%0A%0AUnicode&=%0ACycle%0A%0A%0A%0A%0A%0A%0A%0AUnicode&_x:13&c=%23d192d9&fa@:1&:1%3B%3B&=%0AStart%2F%2Fstop%20Pomodoro&_f:3%3B&=%0AInit%20animat.%3B&@_y:-0.5&x:2.5&c=%23616161&a:5&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Volume-Down-1'%3E%3C%2F%2Fi%3E%20%2F%2F%20%3Ci%20class%2F='kb%20kb-Multimedia-Volume-Up-2'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-Multimedia-Mute-2'%3E%3C%2F%2Fi%3E&_x:10&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Rewind-Start'%3E%3C%2F%2Fi%3E%20%2F%2F%20%3Ci%20class%2F='kb%20kb-Multimedia-FastForward-End'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-Multimedia-Play-Pause'%3E%3C%2F%2Fi%3E%3B&@_rx:4&ry:8.175&y:-4.675&x:-0.5&c=%23a5afff&a:7&f:3%3B&=Nav%20Mouse%3B&@_rx:13&y:-4.675&x:-0.5&f:3%3B&=Num%20Symb%3B&@_r:15&rx:4&y:-4.675&x:-0.5&c=%23bfc7ff&a:4&fa@:1&:0&:0&:0&:0&:0&:0&:0&:2%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Tab-1'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%0AShortcuts%20(hold)%3B&@_r:30&y:-2&x:-0.5&c=%23cccccc&a:7&f:3%3B&=%3Ci%20class%2F='mss%20mss-Unicode-BackSpace-DeleteLeft-Big-2'%3E%3C%2F%2Fi%3E%3B&@_x:-0.5&a:4&fa@:1&:0&:1%3B%3B&=nb%2F&%239251%2F%3B%0A%2F&%239251%2F%3B%0Annb%2F&%239251%2F%3B%0A%2F_%3B&@_r:45&y:-2&x:-0.5&c=%23018aaa&a:7&f:3%3B&=Ctrl%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-45&rx:13&y:-5.675&x:-0.5&f:3%3B&=AltGr%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-30&y:-2&x:-0.5&c=%23cccccc&f:3%3B&=Del%3B&@_x:-0.5&f:3%3B&=%3Ci%20class%2F='kb%20kb-Return-2'%3E%3C%2F%2Fi%3E%3B&@_r:-15&y:-1&x:-0.5&c=%23018aaa&f:3%3B&=Alt)
 
 #### Description
 
@@ -187,7 +204,7 @@ Specific keys:
 |Cycle animations<sup>1</sup>|Cycle throw available animations - Store current animation in EEPROM with AltGr|
 |Start/Stop pomodoro|Start (or stop) a timer of 25 minutes|
 
-*<sup>1</sup>: Warn: works only with the implementation of custom transport between halves*
+*<sup>1</sup>: Warn: works only with the implementation of [Custom transport](#Custom%20transport) between halves*
 
 #### Medias on encoders
 
@@ -218,21 +235,6 @@ Activation of media navigation is done in file `rules.mk`:
 EXTRAKEY_ENABLE = yes
 ```
 
-### Shortcuts
-
-This is the shortcuts layer.
-
-#### Representation
-
-![keyboard-layout-editor - Shortcuts](https://i.imgur.com/T48J47Z.png)
-[keyboard-layout-editor - Shortcuts](http://www.keyboard-layout-editor.com/##@_backcolor=%23ffffff&name=Kyria%3B&@_x:18.75&c=%23f1f1f1&t=%23646464&fa@:1&:1&:1&:1%3B%3B&=Shift%0Akey%0AAltGr%20Shift%0AAltGr%3B&@_y:-0.75&x:3&c=%23cccccc&t=%23000000&p=R1&a:7%3B&=&_x:9&a:4&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%3B&@_y:-0.75&x:2&f:3%3B&=%0ANew%20tab&_x:1&f:3%3B&=%0A%3Ci%20class%2F='mss%20mss-Undo-5'%3E%3C%2F%2Fi%3E&_x:7&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Up-3'%3E%3C%2F%2Fi%3E&_x:1&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Down-3'%3E%3C%2F%2Fi%3E%3B&@_y:-0.875&x:5&f:3%3B&=%0A%3Ci%20class%2F='mss%20mss-Redo-2'%3E%3C%2F%2Fi%3E&_x:5&f:3%3B&=%0AShift%20word%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E%3B&@_y:-0.625&f:3%3B&=%0A%0A%0A%3Ci%20class%2F='kb%20kb-Unicode-Lock-Closed-1'%3E%3C%2F%2Fi%3E%E2%87%A7%0A%0A%0AEsc&_a:7%3B&=&_x:13&a:4&f:3%3B&=%0AShift%20word%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E&_a:7%3B&=%3B&@_y:-0.75&x:3&p=R2&a:4&f:3%3B&=%0A%3Ci%20class%2F='fa%20fa-copy'%3E%3C%2F%2Fi%3E&_x:9&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%3B&@_y:-0.75&x:2&f:3%3B&=%0A%3Ci%20class%2F='fa%20fa-cut'%3E%3C%2F%2Fi%3E&_x:1&f:3&n:true%3B&=%0A%3Ci%20class%2F='fa%20fa-paste'%3E%3C%2F%2Fi%3E&_x:7&f:3&n:true%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E&_x:1&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E%3B&@_y:-0.875&x:5&a:7%3B&=&_x:5&a:4&f:3%3B&=%0Aword%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E%3B&@_y:-0.625&fa@:1&:0&:1&:1&:0&:0&:1&:0&:0&:1%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Record'%3E%3C%2F%2Fi%3E%2F%2F%3Ci%20class%2F='kb%20kb-Multimedia-Stop'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AM1%0A%0A%0A%3Ci%20class%2F='fa%20fa-list-ol'%3E%3C%2F%2Fi%3E&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Play'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AM1%0A%0A%0A%3Ci%20class%2F='fa%20fa-list-ol'%3E%3C%2F%2Fi%3E&_x:13%3B&=%0Aword%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E&_a:7%3B&=%3B&@_y:-0.75&x:3&p=R3&a:4&fa@:1&:2%3B%3B&=%0AReplace&_x:9&a:7%3B&=%3B&@_y:-0.75&x:2&a:4&f:3%3B&=%0AClose&_x:1&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Search-2'%3E%3C%2F%2Fi%3E&_x:7&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Line-Start'%3E%3C%2F%2Fi%3E&_x:1&f:3%3B&=%0A%3Ci%20class%2F='kb%20kb-Line-End'%3E%3C%2F%2Fi%3E%3B&@_y:-0.875&x:5%3B&=%0ANext%20%3Ci%20class%2F='kb%20kb-Search-2'%3E%3C%2F%2Fi%3E&_x:5&f:3%3B&=%0AShift%20%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E%3B&@_y:-0.625&fa@:1&:0&:0&:0&:0&:0&:1&:0&:0&:1%3B%3B&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Record'%3E%3C%2F%2Fi%3E%2F%2F%3Ci%20class%2F='kb%20kb-Multimedia-Stop'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AM2%0A%0A%0A%3Ci%20class%2F='fa%20fa-list-ol'%3E%3C%2F%2Fi%3E&=%0A%3Ci%20class%2F='kb%20kb-Multimedia-Play'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0AM2%0A%0A%0A%3Ci%20class%2F='fa%20fa-list-ol'%3E%3C%2F%2Fi%3E&_x:13%3B&=%0AShift%20%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E&_a:7%3B&=%3B&@_y:-0.5&x:2.5&c=%23616161&a:4&f:3%3B&=%3Ci%20class%2F='kb%20kb-Unicode-Page-Up-3'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Up'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Unicode-Page-Down-3'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Down'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-logo-linux-tux'%3E%3C%2F%2Fi%3E&_x:10&fa@:0&:0&:0&:0&:0&:0&:1&:0&:0&:1%3B%3B&=%3Ci%20class%2F='kb%20kb-Line-Start'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Left'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Line-End'%3E%3C%2F%2Fi%3E%0A%3Ci%20class%2F='kb%20kb-Arrows-Right'%3E%3C%2F%2Fi%3E%0A%0A%0A%0A%0A%0A%3Ci%20class%2F='kb%20kb-Hamburger-Menu'%3E%3C%2F%2Fi%3E%3B&@_rx:4&ry:8.175&y:-4.675&x:-0.5&c=%23a5afff&a:7%3B&=Nav%20Mouse%3B&@_rx:13&y:-4.675&x:-0.5%3B&=Num%20Symb%3B&@_r:15&rx:4&y:-4.675&x:-0.5&c=%23bfc7ff&a:5&fa@:2%3B%3B&=Shortcuts%20(hold)%3B&@_r:30&y:-2&x:-0.5&c=%23cccccc&a:7&f:3%3B&=%3Ci%20class%2F='mss%20mss-Unicode-BackSpace-DeleteLeft-Big-2'%3E%3C%2F%2Fi%3E%3B&@_x:-0.5&a:4&fa@:1&:0&:1%3B%3B&=nb%2F&%239251%2F%3B%0A%2F&%239251%2F%3B%0Annb%2F&%239251%2F%3B%0A%2F_%3B&@_r:45&y:-2&x:-0.5&a:7&f:3%3B&=Ctrl%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-45&rx:13&y:-5.675&x:-0.5&f:3%3B&=AltGr%3B&@_x:-0.5&f:3%3B&=%E2%87%A7%3B&@_r:-30&y:-2&x:-0.5&f:3%3B&=Del%3B&@_x:-0.5&f:3%3B&=%3Ci%20class%2F='kb%20kb-Return-2'%3E%3C%2F%2Fi%3E%3B&@_r:-15&y:-1&x:-0.5&f:3%3B&=Alt)
-
-#### Description
-
-All the classic shortcuts in direct access on left halve, thus, shortcuts can be done one hand.
-
-Navigation keys are on right halve.
-
 ## Encoders
 
 Encoders are used the same way to navigate in all layers except Media / RGB layer.
@@ -244,8 +246,8 @@ Encoders are used the same way to navigate in all layers except Media / RGB laye
 |tap|GUI|
 |clockwise|down arrow|
 |reverse clockwise|up arrow|
-|Altgr + clockwise|page down|
-|Altgr + reverse clockwise|page up|
+|AltGr + clockwise|page down|
+|AltGr + reverse clockwise|page up|
 
 ### Right encoder
 
@@ -254,8 +256,8 @@ Encoders are used the same way to navigate in all layers except Media / RGB laye
 |tap|APP|
 |clockwise|right arrow|
 |reverse clockwise|left arrow|
-|Altgr + clockwise|end|
-|Altgr + reverse clockwise|home|
+|AltGr + clockwise|end|
+|AltGr + reverse clockwise|home|
 
 ### Configuration
 
@@ -272,8 +274,12 @@ Here is a description of user independent-layer features.
 ### Close Char
 
 This feature registers keys each time one of the following is tapped: `"(«[{`.
-When using the Close Key, it outputs the close char related to the opened tapped by reverse order
+
+When using the Close Key, it outputs the close char related to the opened tapped by reverse order.
+
 If the close char is manually typed, it is also removed from the list to output.
+
+NB: It try to avoid processing opening/closing chars when it is a smiley (only basic smileys are searched: `;)`, `:)`, `;(`, `:(` or part of smileys : `-)`, `-(`).
 
 #### Configuration
 
@@ -328,8 +334,13 @@ This section describes QMK features applied.
 |---|---|
 |C_CLOSE_CHAR|Close lasts opening chars *See [Close Char feature](#Close%20Char)*|
 |C_CLOSE_CHAR_CLEAR|Clear buffer of [Close Char feature](#Close%20Char)|
-|C_MS_ACCEL|Cycle throw KC_MS_ACCEL_0, KC_MS_ACCEL_1 and KC_MS_ACCEL_2|
 |C_TOGGLE_UNICODE|Toggle between standard keymap (based on OS layout) and unicode *See [Unicode](#Unicode)*|
+
+|C_RGB_TOGGLE|Toggle RGB animation without storing in EEPROM|
+|C_OLED2_TOGGLE|Switch on/off follower OLED screen|
+|C_OLED2_TOGGLE_EEPROM|Store current status of follower OLED screen in EEPROM|
+|C_OLED2_ANIMATION_CYCLE|Toggle between animations|
+|C_OLED2_ANIMATION_STORE_EEPROM|Store current animation in EEPROM as the default animation|
 
 Some standard keycodes are overridden only with AltGr modifier and some custom keycodes are added too:
 |Code|Tap|AltGr + Tap|
@@ -347,6 +358,7 @@ Some standard keycodes are overridden only with AltGr modifier and some custom k
 |KC_F9|KC_F9|`/`|
 |**Custom keys**|
 |C_OLED2_TOGGLE|C_OLED2_TOGGLE|C_OLED2_TOGGLE_EEPROM|
+|C_OLED2_ANIMATION_CYCLE|C_OLED2_ANIMATION_STORE_EEPROM|
 |C_RGB_TOGGLE|C_RGB_TOGGLE|RGB_TOG|
 |C_CLOSE_CHAR|C_CLOSE_CHAR_CLEAR|
 
@@ -368,19 +380,19 @@ Cording two or more keys to activate specific actions.
 |Cording|Description|Equivalent|
 |---|---|---|
 |Quadrigrams|
-|`a` + `i`|Write quadrigram: aire|`aire`|
-|`d` + `a`|Write quadrigram: dans|`dans`|
-|`e` + `l`|Write quadrigram: elle|`elle`|
-|`e` + `t`|Write quadrigram: ette|`ette`|
-|`e` + `n`|Write quadrigram: ente|`ente`|
-|`i` + `l`|Write quadrigram: ille|`ille`|
-|`i` + `q`|Write quadrigram: ique|`ique`|
-|`m` + `e`|Write quadrigram: ment|`ment`|
-|`o` + `m`|Write quadrigram: omme|`omme`|
-|`o` + `n`|Write quadrigram: onne|`onne`|
-|`p` + `o`|Write quadrigram: pour|`pour`|
-|`q` + `u`|Write quadrigram: quel|`quel`|
-|`t` + `i`|Write quadrigram: tion|`tion`|
+|`a` + `i`|Write quadrigram: "aire"|`aire`|
+|`d` + `a`|Write quadrigram: "dans"|`dans`|
+|`e` + `l`|Write quadrigram: "elle"|`elle`|
+|`e` + `t`|Write quadrigram: "ette"|`ette`|
+|`e` + `n`|Write quadrigram: "ente"|`ente`|
+|`i` + `l`|Write quadrigram: "ille"|`ille`|
+|`i` + `q`|Write quadrigram: "ique"|`ique`|
+|`m` + `e`|Write quadrigram: "ment"|`ment`|
+|`o` + `m`|Write quadrigram: "omme"|`omme`|
+|`o` + `n`|Write quadrigram: "onne"|`onne`|
+|`p` + `o`|Write quadrigram: "pour"|`pour`|
+|`q` + `u`|Write quadrigram: "quel"|`quel`|
+|`t` + `i`|Write quadrigram: "tion"|`tion`|
 |Non-breaking space|
 |`SPACE` + `«`|Append nbsp after «|`« `|
 |`SPACE` + `»`|Append nbsp before »|` »`|
@@ -396,11 +408,12 @@ Cording two or more keys to activate specific actions.
 |`SPACE` + `.`|Shift char . and append nbsp before|` :`|
 |Others|
 |`t` + `.`|Write `. ` and hold shift for next key |`. ` + hold Shift until next key *(if OSM is enabled)*|
-|`SPACE` + `h`|`https://`|`https://`|
 |`SPACE` + `g`|`/giphy `|`/giphy `|
 ||**Sequences using secrets**|
 |`s` + `m`|*UID*|*secret*|
 |`s` + `k`|*Product*|*secret*|
+|`p` + `t`|*P1*|*secret*|
+|`p` + `s`|*P2*|*secret*|
 
 ### Dynamic macros
 
@@ -513,6 +526,7 @@ OLED used are 128×64.
 
 A specif font as been created to optimize used memory: table is truncated at last existing char.
 Beginning of table is the standard table (symbols, alphabet, numeric).
+
 End of table contains all symbols used to display graphics on master screen (items, layers representation, modifiers…).
 
 ![Custom font](https://i.imgur.com/L80Lyqv.png)
@@ -545,7 +559,7 @@ Items:
 The follower screen is used to display fun animations.
 Animations may be included simultaneously and cycle throw with the key C_OLED2_ANIMATION_CYCLE.
 
-!> The cycle can only work with custom transport enabled.
+!> The cycle can only work with [Custom transport](#Custom%20transport) enabled.
 
 #### Bongo cat
 
@@ -567,8 +581,8 @@ Animation is composed of 16 frames randomly displayed:
   - i.e. left paw of one of the 3 first keys and right paw on one of the 3 last keys
   - this frames come always after a "one paw down" and the next frame is always "paws up"
 
-Frames encoding and rendering are done to minimize memory footprint (~1.8KiB)
-Algorithm to convert full frames to optimized ones is in [gen_bongocat.c](bongocat/gen_bongocat.c) and may be adapted for others animations
+Frames encoding and rendering are done to minimize memory footprint.
+Algorithm to convert full frames to optimized ones is in [gen_bongocat.c](gfx_generator/gen_bongocat.c) and may be adapted for others animations *(see [GFX generator readme](gfx_generator/readme.md))*.
 
 ##### Configuration
 
@@ -593,7 +607,7 @@ WPM_ENABLE = yes
 #### Game of life
 
 This animation is a [Conway's game of life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) with [DotLife](https://conwaylife.com/wiki/OCA:DotLife) rules.
-Each cell is a 2×2 square living on a toroidal universe (the whole screen) and living (birth, death, surviving) according to number of neighbors.
+Each cell is a square living on a toroidal universe (the whole screen) and living (birth, death, surviving) according to number of neighbors.
 
 !> If WPM is not enabled, the screen never goes off.
 
@@ -641,7 +655,7 @@ WPM_ENABLE = yes
 This animation is an abstract representation of the pomodoro feature.
 It displays blank pixels to represent the remaining time. Black pixels are randomly placed and their number increments when time goes.
 
-It needs to have following activated features to work: [Pomodoro](#Pomodoro) and custom transport data between halves.
+It needs to have following activated features to work: [Pomodoro](#Pomodoro) and [Custom transport](#Custom%20transport) data between halves.
 
 ##### Configuration
 
@@ -667,6 +681,9 @@ This animation is a cat playing and walking around the screen: [Oneko](https://g
 ![Oneko left2](https://i.imgur.com/DM66ZOw.png)
 
 !> If WPM is not enabled, the screen never goes off.
+
+Sprites encoding and rendering are done to minimize memory footprint.
+Algorithm to convert full frames to optimized ones is in [gen_oneko.c](gfx_generator/gen_oneko.c) and may be adapted for others animations *(see [GFX generator readme](gfx_generator/readme.md))*.
 
 ##### Configuration
 
@@ -752,7 +769,7 @@ Each main feature is coded in a specific file to have code as clean and as indep
 |[leader.c](leader.c)|Implementation of leader sequences|
 |[oled_custom_font.h](oled_custom_font.h)|Custom font|
 |[oled_custom_font_constants.h](oled_custom_font_constants.h)|Addresses of custom characters in custom font|
-|[oled_gfx_bongocat.h](oled_gfx_bongocat.h)|Spites of bongocat animation|
+|[oled_gfx_bongocat.h](oled_gfx_bongocat.h)|Sprites of bongocat animation|
 |[oled_gfx_bongocat.c](oled_gfx_bongocat.c)|Implementation of bongocat animation (can be synchronized on WPM feature)|
 |[oled_gfx_game_life.c](oled_gfx_game_life.c)|Implementation of game of life animation|
 |[oled_gfx_oneko.h](oled_gfx_oneko.h)|Sprites of Oneko animation|
@@ -765,8 +782,8 @@ Each main feature is coded in a specific file to have code as clean and as indep
 |[tap_dance.h](tap_dance.h)|Definition of tap dance keys|
 |[tap_dance.c](tap_dance.c)|Implementation of tap dance keys behavior|
 |[transport_custom.c](transport_custom.c)|Implementation of custom protocol between the two halves|
-|[transport_user.h](transport_user.h)|Definition of the data transfered between the two halves|
-|[transport_user.c](transport_user.c)|Implementation of the data transfered between the two halves|
+|[transport_user.h](transport_user.h)|Definition of the user data transfered between the two halves|
+|[transport_user.c](transport_user.c)|Implementation of the user data transfered between the two halves|
 |[unicode_keys.c](unicode_keys.c)|Implementation of Unicode / Unicode map|
 |[user_feature_closechar.h](user_feature_closechar.h)|Definition of feature close char|
 |[user_feature_closechar.c](user_feature_closechar.c)|Implementation of feature close char|
