@@ -28,8 +28,8 @@ enum user_keycodes {
     C_CLOSE_CHAR_CLEAR,    // Close lasts opening chars
 #endif
 #ifdef ENCODER_ENABLE
-    C_ENC1_CW,             // Down  ; Scroll Down
-    C_ENC1_RCW,            // Up    ; Scroll Up
+    C_ENC1_CW,             // Scroll Down  ; Page Down
+    C_ENC1_RCW,            // Scroll Up    ; Page Up
     C_ENC2_CW,             // Right ; End
     C_ENC2_RCW,            // Left  ; Home
 #endif
@@ -39,11 +39,11 @@ enum user_keycodes {
 #endif
 #ifdef OLED_DRIVER_ENABLE
 #   ifdef TRANSPORT_USER_DATA
-    C_OLED2_TOGGLE,                 // Toggle OLED follower without writting in eeprom
-    C_OLED2_STORE_EEPROM,           // Store OLED follower with in eeprom
-    C_OLED2_REINIT,                 // Reinitialize animation of OLED follower
-    C_OLED2_ANIMATION_CYCLE,        // Cycle throw available animations without writting in eeprom
-    C_OLED2_ANIMATION_STORE_EEPROM, // Store current animation in eeprom
+    C_OLED2_TOGGLE,            // Toggle OLED follower without writting in eeprom
+    C_OLED2_STORE_EEPROM,      // Store OLED follower with in eeprom
+    C_OLED2_REINIT,            // Reinitialize animation of OLED follower
+    C_OLED2_ANIM_CYCLE,        // Cycle throw available animations without writting in eeprom
+    C_OLED2_ANIM_STORE_EEPROM, // Store current animation in eeprom
 #   endif // TRANSPORT_USER_DATA
 #   ifdef POMODORO_TIMER
     C_POMODORO_TOGGLE,     // Start a pomodoro timer
@@ -52,6 +52,18 @@ enum user_keycodes {
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
     C_TOGGLE_UNICODE,      // Toggle usage of unicode
 #endif
+    C_RESET_EEPROM,        // Initialize eeprom
+
+    C_SC_NEW_TAB,          // Shortcut new tab
+    C_SC_UNDO,             // Shortcut undo
+    C_SC_REDO,             // Shortcut redo
+    C_SC_CUT,              // Shortcut cut
+    C_SC_COPY,             // Shortcut copy
+    C_SC_PASTE,            // Shortcut paste
+    C_SC_SELECT_ALL,       // Shortcut select all
+    C_SC_CLOSE,            // Shortcut close
+    C_SC_REPLACE,          // Shortcut replace
+    C_SC_FIND,             // Shortcut find
 };
 
 // Define XXXXXXX for keys that are associated to unavailable features
@@ -73,8 +85,8 @@ enum user_keycodes {
 #   define C_OLED2_TOGGLE        XXXXXXX
 #   define C_OLED2_STORE_EEPROM  XXXXXXX
 #   define C_OLED2_REINIT        XXXXXXX
-#   define C_OLED2_ANIMATION_CYCLE        XXXXXXX
-#   define C_OLED2_ANIMATION_STORE_EEPROM XXXXXXX
+#   define C_OLED2_ANIM_CYCLE        XXXXXXX
+#   define C_OLED2_ANIM_STORE_EEPROM XXXXXXX
 #endif
 #if !defined(POMODORO_TIMER)
 #   define C_POMODORO_TOGGLE     XXXXXXX

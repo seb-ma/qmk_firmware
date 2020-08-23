@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "oled.h"
+#include "oled_follower.h"
 #if defined(OLED_DRIVER_ENABLE) && defined(RENDER_ANIMATIONS) && defined(ONEKO_ANIMATION)
 #include QMK_KEYBOARD_H
 #include "lib/lib8tion/lib8tion.h"
@@ -239,7 +239,6 @@ void oneko_render_init_frame(t_animation* animation) {
     last_frames.destination_position_row = last_frames.current_position_row;
     last_frames.destination_position_col = last_frames.current_position_col;
 
-    animation->start_timer = timer_read32();
     animation->frame_duration = ANIM_FRAME_DURATION;
     // Not dependant to WPM
     animation->ratioPerc = -1;
@@ -252,9 +251,8 @@ void oneko_render_init_frame(t_animation* animation) {
 /* Callback to render the next frame of the animation
  NB: the current rendering assumes that there is only the animation on the screen
 */
-void oneko_render_next_frame(t_animation* animation) {
+bool oneko_render_next_frame(t_animation* animation) {
     static int16_t playing_step = 0;
-    animation->start_timer = timer_read32();
     if (animation->ratioPerc == 0 || playing_step > 0) {
         // No keyboard tap or in waiting sequence: alternate action sprites
         do_action_sequence(&last_frames, playing_step);
@@ -266,7 +264,7 @@ void oneko_render_next_frame(t_animation* animation) {
             // Wake up cat before walking
             do_action_sequence(&last_frames, 1);
             playing_step = 0;
-            return;
+            return true;
         }
         int8_t i = 0;
         int8_t j = 0;
@@ -299,6 +297,7 @@ void oneko_render_next_frame(t_animation* animation) {
             last_frames.current_frame = -1;
         }
     }
+    return true;
 }
 
 #endif // defined(OLED_DRIVER_ENABLE) && defined(ONEKO_ANIMATION)

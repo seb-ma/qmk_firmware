@@ -22,6 +22,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "leader.h"
 
 #ifdef RGBLIGHT_LAYERS
+
+/* List of layers by index
+ (must be declared in the same order when initializing rgblight_layers_user)
+*/
+enum layer_index {
+    IDX_LAYER_RGB_BASE = 0,
+    IDX_LAYER_RGB_NUM_SYMB,
+    IDX_LAYER_RGB_NAV_MOUSE,
+    IDX_LAYER_RGB_SHORTCUTS,
+    IDX_LAYER_RGB_MEDIA_RGB,
+    IDX_LAYER_RGB_MACRO_RECORD,
+    IDX_LAYER_RGB_LEADER,
+    IDX_LAYER_RGB_CAPSLOCK,
+
+    IDX_LAYER_SIZE
+};
+
+_Static_assert(IDX_LAYER_SIZE == RGBLIGHT_MAX_LAYERS, "RGBLIGHT_MAX_LAYERS has incorrect value regarding layer_index declaration");
+
 /* Definition of RGB layers: specific to each keyboard */
 extern const rgblight_segment_t LAYER_RGB_BASE[] PROGMEM;
 extern const rgblight_segment_t LAYER_RGB_NUM_SYMB[] PROGMEM;

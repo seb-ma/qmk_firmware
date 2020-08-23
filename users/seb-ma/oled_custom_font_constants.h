@@ -17,6 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 #ifdef OLED_DRIVER_ENABLE
 
+#include "layers.h"
+
 /* List of position of first char of each item */
 #define FONT_OFF_LINE      0x20 // Number of chars on 1 line
 // First custom line in font

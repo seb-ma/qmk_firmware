@@ -57,6 +57,7 @@ enum combo_events {
     COMBO_nbsp_rsqu,
     // Others (2)
     COMBO_end_sentence,
+    COMBO_end_sentence_line,
     COMBO_giphy,
 #ifndef NO_SECRETS
     COMBO_uid,
@@ -68,46 +69,47 @@ enum combo_events {
     COMBO_SIZE
 };
 
-/* Check of declaration of COMBO_COUNT */
+/* Check of declaration of COMBO_COUNT (in config.h) */
 _Static_assert(COMBO_COUNT == COMBO_SIZE, "COMBO_COUNT must be defined to the same value than COMBO_SIZE");
 
 
 /* Definition of combos */
 // Quadrigrams
-const uint16_t combo_aire         [] PROGMEM = {BP_A,     BP_I,    COMBO_END};
-const uint16_t combo_dans         [] PROGMEM = {BP_D,     BP_A,    COMBO_END};
-const uint16_t combo_elle         [] PROGMEM = {BP_E,     BP_L,    COMBO_END};
-const uint16_t combo_ente         [] PROGMEM = {BP_E,     BP_N,    COMBO_END};
-const uint16_t combo_ette         [] PROGMEM = {BP_E,     BP_T,    COMBO_END};
-const uint16_t combo_ille         [] PROGMEM = {BP_I,     BP_L,    COMBO_END};
-const uint16_t combo_ique         [] PROGMEM = {BP_I,     BP_Q,    COMBO_END};
-const uint16_t combo_ment         [] PROGMEM = {BP_M,     BP_E,    COMBO_END};
-const uint16_t combo_omme         [] PROGMEM = {BP_O,     BP_M,    COMBO_END};
-const uint16_t combo_onne         [] PROGMEM = {BP_O,     BP_N,    COMBO_END};
-const uint16_t combo_pour         [] PROGMEM = {BP_P,     BP_O,    COMBO_END};
-const uint16_t combo_quel         [] PROGMEM = {BP_Q,     BP_U,    COMBO_END};
-const uint16_t combo_tion         [] PROGMEM = {BP_T,     BP_I,    COMBO_END};
+const uint16_t combo_aire              [] PROGMEM = {BP_A,      BP_I,    COMBO_END};
+const uint16_t combo_dans              [] PROGMEM = {BP_D,      BP_A,    COMBO_END};
+const uint16_t combo_elle              [] PROGMEM = {BP_E,      BP_L,    COMBO_END};
+const uint16_t combo_ente              [] PROGMEM = {BP_E,      BP_N,    COMBO_END};
+const uint16_t combo_ette              [] PROGMEM = {BP_E,      BP_T,    COMBO_END};
+const uint16_t combo_ille              [] PROGMEM = {BP_I,      BP_L,    COMBO_END};
+const uint16_t combo_ique              [] PROGMEM = {BP_I,      BP_Q,    COMBO_END};
+const uint16_t combo_ment              [] PROGMEM = {BP_M,      BP_E,    COMBO_END};
+const uint16_t combo_omme              [] PROGMEM = {BP_O,      BP_M,    COMBO_END};
+const uint16_t combo_onne              [] PROGMEM = {BP_O,      BP_N,    COMBO_END};
+const uint16_t combo_pour              [] PROGMEM = {BP_P,      BP_O,    COMBO_END};
+const uint16_t combo_quel              [] PROGMEM = {BP_Q,      BP_U,    COMBO_END};
+const uint16_t combo_tion              [] PROGMEM = {BP_T,      BP_I,    COMBO_END};
 // Non-breaking space
-const uint16_t combo_nbsp_ldaq    [] PROGMEM = {KC_SPACE, BP_LDAQ, COMBO_END}; // « (nbsp after)
-const uint16_t combo_nbsp_rdaq    [] PROGMEM = {KC_SPACE, BP_RDAQ, COMBO_END}; // »
-const uint16_t combo_nbsp_u       [] PROGMEM = {KC_SPACE, BP_U,    COMBO_END}; // u (sublayer of «)
-const uint16_t combo_nbsp_i       [] PROGMEM = {KC_SPACE, BP_I,    COMBO_END}; // i (sublayer of »)
-const uint16_t combo_nbsp_exlm    [] PROGMEM = {KC_SPACE, BP_EXLM, COMBO_END}; // !
-const uint16_t combo_nbsp_scln    [] PROGMEM = {KC_SPACE, BP_SCLN, COMBO_END}; // ;
-const uint16_t combo_nbsp_coln    [] PROGMEM = {KC_SPACE, BP_COLN, COMBO_END}; // :
-const uint16_t combo_nbsp_ques    [] PROGMEM = {KC_SPACE, BP_QUES, COMBO_END}; // ?
-const uint16_t combo_nbsp_dcir    [] PROGMEM = {KC_SPACE, BP_DCIR, COMBO_END}; // ^ (non shifted of !)
-const uint16_t combo_nbsp_comm    [] PROGMEM = {KC_SPACE, BP_COMM, COMBO_END}; // , (non shifted of ;)
-const uint16_t combo_nbsp_dot     [] PROGMEM = {KC_SPACE, BP_DOT , COMBO_END}; // . (non shifted of :)
-const uint16_t combo_nbsp_rsqu    [] PROGMEM = {KC_SPACE, BP_RSQU, COMBO_END}; // ’ (non shifted of ?) (different from standard bépo map due to relocation of "'")
+const uint16_t combo_nbsp_ldaq         [] PROGMEM = {KC_LSHIFT, BP_LDAQ, COMBO_END}; // « (nbsp after)
+const uint16_t combo_nbsp_rdaq         [] PROGMEM = {KC_LSHIFT, BP_RDAQ, COMBO_END}; // »
+const uint16_t combo_nbsp_u            [] PROGMEM = {KC_LSHIFT, BP_U,    COMBO_END}; // u (sublayer of «)
+const uint16_t combo_nbsp_i            [] PROGMEM = {KC_LSHIFT, BP_I,    COMBO_END}; // i (sublayer of »)
+const uint16_t combo_nbsp_exlm         [] PROGMEM = {KC_LSHIFT, BP_EXLM, COMBO_END}; // !
+const uint16_t combo_nbsp_scln         [] PROGMEM = {KC_LSHIFT, BP_SCLN, COMBO_END}; // ;
+const uint16_t combo_nbsp_coln         [] PROGMEM = {KC_LSHIFT, BP_COLN, COMBO_END}; // :
+const uint16_t combo_nbsp_ques         [] PROGMEM = {KC_LSHIFT, BP_QUES, COMBO_END}; // ?
+const uint16_t combo_nbsp_dcir         [] PROGMEM = {KC_LSHIFT, BP_DCIR, COMBO_END}; // ^ (non shifted of !)
+const uint16_t combo_nbsp_comm         [] PROGMEM = {KC_LSHIFT, BP_COMM, COMBO_END}; // , (non shifted of ;)
+const uint16_t combo_nbsp_dot          [] PROGMEM = {KC_LSHIFT, BP_DOT , COMBO_END}; // . (non shifted of :)
+const uint16_t combo_nbsp_rsqu         [] PROGMEM = {KC_LSHIFT, BP_RSQU, COMBO_END}; // ’ (non shifted of ?) (different from standard bépo map due to relocation of "'")
 // Others
-const uint16_t combo_end_sentence [] PROGMEM = {BP_T,     BP_DOT,  COMBO_END};
-const uint16_t combo_giphy        [] PROGMEM = {KC_SPACE, BP_G,    COMBO_END};
+const uint16_t combo_end_sentence      [] PROGMEM = {KC_LSHIFT, BP_E,    COMBO_END};
+const uint16_t combo_end_sentence_line [] PROGMEM = {KC_LSHIFT, BP_T,    COMBO_END};
+const uint16_t combo_giphy             [] PROGMEM = {KC_LSHIFT, BP_G,    COMBO_END};
 #ifndef NO_SECRETS
-const uint16_t combo_uid          [] PROGMEM = {BP_S,     BP_M,    COMBO_END};
-const uint16_t combo_product      [] PROGMEM = {BP_S,     BP_K,    COMBO_END};
-const uint16_t combo_p1           [] PROGMEM = {BP_P,     BP_T,    COMBO_END};
-const uint16_t combo_p2           [] PROGMEM = {BP_P,     BP_S,    COMBO_END};
+const uint16_t combo_uid               [] PROGMEM = {BP_I,      BP_D,    COMBO_END};
+const uint16_t combo_product           [] PROGMEM = {BP_S,      BP_K,    COMBO_END};
+const uint16_t combo_p1                [] PROGMEM = {BP_P,      BP_T,    COMBO_END};
+const uint16_t combo_p2                [] PROGMEM = {BP_P,      BP_S,    COMBO_END};
 #endif // NO_SECRETS
 
 /* Declaration of combos */
@@ -146,6 +148,7 @@ combo_t key_combos[COMBO_COUNT] = {
 
     /* Others */
     [COMBO_end_sentence] = COMBO_ACTION(combo_end_sentence),
+    [COMBO_end_sentence_line] = COMBO_ACTION(combo_end_sentence_line),
     [COMBO_giphy]        = COMBO_ACTION(combo_giphy),
 #ifndef NO_SECRETS
     [COMBO_uid]          = COMBO_ACTION(combo_uid),
@@ -230,6 +233,14 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
         /* Others */
         case COMBO_end_sentence:
             send_str(PSTR(". "));
+#ifndef NO_ACTION_ONESHOT
+            set_oneshot_mods(MOD_LSFT);
+#endif
+            nb_char_sent = 2;
+            break;
+        case COMBO_end_sentence_line:
+            tap_char_u(BP_DOT);
+            tap_char_u(KC_ENT);
 #ifndef NO_ACTION_ONESHOT
             set_oneshot_mods(MOD_LSFT);
 #endif

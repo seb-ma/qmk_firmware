@@ -14,23 +14,27 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "oled.h"
+#include "oled_follower.h"
 #if defined(OLED_DRIVER_ENABLE) && defined(RENDER_ANIMATIONS) && defined(STARFIELD_ANIMATION)
 #include "lib/lib8tion/lib8tion.h"
 
 
-#define NB_STARS    24
+#define NB_STARS    32
 #define ZOOM_SPEED  16
 #define SPAWN_RANGE 16
 
 #define ANIM_FRAME_DURATION     100 // Duration of each frame
-#define ANIM_FRAME_DURATION_MIN  50 // Minimal duration of each frame
+#define ANIM_FRAME_DURATION_MIN  60 // Minimal duration of each frame
 #define ANIM_FRAME_DURATION_MAX 150 // Maximal duration of each frame
 
 #define OLED_ANIM_STARFIELD_DUALLAYER
 
-uint8_t star_ang[NB_STARS];
-uint8_t star_rad[NB_STARS];
+#if (MAX_SHARED_ANIMATION_BUFFER < 2 * NB_STARS)
+#   error "Size of shared_oled_buffer is too low"
+#endif
+
+uint8_t* star_ang = (uint8_t*) shared_animation_buffer; // size = NB_STARS
+uint8_t* star_rad = (uint8_t*) shared_animation_buffer + sizeof(uint8_t) * NB_STARS; // size = NB_STARS
 
 uint8_t center_x = OLED_DISPLAY_WIDTH / 2;
 uint8_t center_y = OLED_DISPLAY_HEIGHT / 2;
@@ -113,7 +117,6 @@ void starfield_render_init_frame(t_animation* animation) {
     center_x = random8_max(OLED_DISPLAY_WIDTH);
     center_y = random8_max(OLED_DISPLAY_HEIGHT);
 
-    animation->start_timer = 0;
     animation->frame_duration = ANIM_FRAME_DURATION;
     // Dependant to WPM
     animation->ratioPerc = 0;
@@ -126,13 +129,13 @@ void starfield_render_init_frame(t_animation* animation) {
 }
 
 /* Callback to render the next frame of the animation */
-void starfield_render_next_frame(t_animation* animation) {
-    animation->start_timer = timer_read32();
+bool starfield_render_next_frame(t_animation* animation) {
     for (uint8_t i = 0; i < NB_STARS; i++) {
         erase_star(i);
         update_star(i);
         draw_star(i);
     }
+    return true;
 }
 
 #endif // defined(OLED_DRIVER_ENABLE) && defined(STARFIELD_ANIMATION)

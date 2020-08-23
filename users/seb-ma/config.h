@@ -38,9 +38,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define OLED_TIMEOUT         300000 // Delay before swiching off OLED (in ms) 300000 -> 5min
 #   define STANDARD_WPM             50 // Number of typed word per minute to consider standard pace of the animation
 
-    // non light version: add animations
-#   if !defined(HALVE_BOTH_LIGHT)
+#   ifdef HALVE_BOTH_LIGHT
+        // light version: no animation
+#       define NB_ANIMATIONS             0 // Number of animations available
+#   else
+        // non light version: add animations
+
 #       define POMODORO_TIMER           25 // If defined: activate a pomodoro timer on follower screen (time in minutes)
+
+#       define NB_ANIMATIONS             5 // Number of animations available
 
 #       define BONGOCAT_ANIMATION          // Render bongo cat animation on follower screen
 #       define ONEKO_ANIMATION             // Render Oneko (walking cat) animation on follower screen
@@ -49,7 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #       if defined(POMODORO_TIMER) && defined(TRANSPORT_USER_DATA)
 #           define POMODORO_ANIMATION      // Render pomodoro animation on follower screen
 #       endif
-#   endif
+#   endif // HALVE_BOTH_LIGHT
 #endif // OLED_DRIVER_ENABLE
 
 
@@ -77,7 +83,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #       define NB_COMBO_SECRETS      0
 #   endif
 
-#   define COMBO_COUNT             (27 + NB_COMBO_SECRETS) // Number of existing combos
+#   define COMBO_COUNT             (28 + NB_COMBO_SECRETS) // Number of existing combos
 #   define COMBO_TERM               40 // Set the time out period for combos in ms
 #endif // COMBO_ENABLE
 
@@ -110,6 +116,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // RGB
 #ifdef RGBLIGHT_ENABLE
+#   define RGB_DISABLE_TIMEOUT (30 * 60 * 1000) // Number of milliseconds to wait until rgb automatically turns off
+
 #   define RGBLIGHT_LAYERS             // Lets define lighting layers that can be toggled on or off. Great for showing the current keyboard layer or caps lock state.
 #   ifdef RGBLIGHT_LAYERS
 #       define RGBLIGHT_MAX_LAYERS   8 // Can be expanded up to 32 if more lighting layers are needed.
@@ -126,7 +134,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define RGBLIGHT_HUE_STEP         8 // The number of steps to cycle through the hue by
 #   define RGBLIGHT_SAT_STEP         8 // The number of steps to increment the saturation by
 #   define RGBLIGHT_VAL_STEP         8 // The number of steps to increment the brightness by
-//# define RGBLIGHT_LIMIT_VAL      255 // The maximum brightness level
 
 #   ifndef HALVE_BOTH_LIGHT
 #       define RGBLIGHT_ANIMATIONS     // Enable all additional animation modes (!! high memory footprint !! - undef it and use selective define RGBLIGHT_EFFECT_xxxx to reduce space used)
@@ -148,7 +155,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     // Assume the screen refresh rate is 60 Htz or higher
     // The default is 50. This makes the mouse ~3 times faster and more accurate
 #   define MOUSEKEY_INTERVAL            16 // Time between cursor movements
-//#   define MOUSEKEY_MAX_SPEED         10 // Maximum cursor speed at which acceleration stops
+#   define MOUSEKEY_MAX_SPEED            7 // Maximum cursor speed at which acceleration stops
     // The default is 20. Since we made the mouse about 3 times faster with the previous setting,
     // give it more time to accelerate to max speed to retain precise control over short distances.
 #   define MOUSEKEY_TIME_TO_MAX         40 // Time until maximum cursor speed is reached

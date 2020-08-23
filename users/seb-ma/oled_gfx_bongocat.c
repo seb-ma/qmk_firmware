@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "oled.h"
+#include "oled_follower.h"
 #if defined(OLED_DRIVER_ENABLE) && defined(RENDER_ANIMATIONS) && defined(BONGOCAT_ANIMATION)
 #include QMK_KEYBOARD_H
 #include "lib/lib8tion/lib8tion.h"
@@ -110,7 +110,6 @@ void bongocat_render_init_frame(t_animation* animation) {
     last_frames.previous_frame = 0;
     last_frames.nb_since_frame0 = 0;
 
-    animation->start_timer = timer_read32();
     animation->frame_duration = ANIM_FRAME_DURATION;
     animation->frame_duration_min = ANIM_FRAME_DURATION_MIN;
     animation->frame_duration_max = ANIM_FRAME_DURATION_MAX;
@@ -126,9 +125,8 @@ void bongocat_render_init_frame(t_animation* animation) {
  To manage this case, modify behavior to do the following sequence:
  clear, render base, render diff (if this is not the base that is desired)
 */
-void bongocat_render_next_frame(t_animation* animation) {
+bool bongocat_render_next_frame(t_animation* animation) {
     static const uint8_t nb_diffs = sizeof(diffs) / sizeof(t_diff);
-    animation->start_timer = timer_read32();
     // Alternate between base frame and others
     if (animation->ratioPerc == 0 || last_frames.nb_since_frame0 >= 2) {
         // No keyboard tap
@@ -150,6 +148,7 @@ void bongocat_render_next_frame(t_animation* animation) {
             render_diff(&diffs[last_frames.previous_frame]);
         }
     }
+    return true;
 }
 
 #endif // defined(OLED_DRIVER_ENABLE) && defined(BONGOCAT_ANIMATION)

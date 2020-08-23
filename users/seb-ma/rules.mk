@@ -26,7 +26,9 @@ SRC += combo.c \
        encoder.c \
        hid.c \
        leader.c \
-       oled.c \
+       oled_common.c \
+       oled_follower.c \
+       oled_master.c \
        oled_gfx_bongocat.c \
        oled_gfx_game_life.c \
        oled_gfx_oneko.c \

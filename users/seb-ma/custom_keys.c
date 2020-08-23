@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef FOLLOWER_ONLY
 
 #include "keymap_bepo.h"
+#include "keymap_french.h"
 #include "sendstring_bepo.h"
 
 #include "custom_keys.h"
@@ -46,8 +47,8 @@ const key_alter_map_t key_mod_altgr_map[] PROGMEM = {
     {KC_F8,   BP_BSLS},
     {KC_F9,   BP_SLSH},
 #ifdef OLED_DRIVER_ENABLE
-    {C_OLED2_TOGGLE,          C_OLED2_STORE_EEPROM},
-    {C_OLED2_ANIMATION_CYCLE, C_OLED2_ANIMATION_STORE_EEPROM},
+    {C_OLED2_TOGGLE,     C_OLED2_STORE_EEPROM},
+    {C_OLED2_ANIM_CYCLE, C_OLED2_ANIM_STORE_EEPROM},
 #endif
 #ifdef RGBLIGHT_ENABLE
     {C_RGB_TOGGLE, RGB_TOG},
@@ -56,6 +57,10 @@ const key_alter_map_t key_mod_altgr_map[] PROGMEM = {
     {C_CLOSE_CHAR, C_CLOSE_CHAR_CLEAR},
 #endif
 };
+
+#define CONCATE(A, B) A ## B
+#define SHORTCUTS_KEYMAP(KM1, KM2, X) C(CONCATE(KM1, X)), S(C(CONCATE(KM1, X))), C(CONCATE(KM2, X)), S(C(CONCATE(KM2, X)))
+#define SHORTCUTS_BP_FR(X) SHORTCUTS_KEYMAP(BP_, FR_, X)
 
 /* Map of keys interpreted according to mods
  if shift+altgr -> get key_shift_altgr
@@ -72,11 +77,27 @@ const key_mod_full_map_t key_mod_full_map[] PROGMEM = {
     {BP_C,        BP_C,     S(BP_C),     BP_CCED,   S(BP_CCED)}, // c C ç Ç
 
 #ifdef ENCODER_ENABLE
-    {C_ENC1_CW,   KC_DOWN,  S(KC_DOWN),  KC_PGDOWN, S(KC_PGDOWN)},
-    {C_ENC1_RCW,  KC_UP,    S(KC_UP),    KC_PGUP,   S(KC_PGUP)},
-    {C_ENC2_CW,   KC_RIGHT, S(KC_RIGHT), KC_END,    S(KC_END)},
-    {C_ENC2_RCW,  KC_LEFT,  S(KC_LEFT),  KC_HOME,   S(KC_HOME)},
-#endif
+#   ifdef EXTRAKEY_ENABLE
+    {C_ENC1_CW,  KC_MS_WH_DOWN, S(KC_MS_WH_DOWN), KC_PGDOWN, S(KC_PGDOWN)},
+    {C_ENC1_RCW, KC_MS_WH_UP,   S(KC_MS_WH_UP),   KC_PGUP,   S(KC_PGUP)},
+#   else // EXTRAKEY_ENABLE
+    {C_ENC1_CW,  KC_PGDOWN, S(KC_PGDOWN), KC_DOWN,       S(KC_DOWN)},
+    {C_ENC1_RCW, KC_PGUP,   S(KC_PGUP),   KC_UP,         S(KC_UP)},
+#   endif // EXTRAKEY_ENABLE
+    {C_ENC2_CW,  KC_RIGHT,  S(KC_RIGHT),  KC_END,        S(KC_END)},
+    {C_ENC2_RCW, KC_LEFT,   S(KC_LEFT),   KC_HOME,       S(KC_HOME)},
+#endif // ENCODER_ENABLE
+
+    {C_SC_NEW_TAB,    SHORTCUTS_BP_FR(T)},
+    {C_SC_UNDO,       SHORTCUTS_BP_FR(Z)},
+    {C_SC_REDO,       SHORTCUTS_BP_FR(Y)},
+    {C_SC_CUT,        SHORTCUTS_BP_FR(X)},
+    {C_SC_COPY,       SHORTCUTS_BP_FR(C)},
+    {C_SC_PASTE,      SHORTCUTS_BP_FR(V)},
+    {C_SC_SELECT_ALL, SHORTCUTS_BP_FR(A)},
+    {C_SC_CLOSE,      SHORTCUTS_BP_FR(W)},
+    {C_SC_REPLACE,    SHORTCUTS_BP_FR(H)},
+    {C_SC_FIND,       SHORTCUTS_BP_FR(F)},
 };
 
 /* Get a related keycode according to pressed modifiers
@@ -224,6 +245,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Identify custom/overridded key according to modifiers
     uint16_t keycode_new = interpret_keycode(keycode);
     switch (keycode_new) {
+    case C_RESET_EEPROM:
+        eeconfig_init();
+        return false;
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
     case C_TOGGLE_UNICODE:
         user_config.unicode = !user_config.unicode;

@@ -14,11 +14,9 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "oled.h"
+#include "oled_follower.h"
 #if defined(OLED_DRIVER_ENABLE) && defined(RENDER_ANIMATIONS) && defined(LIFE_ANIMATION)
 #include "lib/lib8tion/lib8tion.h"
-
-#define ANIM_FRAME_DURATION 500 // Duration of each frame
 
 /*
 Animation of "Conway's Game of Life"
@@ -43,9 +41,14 @@ Implementation:
     And to reduce cpy usage, neighbors are added to neighborhood only when cell is active (reduce 9-cells-iteration only to active cells)
 */
 
-#define CELL_SIZE 3
+#define CELL_SIZE 2
 #define NB_ROWS (OLED_DISPLAY_HEIGHT / 8 / CELL_SIZE) // divide by 8 to concatenate each bit by chars in rows
 #define NB_COLS (OLED_DISPLAY_WIDTH / CELL_SIZE)
+
+/* To avoid lags on others process cause to a too long computing universe, computing is done in multiple times */
+#define ANIM_FRAME_NB_CYCLES (NB_COLS / 2)
+
+#define ANIM_FRAME_DURATION 150
 
 #define INIT_RATIO 15 // Percent of active cells at start of universe
 
@@ -77,17 +80,21 @@ Implementation:
 
 */
 
-/* Universe of the game of life */
-static char universe[NB_ROWS * NB_COLS] = {0};
+#if (MAX_SHARED_ANIMATION_BUFFER < (NB_ROWS * NB_COLS))
+#   error "Size of shared_oled_buffer is too low"
+#endif
 
-/* Write a cell to OLED */
-static void write_cell_oled(const uint16_t x, const uint16_t y, const bool value) {
+/* Universe of the game of life */
+static char* const universe = shared_animation_buffer;
+
+/* Write char of cells to OLED */
+static void write_cell_oled(const uint8_t x, const uint8_t y, const bool value) {
 #if CELL_SIZE == 1
-    oled_write_pixel(i, j, value);
+    oled_write_pixel(x, y, value);
 #else
     for (uint8_t a = 0; a < CELL_SIZE; a++) {
         for (uint8_t b = 0; b < CELL_SIZE; b++) {
-            oled_write_pixel(x * CELL_SIZE + a, y * CELL_SIZE + b, value);
+            oled_write_pixel(x + a, y + b, value);
         }
     }
 #endif // CELL_SIZE value
@@ -95,14 +102,13 @@ static void write_cell_oled(const uint16_t x, const uint16_t y, const bool value
 
 /* Callback to render the first frame of the animation */
 void gamelife_render_init_frame(t_animation* animation) {
-    for (uint16_t i = 0; i < sizeof(universe); i++) {
+    for (uint16_t i = 0; i < NB_ROWS * NB_COLS; i++) {
         char value = 0;
         for (int8_t b = 0; b < 8; b++) {
             value |= (random8_max(100) < INIT_RATIO) << b;
         }
         universe[i] = value;
     }
-    animation->start_timer = timer_read32();
     animation->frame_duration = ANIM_FRAME_DURATION;
     // Not dependant to WPM
     animation->ratioPerc = -1;
@@ -110,14 +116,15 @@ void gamelife_render_init_frame(t_animation* animation) {
     animation->frame_duration_max = ANIM_FRAME_DURATION;
 }
 
-/* Callback to render the next frame of the animation */
-void gamelife_render_next_frame(t_animation* animation) {
-    animation->start_timer = timer_read32();
+/* Callback to render the next frame of the animation (only a part to avoid lagging others process */
+bool gamelife_render_next_frame(t_animation* animation) {
+    static uint8_t first_column_todo = 0;
     // 3 rotating slice + first 2
-    char tmp_slice_neighbors[5 * 8 * NB_ROWS] = {0};
+    static char tmp_slice_neighbors[5 * 8 * NB_ROWS] = {0};
 
     // For each column
-    for (uint8_t j = 0; j < NB_COLS + 2; j++) {
+    const uint8_t last_column = first_column_todo + (NB_COLS + 2) / ANIM_FRAME_NB_CYCLES;
+    for (uint8_t j = first_column_todo; j < last_column; j++) {
         if (j < NB_COLS - 2) {
             memset8(&tmp_slice_neighbors[((j + 1) % 3) * 8 * NB_ROWS], 0, 8 * NB_ROWS);
         } else {
@@ -145,8 +152,10 @@ void gamelife_render_next_frame(t_animation* animation) {
 
         if (j > 1) {
             // Update previous slice of universe
+            uint16_t x = (j - 1 + NB_COLS) % NB_COLS;
             for (uint8_t i = 0; i < NB_ROWS; i++) {
-                char byte_cells = universe[((j - 1 + NB_COLS) % NB_COLS) * NB_ROWS + ((i + NB_ROWS) % NB_ROWS)];
+                uint8_t y = (i + NB_ROWS) % NB_ROWS;
+                char byte_cells = universe[x * NB_ROWS + y];
                 // For each row
                 for (uint8_t b = 0; b < 8; b++) {
                     bool cell = 1 & (byte_cells >> b);
@@ -157,24 +166,50 @@ void gamelife_render_next_frame(t_animation* animation) {
                         // S23 + S0
                         // Survive if 2 or 3 neighbors (Conway rule) or 0 neighbour (DotLife rule)
                         //cell = 0;
-                        write_cell_oled((j - 1) % NB_COLS, i * 8 + b, 0);
                         byte_cells &= ~(1 << b);
+// Full display is done after iteration on last column if number of cycles > 1
+#if defined(ANIM_FRAME_NB_CYCLES) && ANIM_FRAME_NB_CYCLES == 1
+                        write_cell_oled(x * CELL_SIZE, (y * 8 + b) * CELL_SIZE, false);
+#endif
                     } else if (!cell && count == 3) {
                         // B3: A new cell is born (Conway and DotLife rule)
                         //cell = 1;
-                        write_cell_oled((j - 1) % NB_COLS, i * 8 + b, 1);
                         byte_cells |= (1 << b);
+// Full display is done after iteration on last column if number of cycles > 1
+#if defined(ANIM_FRAME_NB_CYCLES) && ANIM_FRAME_NB_CYCLES == 1
+                        write_cell_oled(x * CELL_SIZE, (y * 8 + b) * CELL_SIZE, true);
+#endif
                     }
                     // else: Cell remains the same
                 }
                 // Update universe and render to oled
-                universe[((j - 1 + NB_COLS) % NB_COLS) * NB_ROWS + ((i + NB_ROWS) % NB_ROWS)] = byte_cells;
+                universe[x * NB_ROWS + y] = byte_cells;
             }
         } else if (j <= 1) {
             // Save tmp_slice_neighbors of j = NB_COLS - 1 and 0
             memcpy8(&tmp_slice_neighbors[(3 + j) * 8 * NB_ROWS], &tmp_slice_neighbors[((j - 1) % 3) * 8 * NB_ROWS], 8 * NB_ROWS);
         }
     }
+    first_column_todo = last_column % (NB_COLS + 2);
+// Full display is done after iteration on last column if number of cycles > 1
+#if defined(ANIM_FRAME_NB_CYCLES) && ANIM_FRAME_NB_CYCLES > 1
+    if (first_column_todo == 0) {
+        oled_clear();
+        for (uint8_t x = 0; x < NB_COLS; x++) {
+            for (uint8_t y = 0; y < NB_ROWS; y++) {
+                const char byte_cells = universe[x * NB_ROWS + y];
+                for (uint8_t b = 0; b < 8; b++) {
+                    if (1 & (byte_cells >> b)) {
+                        write_cell_oled(x * CELL_SIZE, (y * 8 + b) * CELL_SIZE, true);
+                    }
+                }
+            }
+        }
+    } else {
+        return false;
+    }
+#endif
+    return true;
 }
 
 #endif // defined(OLED_DRIVER_ENABLE) && defined(LIFE_ANIMATION)

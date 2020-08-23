@@ -24,7 +24,10 @@ static uint16_t close_char[MAX_CLOSE_CHAR] = {C_DUMMY};
 /* Index of first close char to output */
 static int8_t index_close_char = -1;
 
-_Static_assert(MAX_CLOSE_CHAR <= 128, "Variable index_close_char must be declared on > 8 bits (int16_t)");
+/* Check of declaration of COMBO_COUNT */
+#if (MAX_CLOSE_CHAR >= 128)
+#   error "Variable index_close_char must be declared on > 8 bits (int16_t)"
+#endif
 
 /* Structure of association between open char and close char */
 typedef struct {
@@ -51,6 +54,7 @@ bool is_smiley(const uint16_t previous_keycode, const uint16_t keycode) {
  Return the key itself or the first closing key if this is the special close key
 */
 uint16_t handle_open_close_char(const uint16_t keycode, const bool ignore_mods, const keyrecord_t *const record, const uint16_t previous_keycode) {
+    static bool last_char_is_smiley = false;
     if (record->event.pressed) {
         if (keycode == C_CLOSE_CHAR_CLEAR) {
             // Clear buffer
@@ -69,20 +73,21 @@ uint16_t handle_open_close_char(const uint16_t keycode, const bool ignore_mods, 
         } else {
             const uint16_t keycode_mods = ignore_mods ? keycode : get_keycode_with_mods_applied(keycode);
             // Ignore smileys
-            if (!is_smiley(previous_keycode, keycode_mods)) {
+            const bool char_is_smiley = is_smiley(previous_keycode, keycode_mods);
+            if (!char_is_smiley) {
                 if (index_close_char >= 0 && keycode_mods == close_char[index_close_char]) {
                     // If the close char was manually tapped, remove it
                     index_close_char--;
                     return keycode;
-                } else if (keycode == KC_BSPACE && index_close_char >= 0) {
+                } else if (keycode == KC_BSPACE && index_close_char >= 0 && !last_char_is_smiley) {
                     for (uint8_t i = 0; i < sizeof(close_char_map) / sizeof(close_char_map_t); i++) {
                         // If the open char was a mistake (backspaced), remove the last close char
-                        if (close_char_map[i].open == previous_keycode && close_char_map[i].close == close_char[index_close_char]) {
+                        if (previous_keycode == close_char_map[i].open && close_char_map[i].close == close_char[index_close_char]) {
                             index_close_char--;
                             return keycode;
                         }
                         // If the close char was a mistake (backspaced), retreive the last close char
-                        if (close_char_map[i].close == previous_keycode) {
+                        if (previous_keycode == close_char_map[i].close && previous_keycode == close_char[index_close_char]) {
                             index_close_char++;
                             return keycode;
                         }
@@ -91,6 +96,7 @@ uint16_t handle_open_close_char(const uint16_t keycode, const bool ignore_mods, 
                     closechar_push(keycode_mods);
                 }
             }
+            last_char_is_smiley = char_is_smiley;
         }
     } else if (keycode == C_CLOSE_CHAR) {
         return close_char[index_close_char + 1];
