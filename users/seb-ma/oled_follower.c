@@ -43,18 +43,19 @@ void oled_init_pomodoro(void) {
 
 /* Display the pomodoro timer */
 void render_pomodoro(void) {
-    oled_set_cursor(0, 7);
     // Handle the toggle command
     if (previous_pomodoro_reinit_state != user_data_m2s.pomodoro_reinit_toggle) {
         previous_pomodoro_reinit_state = user_data_m2s.pomodoro_reinit_toggle;
 #ifdef RENDER_ANIMATIONS
         // Reinit display
+        oled_clear();
         render_init[user_data_m2s.animation_idx](&animation);
 #endif
         if (pomodoro_start_timer == 0) {
             pomodoro_start_timer = timer_read32();
         } else {
             pomodoro_start_timer = 0;
+            oled_set_cursor(0, 7);
             oled_write_space_nb(7);
         }
     }
@@ -62,6 +63,7 @@ void render_pomodoro(void) {
     if (pomodoro_start_timer != 0) {
         const uint32_t time_s = MAX(0, (POMODORO_TIMER * 60) - (timer_elapsed32(pomodoro_start_timer) / 1000));
         char pomodoro_str[6];
+        oled_set_cursor(0, 7);
         oled_write_P(logos_1row[LOGO_POMODORO], time_s == 0); // 2
         sprintf(pomodoro_str, "%02lu:%02lu", time_s / 60, time_s % 60);
         oled_write(pomodoro_str, time_s == 0); // 5

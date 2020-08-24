@@ -163,6 +163,7 @@ typedef struct {
     uint8_t current_position_col;
     uint8_t destination_position_row;
     uint8_t destination_position_col;
+    int16_t playing_step;
 } ok_last_frames_t;
 /* Description of last frames */
 static ok_last_frames_t last_frames;
@@ -193,14 +194,14 @@ void render_sprite(const t_diff* diff, const ok_last_frames_t* last_frames) {
 }
 
 /*  Play a sequence of actions on place */
-void do_action_sequence(ok_last_frames_t* last_frames, const int16_t remaining) {
+void do_action_sequence(ok_last_frames_t* last_frames) {
     static uint8_t counter = 0;
     static uint8_t num_sprite = ACT_AWAKE;
     if (last_frames->current_frame == -1) {
         // First element of action
         counter = 0;
     }
-    if (remaining == 1) {
+    if (last_frames->playing_step == 1) {
         // Last element of action
         num_sprite = ACT_AWAKE;
         last_frames->current_frame = 0;
@@ -212,7 +213,7 @@ void do_action_sequence(ok_last_frames_t* last_frames, const int16_t remaining) 
         } else {
             // Start a new sprite
             num_sprite = random8_max(ACT_SIZE);
-            counter = 2 + random8_max(remaining > 0 ? remaining : NB_MAX_TURNS_PLAYING);
+            counter = 2 + random8_max(last_frames->playing_step > 0 ? last_frames->playing_step : NB_MAX_TURNS_PLAYING);
             last_frames->current_frame = 0;
             // reversed ?
             last_frames->current_frame_reversed = num_sprite != ACT_SLEEP && random8_max(2);
@@ -228,10 +229,14 @@ void do_action_sequence(ok_last_frames_t* last_frames, const int16_t remaining) 
         oled_clear();
     }
     render_sprite(&actions[num_sprite][last_frames->current_frame], last_frames);
+    if (last_frames->playing_step >= 0) {
+        last_frames->playing_step--;
+    }
 }
 
 /* Callback to render the first frame of the animation */
 void oneko_render_init_frame(t_animation* animation) {
+    last_frames.playing_step = 0;
     last_frames.current_frame = 0;
     last_frames.current_frame_reversed = false;
     last_frames.current_position_row = random8_max(NB_ROWS - SPRITE_HEIGHT);
@@ -252,18 +257,14 @@ void oneko_render_init_frame(t_animation* animation) {
  NB: the current rendering assumes that there is only the animation on the screen
 */
 bool oneko_render_next_frame(t_animation* animation) {
-    static int16_t playing_step = 0;
-    if (animation->ratioPerc == 0 || playing_step > 0) {
+    if (animation->ratioPerc == 0 || last_frames.playing_step > 0) {
         // No keyboard tap or in waiting sequence: alternate action sprites
-        do_action_sequence(&last_frames, playing_step);
-        if (playing_step >= 0) {
-            playing_step--;
-        }
+        do_action_sequence(&last_frames);
     } else {
-        if (playing_step != 0) {
+        if (last_frames.playing_step != 0) {
+            last_frames.playing_step = 1;
             // Wake up cat before walking
-            do_action_sequence(&last_frames, 1);
-            playing_step = 0;
+            do_action_sequence(&last_frames);
             return true;
         }
         int8_t i = 0;
@@ -293,7 +294,7 @@ bool oneko_render_next_frame(t_animation* animation) {
             // Define a new destination
             last_frames.destination_position_row = random8_max(NB_ROWS - SPRITE_HEIGHT);
             last_frames.destination_position_col = random8_max(NB_COLS - SPRITE_WIDTH);
-            playing_step = 1 + random8_max(NB_MAX_TURNS_PLAYING);
+            last_frames.playing_step = 1 + random8_max(NB_MAX_TURNS_PLAYING);
             last_frames.current_frame = -1;
         }
     }
