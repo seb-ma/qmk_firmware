@@ -53,6 +53,10 @@ void keyboard_post_init_user(void) {
 #endif
 }
 
+#ifndef FOLLOWER_ONLY
+
+#   ifndef NO_ACTION_LAYER
+
 /* Callback (used by core) called every time the layer changes */
 layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, _FUNC_NUM_SYMB, _NAV_MOUSE, _MEDIA_RGB);
@@ -64,6 +68,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #endif
     return state;
 }
+
+#   endif // NO_ACTION_LAYER
 
 /* Callback (called by core) when the state of one of those 5 LEDs changes:
   Num Lock, Caps Lock, Scroll Lock, Compose, Kana
@@ -87,3 +93,5 @@ void matrix_scan_user(void) {
     handle_leader_key();
 #endif
 }
+
+#endif // FOLLOWER_ONLY

@@ -180,7 +180,7 @@ static const char quadrigrams[][5] PROGMEM = {
 };
 
 /* Callback (used by core) of custom behavior for combos */
-void process_combo_event(uint8_t combo_index, bool pressed) {
+void process_combo_event(uint16_t combo_index, bool pressed) {
         keyrecord_t record;
         record.event.pressed = pressed;
 
