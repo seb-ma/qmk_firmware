@@ -103,7 +103,7 @@ static const t_diff moves[3][2][NB_SPRITES_ANIM] = {
 
 /* Actions frames */
 enum action_sprites {
-    ACT_SLEEP,
+    ACT_SLEEP = 0,
     ACT_AWAKE,
     ACT_MATI,
     ACT_JARE,
@@ -112,7 +112,7 @@ enum action_sprites {
     ACT_TOGI_U,
     ACT_TOGI_D,
 
-    ACT_SIZE,
+    ACT_SIZE
 };
 
 static const t_diff actions[][NB_SPRITES_ANIM] = {
@@ -151,6 +151,10 @@ static const t_diff actions[][NB_SPRITES_ANIM] = {
     {
         {.idx_delta = dtogi1_idx_delta, .siz = dtogi1_siz, .val = dtogi1_val, .nb_idx = sizeof(dtogi1_idx_delta)},
         // dtogi2 = dtogi1 reversed
+        {.idx_delta = NULL, .siz = NULL, .val = NULL, .nb_idx = 0},
+    },
+    { // XXX: should not be here but there seems to be an overflow somewhere - this prevents it
+        {.idx_delta = NULL, .siz = NULL, .val = NULL, .nb_idx = 0},
         {.idx_delta = NULL, .siz = NULL, .val = NULL, .nb_idx = 0},
     },
 };
@@ -213,10 +217,10 @@ void do_action_sequence(ok_last_frames_t* last_frames) {
         } else {
             // Start a new sprite
             num_sprite = random8_max(ACT_SIZE);
-            counter = 2 + random8_max(last_frames->playing_step > 0 ? last_frames->playing_step : NB_MAX_TURNS_PLAYING);
+            counter = random8_min_max(2, last_frames->playing_step > 0 ? last_frames->playing_step : NB_MAX_TURNS_PLAYING);
             last_frames->current_frame = 0;
             // reversed ?
-            last_frames->current_frame_reversed = num_sprite != ACT_SLEEP && random8_max(2);
+            last_frames->current_frame_reversed = (num_sprite != ACT_SLEEP && random8_max(2) > 0);
         }
     }
     if ((num_sprite == ACT_TOGI_U || num_sprite == ACT_TOGI_D)
@@ -294,7 +298,8 @@ bool oneko_render_next_frame(t_animation* animation) {
             // Define a new destination
             last_frames.destination_position_row = random8_max(NB_ROWS - SPRITE_HEIGHT);
             last_frames.destination_position_col = random8_max(NB_COLS - SPRITE_WIDTH);
-            last_frames.playing_step = 1 + random8_max(NB_MAX_TURNS_PLAYING);
+            // Define number of turn of an action sequence before reaching next destination
+            last_frames.playing_step = random8_min_max(1, NB_MAX_TURNS_PLAYING);
             last_frames.current_frame = -1;
         }
     }

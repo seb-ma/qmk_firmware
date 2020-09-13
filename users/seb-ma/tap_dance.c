@@ -24,11 +24,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Tap Dance to change mouse acceleration */
 void dance_msaccel(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
-        tap_code16(KC_MS_ACCEL0);
+        tap_code(KC_MS_ACCEL0);
     } else if (state->count == 2) {
-        tap_code16(KC_MS_ACCEL1);
+        tap_code(KC_MS_ACCEL1);
     } else { // 3 or more
-        tap_code16(KC_MS_ACCEL2);
+        tap_code(KC_MS_ACCEL2);
     }
 }
 #endif // MOUSEKEY_ENABLE

@@ -165,7 +165,6 @@ void render_leader(void) {
     oled_advance_page(true);
     write_logo(LOGO_LEADER, 1);
     if (timer_elapsed(leader_state.timer) < LEADER_STATE_DISPLAY_DURATION) {
-        oled_write_P(leader_state.name, false);
         if (!leader_state.is_success) {
             oled_write_space_nb(1);
             oled_write_P(logos_1row[LOGO_WARN], true); // 2

@@ -16,6 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef FOLLOWER_ONLY
 
+#include <string.h>
+
 #include "keymap_bepo.h"
 #include "keymap_french.h"
 #include "sendstring_bepo.h"
@@ -58,8 +60,11 @@ const key_alter_map_t key_mod_altgr_map[] PROGMEM = {
 #endif
 };
 
+// Simple macro concatenation
 #define CONCATE(A, B) A ## B
+// Macro to create list of: Ctrl(KM1), Shift Ctrl(KM1), Ctrl(KM2), Shift Ctrl(KM2)
 #define SHORTCUTS_KEYMAP(KM1, KM2, X) C(CONCATE(KM1, X)), S(C(CONCATE(KM1, X))), C(CONCATE(KM2, X)), S(C(CONCATE(KM2, X)))
+// Macro to create list based on bépo and fr
 #define SHORTCUTS_BP_FR(X) SHORTCUTS_KEYMAP(BP_, FR_, X)
 
 /* Map of keys interpreted according to mods
@@ -188,7 +193,7 @@ void tap_nbsp_u(void) {
     tap_char_u(BP_NBSP); // non breakable space char
 }
 
-/* Send a PROGMEM string on unicode string according to Unicode activation */
+/* Send a PROGMEM string or unicode string according to Unicode activation */
 void send_str(const char* str) {
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
     if (user_config.unicode) {
@@ -199,6 +204,8 @@ void send_str(const char* str) {
 #else
     send_string_P(str);
 #endif
+    // Set the number of chars sent
+    nb_char_sent = strlen(str);
 }
 
 /* register or unregister (f argument for function) a keycode without interaction of current mods */
@@ -242,6 +249,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Alter (interpret) the keycode to adjust it
     //--------------------------------------------
 
+    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
+        keycode &= QK_BASIC_MAX;
+    }
     // Identify custom/overridded key according to modifiers
     uint16_t keycode_new = interpret_keycode(keycode);
     switch (keycode_new) {
@@ -258,7 +268,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             // Remove the string previously sent (except 1 that is processed normally)
             while (nb_char_sent > 1) {
-                tap_code16(KC_BSPACE);
+                tap_code(KC_BSPACE);
                 nb_char_sent--;
             }
         }
@@ -268,16 +278,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // The last pressed key (after alteration cycle in process_record_user)
     static uint16_t previous_keycode = C_DUMMY;
     static uint16_t next_previous_keycode = C_DUMMY;
-    static uint16_t next_previous_keycode_not_altered = C_DUMMY;
-    static uint16_t next_previous_keycode_new = C_DUMMY;
-    // Don't do it on modifiers and don't store QMK functions
-    if (record->event.pressed && keycode_new != C_DUMMY && keycode_new <= QK_MODS_MAX && (keycode_new < KC_LCTRL || keycode_new > KC_RGUI)) {
-        nb_char_sent = 1;
+
+    // Don't do it on modifiers and don't store QMK functions || Filter out the actual keycode from MT and LT keys
+    if (record->event.pressed && (keycode_new < KC_LCTRL || keycode_new > KC_RGUI)) {
         // Store last keycode for reference in user functions
         previous_keycode = next_previous_keycode;
         next_previous_keycode = (keycode != keycode_new) ? keycode_new : get_keycode_with_mods_applied(keycode);
-        next_previous_keycode_not_altered = keycode;
-        next_previous_keycode_new = (keycode != keycode_new) ? keycode_new : keycode;
+        nb_char_sent = 1;
     }
 
     //-----------------------------
@@ -317,34 +324,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #   endif // UNICODE_ENABLE
 #endif // defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
     {
-        // If keycode is changed and not a custom key, process manually else skip it
-        // ideally, there must be a call to process_record_quantum but it has keyrecord_t as argument that can't be created from keycode_new
-        // FIXME: test with QK_MODS_MAX will not work with UNICODE
-        if (keycode != keycode_new) {
-            if (keycode_new <= QK_MODS_MAX) {
-                if (record->event.pressed) {
-                    do_f_keycode(keycode_new, register_code16);
-                } else {
-                    do_f_keycode(keycode_new, unregister_code16);
-                }
-                return false;
-            } else {
-                return true
+        // If keycode is changed, process is else skip it
+        if (keycode != keycode_new && keycode_new <= QK_MODS_MAX) {
+            do_f_keycode(keycode_new, record->event.pressed ? register_code16 : unregister_code16);
+            return false;
+        } else {
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
-                    && process_unicode_common(keycode_new, record)
+            return process_unicode_common(keycode_new, record);
 #endif
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-                    && process_rgb(keycode_new, record)
-#endif
-                ;
-            }
-        } else if (!record->event.pressed
-                && next_previous_keycode_not_altered == keycode
-                && next_previous_keycode_not_altered != next_previous_keycode
-                && next_previous_keycode_not_altered != next_previous_keycode_new) {
-            // Specific case when modifiers are released too early thus custom key is not recognized when release is processed
-            // here: only check if keycode from layout is the same as the last pressed and was a custom key
-            do_f_keycode(next_previous_keycode, unregister_code16);
         }
     }
     // Process all other keycodes normally

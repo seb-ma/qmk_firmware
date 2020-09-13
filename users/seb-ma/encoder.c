@@ -28,10 +28,10 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     if (layer_state_is(_MEDIA_RGB)) {
         if (index == 0) { // First encoder
             // Volume Up / Down
-            tap_code16((clockwise) ? KC_AUDIO_VOL_UP : KC_AUDIO_VOL_DOWN);
+            tap_code((clockwise) ? KC_AUDIO_VOL_UP : KC_AUDIO_VOL_DOWN);
         } else { // Second encoder
             // Track Next / Previous
-            tap_code16((clockwise) ? KC_MEDIA_NEXT_TRACK : KC_MEDIA_PREV_TRACK);
+            tap_code((clockwise) ? KC_MEDIA_NEXT_TRACK : KC_MEDIA_PREV_TRACK);
         }
         // Do not continue
         return;

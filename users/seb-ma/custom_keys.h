@@ -134,7 +134,7 @@ void tap_char_u(const uint16_t keycode);
 /* Tap non breakable space according to unicode activation or not */
 void tap_nbsp_u(void);
 
-/* Send a PROGMEM string on unicode string according to Unicode activation */
+/* Send a PROGMEM string or unicode string according to Unicode activation */
 void send_str(const char* str);
 
 /* Get the keycode with the mods applied */

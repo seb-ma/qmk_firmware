@@ -16,12 +16,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifdef COMBO_ENABLE
 #include QMK_KEYBOARD_H
-#include <string.h>
 #include "keymap_bepo.h"
 
 #include "custom_keys.h"
 #include "user_feature_closechar.h"
-#ifndef NO_SECRETS
+
+#if (__has_include("secrets.h") && !defined(NO_SECRETS))
 #   include "secrets.h" // file may not exist
 #endif
 
@@ -68,10 +68,6 @@ enum combo_events {
 
     COMBO_SIZE
 };
-
-/* Check of declaration of COMBO_COUNT (in config.h) */
-_Static_assert(COMBO_COUNT == COMBO_SIZE, "COMBO_COUNT must be defined to the same value than COMBO_SIZE");
-
 
 /* Definition of combos */
 // Quadrigrams
@@ -158,6 +154,14 @@ combo_t key_combos[COMBO_COUNT] = {
 #endif
 };
 
+#ifdef COMBO_VARIABLE_LEN
+// Define number of combos automatically
+int COMBO_LEN = sizeof(key_combos) / sizeof(key_combos[0]);
+#else
+/* Check of declaration of COMBO_COUNT (in config.h) */
+_Static_assert(COMBO_COUNT == COMBO_SIZE, "COMBO_COUNT must be defined to the same value than COMBO_SIZE");
+#endif // COMBO_VARIABLE_LEN
+
 /* Values of quadrigrams (must be in same order as in combo_events) */
 static const char quadrigrams[][5] PROGMEM = {
     "aire", // COMBO_aire
@@ -177,83 +181,71 @@ static const char quadrigrams[][5] PROGMEM = {
 
 /* Callback (used by core) of custom behavior for combos */
 void process_combo_event(uint8_t combo_index, bool pressed) {
+        keyrecord_t record;
+        record.event.pressed = pressed;
+
     if (pressed) {
         switch(combo_index) {
         /* Quadrigrams */
         case COMBO_aire ... COMBO_tion:
             send_str(quadrigrams[combo_index - COMBO_aire]);
-            nb_char_sent = 4;
             break;
 
         /* Non-breaking space */
         case COMBO_nbsp_ldaq:
         case COMBO_nbsp_u:
-            closechar_push(BP_LDAQ);
-            tap_char_u(BP_LDAQ);
-            tap_nbsp_u();
-            nb_char_sent = 2;
+#ifdef USER_CLOSE_CHAR
+            // Add related close char
+            handle_open_close_char(BP_LDAQ, true, &record, C_DUMMY);
+#endif
+            send_str(PSTR("« "));
             break;
         case COMBO_nbsp_rdaq:
         case COMBO_nbsp_i:
-            closechar_push(BP_RDAQ);
-            tap_nbsp_u();
-            tap_char_u(BP_RDAQ);
-            nb_char_sent = 2;
 #ifdef USER_CLOSE_CHAR
             // Remove potential stored close char
-            keyrecord_t record;
-            record.event.pressed = pressed;
             handle_open_close_char(BP_RDAQ, true, &record, C_DUMMY);
 #endif
+            send_str(PSTR(" »"));
             break;
         case COMBO_nbsp_exlm:
         case COMBO_nbsp_dcir:
-            tap_nbsp_u();
-            tap_char_u(BP_EXLM);
-            nb_char_sent = 2;
+            send_str(PSTR(" !"));
             break;
         case COMBO_nbsp_scln:
         case COMBO_nbsp_comm:
-            tap_nbsp_u();
-            tap_char_u(BP_SCLN);
-            nb_char_sent = 2;
+            send_str(PSTR(" ;"));
             break;
         case COMBO_nbsp_coln:
         case COMBO_nbsp_dot:
-            tap_nbsp_u();
-            tap_char_u(BP_COLN);
-            nb_char_sent = 2;
+            send_str(PSTR(" :"));
             break;
         case COMBO_nbsp_ques:
         case COMBO_nbsp_rsqu:
-            tap_nbsp_u();
-            tap_char_u(BP_QUES);
-            nb_char_sent = 2;
+            send_str(PSTR(" ?"));
             break;
+
         /* Others */
         case COMBO_end_sentence:
             send_str(PSTR(". "));
 #ifndef NO_ACTION_ONESHOT
-            set_oneshot_mods(MOD_LSFT);
+            set_oneshot_mods(MOD_LSFT | get_oneshot_mods());
 #endif
-            nb_char_sent = 2;
             break;
         case COMBO_end_sentence_line:
             tap_char_u(BP_DOT);
-            tap_char_u(KC_ENT);
-#ifndef NO_ACTION_ONESHOT
-            set_oneshot_mods(MOD_LSFT);
-#endif
+            tap_char_u(KC_ENTER);
             nb_char_sent = 2;
+#ifndef NO_ACTION_ONESHOT
+            set_oneshot_mods(MOD_LSFT | get_oneshot_mods());
+#endif
             break;
         case COMBO_giphy:
             send_str(PSTR("/giphy "));
-            nb_char_sent = 7;
             break;
 #ifndef NO_SECRETS
         case COMBO_uid ... COMBO_p2:
             send_str(secrets[combo_index - COMBO_uid]);
-            nb_char_sent = strlen_P(secrets[combo_index - COMBO_uid]);
             break;
 #endif // NO_SECRETS
         }

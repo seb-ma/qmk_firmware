@@ -109,16 +109,16 @@ void rgb_display_layer(const layer_state_t state) {
                 rgblight_sethsv_range(HSV_RED, 0, RGBLED_NUM);
                 break;
             case _FUNC_NUM_SYMB:
-                rgblight_sethsv_range(HSV_ORANGE, 0, RGBLED_NUM);
-                break;
-            case _NAV_MOUSE:
                 rgblight_sethsv_range(HSV_BLUE, 0, RGBLED_NUM);
                 break;
-            case _MEDIA_RGB:
-                rgblight_sethsv_range(HSV_PURPLE, 0, RGBLED_NUM);
+            case _NAV_MOUSE:
+                rgblight_sethsv_range(HSV_SPRINGGREEN, 0, RGBLED_NUM);
                 break;
             case _SHORTCUTS:
                 rgblight_sethsv_range(HSV_GOLD, 0, RGBLED_NUM);
+                break;
+            case _MEDIA_RGB:
+                rgblight_sethsv_range(HSV_PURPLE, 0, RGBLED_NUM);
                 break;
         }
 #endif // RGBLIGHT_LAYERS

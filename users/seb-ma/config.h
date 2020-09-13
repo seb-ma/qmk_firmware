@@ -35,8 +35,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifdef OLED_DRIVER_ENABLE
-#   define OLED_TIMEOUT         300000 // Delay before swiching off OLED (in ms) 300000 -> 5min
-#   define STANDARD_WPM             50 // Number of typed word per minute to consider standard pace of the animation
+#   define OLED_TIMEOUT             300000 // Delay before swiching off OLED (in ms) 300000 -> 5min
+#   define STANDARD_WPM                 50 // Number of typed word per minute to consider standard pace of the animation
 
 #   ifdef HALVE_BOTH_LIGHT
         // light version: no animation
@@ -63,46 +63,48 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // QMK features configuration
 //----------------------------
 
-#undef LOCKING_SUPPORT_ENABLE           // Usefull only for mechanical lock switches
+#undef LOCKING_SUPPORT_ENABLE              // Usefull only for mechanical lock switches
 
-#define PERMISSIVE_HOLD                 // Makes tap and hold keys work better for fast typists, or when you’ve set TAPPING_TERM to a high value
-#define TAPPING_TERM                200 // How long before a tap becomes a hold, if set above 500, a key tapped during the tapping term will turn it into a hold too
-//#define IGNORE_MOD_TAP_INTERRUPT      // Prevent normal rollover on alphas from accidentally triggering mods.
-//#define TAPPING_FORCE_HOLD            // This prevents accidental repeats of the tap-hold keys when typing quickly.
+#define PERMISSIVE_HOLD                    // Makes tap and hold keys work better for fast typists, or when you’ve set TAPPING_TERM to a high value
+#define TAPPING_TERM                   200 // How long before a tap becomes a hold, if set above 500, a key tapped during the tapping term will turn it into a hold too
+#define IGNORE_MOD_TAP_INTERRUPT           // Prevent normal rollover on alphas from accidentally triggering mods.
+//#define TAPPING_FORCE_HOLD               // This prevents accidental repeats of the tap-hold keys when typing quickly.
 
-#define TAPPING_TOGGLE                1 // How many taps before triggering the layer toggle
+#define TAPPING_TOGGLE                1    // How many taps before triggering the layer toggle
 
 // Allows media codes to properly register in macros and rotary encoder code
-#define TAP_CODE_DELAY               10 // Sets the delay between register_code and unregister_code
+#define TAP_CODE_DELAY                  10 // Sets the delay between register_code and unregister_code
 
 // Combo
 #ifdef COMBO_ENABLE
-#   ifndef NO_SECRETS
-#       define NB_COMBO_SECRETS      4 // Number of existing combos related to !NO_SECRETS
-#   else
-#       define NB_COMBO_SECRETS      0
-#   endif
-
-#   define COMBO_COUNT             (28 + NB_COMBO_SECRETS) // Number of existing combos
-#   define COMBO_TERM               40 // Set the time out period for combos in ms
+#   define COMBO_TERM                   40 // Set the time out period for combos in ms
+//#   define COMBO_VARIABLE_LEN            // Compute automatically the number of existing combos
+#       ifndef COMBO_VARIABLE_LEN
+#           ifndef NO_SECRETS
+#               define NB_COMBO_SECRETS  4 // Number of existing combos related to !NO_SECRETS
+#           else
+#               define NB_COMBO_SECRETS  0
+#           endif
+#           define COMBO_COUNT           (28 + NB_COMBO_SECRETS) // Number of existing combos
+#       endif // COMBO_VARIABLE_LEN
 #endif // COMBO_ENABLE
 
 // Leader key
 #ifdef LEADER_ENABLE
-#   define LEADER_PER_KEY_TIMING       // Enable per key timing rather than whole sequence
-#   define LEADER_TIMEOUT          250 // Time (in ms) before aborting sequence
+#   define LEADER_PER_KEY_TIMING           // Enable per key timing rather than whole sequence
+#   define LEADER_TIMEOUT              250 // Time (in ms) before aborting sequence
 #endif // LEADER_ENABLE
 
 // Dynamic macros
 #ifdef DYNAMIC_MACRO_ENABLE
-#   define DYNAMIC_MACRO_SIZE      64 // Sets the amount of memory that Dynamic Macros can use (default is 128)
+#   define DYNAMIC_MACRO_SIZE           64 // Sets the amount of memory that Dynamic Macros can use (default is 128)
 #endif // DYNAMIC_MACRO_ENABLE
 
 // One shot tap
-//#define NO_ACTION_ONESHOT               // Disable one-shot modifiers
+//#define NO_ACTION_ONESHOT                // Disable one-shot modifiers
 #ifndef NO_ACTION_ONESHOT
-#   define ONESHOT_TAP_TOGGLE        2 // Tapping this number of times holds the key until tapped once again
-#   define ONESHOT_TIMEOUT        2000 // Time (in ms) before the one shot key is released
+#   define ONESHOT_TAP_TOGGLE           2  // Tapping this number of times holds the key until tapped once again
+#   define ONESHOT_TIMEOUT           2000  // Time (in ms) before the one shot key is released
 #endif // NO_ACTION_ONESHOT
 
 #ifdef OLED_DRIVER_ENABLE
@@ -118,32 +120,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGBLIGHT_ENABLE
 #   define RGB_DISABLE_TIMEOUT (30 * 60 * 1000) // Number of milliseconds to wait until rgb automatically turns off
 
-#   define RGBLIGHT_LAYERS             // Lets define lighting layers that can be toggled on or off. Great for showing the current keyboard layer or caps lock state.
+#   define RGBLIGHT_LAYERS                 // Lets define lighting layers that can be toggled on or off. Great for showing the current keyboard layer or caps lock state.
 #   ifdef RGBLIGHT_LAYERS
-#       define RGBLIGHT_MAX_LAYERS   8 // Can be expanded up to 32 if more lighting layers are needed.
-#       if (RGBLIGHT_MAX_LAYERS <= 8)  // Reduce structures size of rgb layers from 32 to 16 or 8 bits if possible
+#       define RGBLIGHT_MAX_LAYERS       8 // Can be expanded up to 32 if more lighting layers are needed.
+#       if (RGBLIGHT_MAX_LAYERS <= 8)      // Reduce structures size of rgb layers from 32 to 16 or 8 bits if possible
 #           define LAYER_STATE_8BIT
 #       elif (RGBLIGHT_MAX_LAYERS <= 16)
 #           define LAYER_STATE_16BIT
 #       endif
 
-#       define RGBLIGHT_LAYER_BLINK    // Ability to blink a lighting layer for a duration
+#       define RGBLIGHT_LAYER_BLINK        // Ability to blink a lighting layer for a duration
 #   endif // RGBLIGHT_LAYERS
 
-#   define RGBLIGHT_SLEEP              // If defined, the RGB lighting will be switched off when the host goes to sleep
-#   define RGBLIGHT_HUE_STEP         8 // The number of steps to cycle through the hue by
-#   define RGBLIGHT_SAT_STEP         8 // The number of steps to increment the saturation by
-#   define RGBLIGHT_VAL_STEP         8 // The number of steps to increment the brightness by
+#   define RGBLIGHT_SLEEP                  // If defined, the RGB lighting will be switched off when the host goes to sleep
+#   define RGBLIGHT_HUE_STEP             8 // The number of steps to cycle through the hue by
+#   define RGBLIGHT_SAT_STEP             8 // The number of steps to increment the saturation by
+#   define RGBLIGHT_VAL_STEP             8 // The number of steps to increment the brightness by
 
 #   ifndef HALVE_BOTH_LIGHT
-#       define RGBLIGHT_ANIMATIONS     // Enable all additional animation modes (!! high memory footprint !! - undef it and use selective define RGBLIGHT_EFFECT_xxxx to reduce space used)
+#       define RGBLIGHT_ANIMATIONS         // Enable all additional animation modes (!! high memory footprint !! - undef it and use selective define RGBLIGHT_EFFECT_xxxx to reduce space used)
 #   endif
 #endif // RGBLIGHT_ENABLE
 
 #ifdef FOLLOWER_ONLY
-#   define NO_ACTION_LAYER             // Disable layers
-#   define NO_ACTION_TAPPING           // Disable tap dance and other tapping features
-#   define NO_ACTION_ONESHOT           // Disable one-shot modifiers
+#   define NO_ACTION_LAYER                 // Disable layers
+#   define NO_ACTION_TAPPING               // Disable tap dance and other tapping features
+#   define NO_ACTION_ONESHOT               // Disable one-shot modifiers
 #endif // FOLLOWER_ONLY
 
 // Mouse

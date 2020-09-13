@@ -31,8 +31,10 @@ enum unicode_names {
 
 /* Code of unicode-extended characters */
 const uint32_t unicode_map[] PROGMEM = {
-    [BANG]  = 0x203D,  // ‽
-    [IRONY] = 0x2E2E,  // ⸮
+    [BANG]        = 0x203D, // ‽
+    [IRONY]       = 0x2E2E, // ⸮
+    [ARRAY_LEFT]  = 0x2190, // ←
+    [ARRAY_RIGHT] = 0x2192, // →
 };
 
 #endif // UNICODEMAP_ENABLE

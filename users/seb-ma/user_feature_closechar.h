@@ -23,10 +23,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 uint16_t handle_open_close_char(const uint16_t keycode, const bool ignore_mods, const keyrecord_t *const record, const uint16_t previous_keycode);
 
-/* If keycode is a close char, push it to the buffer */
-void closechar_push(const uint16_t keycode);
-
-/* Pop the last close char from buffer */
-uint16_t closechar_pop(void);
-
 #endif // USER_CLOSE_CHAR
