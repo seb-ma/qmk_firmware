@@ -278,12 +278,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // The last pressed key (after alteration cycle in process_record_user)
     static uint16_t previous_keycode = C_DUMMY;
     static uint16_t next_previous_keycode = C_DUMMY;
-
+    static uint16_t next_previous_keycode_not_altered = C_DUMMY;
+    static uint16_t next_previous_keycode_new = C_DUMMY;
     // Don't do it on modifiers and don't store QMK functions || Filter out the actual keycode from MT and LT keys
     if (record->event.pressed && (keycode_new < KC_LCTRL || keycode_new > KC_RGUI)) {
         // Store last keycode for reference in user functions
         previous_keycode = next_previous_keycode;
         next_previous_keycode = (keycode != keycode_new) ? keycode_new : get_keycode_with_mods_applied(keycode);
+        next_previous_keycode_not_altered = keycode;
+        next_previous_keycode_new = (keycode != keycode_new) ? keycode_new : keycode;
         nb_char_sent = 1;
     }
 
@@ -328,8 +331,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (keycode != keycode_new && keycode_new <= QK_MODS_MAX) {
             do_f_keycode(keycode_new, record->event.pressed ? register_code16 : unregister_code16);
             return false;
-        } else {
+        } else if (!record->event.pressed
+                && next_previous_keycode_not_altered == keycode
+                && next_previous_keycode_not_altered != next_previous_keycode
+                && next_previous_keycode_not_altered != next_previous_keycode_new) {
+            // Specific case when modifiers are released too early thus custom key is not recognized when release is processed
+            // here: only check if keycode from layout is the same as the last pressed and was a custom key
+            do_f_keycode(next_previous_keycode, unregister_code16);
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
+        } else {
             return process_unicode_common(keycode_new, record);
 #endif
         }

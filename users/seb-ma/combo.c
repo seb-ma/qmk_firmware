@@ -55,7 +55,7 @@ enum combo_events {
     COMBO_nbsp_comm,
     COMBO_nbsp_dot,
     COMBO_nbsp_rsqu,
-    // Others (2)
+    // Others (3)
     COMBO_end_sentence,
     COMBO_end_sentence_line,
     COMBO_giphy,
