@@ -17,20 +17,7 @@
         "xstddef": "c",
         "type_traits": "c",
         "utility": "c",
-        "variant": "c",
-        "*.tcc": "c",
-        "thread": "c",
-        "random": "c",
-        "optional": "c",
-        "istream": "c",
-        "ostream": "c",
-        "ratio": "c",
-        "system_error": "c",
-        "array": "c",
-        "functional": "c",
-        "regex": "c",
-        "tuple": "c",
-        "fstream": "c"
+        "ranges": "c"
     },
     "[markdown]": {
         "editor.trimAutoWhitespace": false,
