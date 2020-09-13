@@ -134,6 +134,9 @@ void tap_char_u(const uint16_t keycode);
 /* Tap non breakable space according to unicode activation or not */
 void tap_nbsp_u(void);
 
+/* Send a list of keycodes (last argument must be KC_NO) */
+void send_keycodes(const uint16_t keycode1, ...);
+
 /* Send a PROGMEM string or unicode string according to Unicode activation */
 void send_str(const char* str);
 

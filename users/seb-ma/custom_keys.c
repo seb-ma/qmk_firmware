@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef FOLLOWER_ONLY
 
+#include <stdarg.h>
 #include <string.h>
 
 #include "keymap_bepo.h"
@@ -193,6 +194,21 @@ void tap_nbsp_u(void) {
     tap_char_u(BP_NBSP); // non breakable space char
 }
 
+/* Send a list of keycodes (last argument must be KC_NO) */
+void send_keycodes(const uint16_t keycode1, ...) {
+    uint16_t keycode = keycode1;
+    // Set the number of chars sent
+    nb_char_sent = 0;
+    va_list argp;
+    va_start(argp, keycode1);
+    while (keycode != KC_NO) {
+        tap_char_u(keycode);
+        ++nb_char_sent;
+        keycode = va_arg(argp, int);
+    }
+    va_end(argp);
+}
+
 /* Send a PROGMEM string or unicode string according to Unicode activation */
 void send_str(const char* str) {
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
@@ -205,7 +221,18 @@ void send_str(const char* str) {
     send_string_P(str);
 #endif
     // Set the number of chars sent
-    nb_char_sent = strlen(str);
+    nb_char_sent = 0;
+    do {
+        const uint8_t ascii_code = pgm_read_byte(str++);
+        if (!ascii_code) {
+            break;
+        } else if (ascii_code == SS_QMK_PREFIX) {
+            // Skip next char (SS_xxx)
+            ++str;
+        } else {
+            ++nb_char_sent;
+        }
+    } while (true);
 }
 
 /* register or unregister (f argument for function) a keycode without interaction of current mods */

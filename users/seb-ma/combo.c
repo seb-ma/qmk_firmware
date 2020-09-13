@@ -198,7 +198,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
             // Add related close char
             handle_open_close_char(BP_LDAQ, true, &record, C_DUMMY);
 #endif
-            send_str(PSTR("« "));
+            send_keycodes(BP_LDAQ, BP_NBSP, KC_NO);
             break;
         case COMBO_nbsp_rdaq:
         case COMBO_nbsp_i:
@@ -206,23 +206,23 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
             // Remove potential stored close char
             handle_open_close_char(BP_RDAQ, true, &record, C_DUMMY);
 #endif
-            send_str(PSTR(" »"));
+            send_keycodes(BP_NBSP, BP_RDAQ, KC_NO);
             break;
         case COMBO_nbsp_exlm:
         case COMBO_nbsp_dcir:
-            send_str(PSTR(" !"));
+            send_keycodes(BP_NBSP, BP_EXLM, KC_NO);
             break;
         case COMBO_nbsp_scln:
         case COMBO_nbsp_comm:
-            send_str(PSTR(" ;"));
+            send_keycodes(BP_NBSP, BP_SCLN, KC_NO);
             break;
         case COMBO_nbsp_coln:
         case COMBO_nbsp_dot:
-            send_str(PSTR(" :"));
+            send_keycodes(BP_NBSP, BP_COLN, KC_NO);
             break;
         case COMBO_nbsp_ques:
         case COMBO_nbsp_rsqu:
-            send_str(PSTR(" ?"));
+            send_keycodes(BP_NBSP, BP_QUES, KC_NO);
             break;
 
         /* Others */
@@ -233,9 +233,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 #endif
             break;
         case COMBO_end_sentence_line:
-            tap_char_u(BP_DOT);
-            tap_char_u(KC_ENTER);
-            nb_char_sent = 2;
+            send_keycodes(BP_DOT, KC_ENTER, KC_NO);
 #ifndef NO_ACTION_ONESHOT
             set_oneshot_mods(MOD_LSFT | get_oneshot_mods());
 #endif
